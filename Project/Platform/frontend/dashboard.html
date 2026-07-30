@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CFDPro - Dashboard</title>
+  <title data-i18n="title.dashboard">CFDPro - Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,48 +14,50 @@
   <!-- Sidebar -->
   <nav class="sidebar">
     <h2>CFDPro</h2>
-    <a class="nav-link" href='dashboard.html'><i data-lucide="layout-dashboard"></i> Dashboard</a>
-    <a class="nav-link" href='trading.html'><i data-lucide="bar-chart-3"></i> Trading</a>
-    <a class="nav-link" href='profile.html'><i data-lucide="user"></i> Profile</a>
-    <a class="nav-link" href='index.html'><i data-lucide="log-out"></i> Logout</a>
+    <a class="nav-link" href='dashboard.html'><i data-lucide="layout-dashboard"></i> <span data-i18n="side.dashboard">Dashboard</span></a>
+    <a class="nav-link" href='trading.html'><i data-lucide="bar-chart-3"></i> <span data-i18n="side.trading">Trading</span></a>
+    <a class="nav-link" href='profile.html'><i data-lucide="user"></i> <span data-i18n="side.profile">Profile</span></a>
+    <a class="nav-link" href='index.html'><i data-lucide="log-out"></i> <span data-i18n="side.logout">Logout</span></a>
   </nav>
 
   <!-- Main Panel -->
   <div class="main-panel">
     <div class="dashboard-header">
-      <h1 class="glow-text">Welcome back, Trader</h1>
+      <h1 class="glow-text" data-i18n="dash.welcomeGeneric">Welcome back, Trader</h1>
+      <!-- ✅ EN / FR language switch -->
+      <div id="langToggleMount"></div>
     </div>
 
     <div class="account-info glass-card">
-      <div><strong>Account Number:</strong> <span id="accountNumber">#ACC-239182</span></div>
-      <div><strong>Account Status:</strong> <span id="accountStatus">Inactive</span></div>
-      <div>Account Type: <strong id="accountType">Standard</strong></div>
+      <div><strong data-i18n="dash.accountNumber">Account Number:</strong> <span id="accountNumber">#ACC-239182</span></div>
+      <div><strong data-i18n="dash.accountStatus">Account Status:</strong> <span id="accountStatus" data-i18n="dash.statusInactive">Inactive</span></div>
+      <div><span data-i18n="dash.accountType">Account Type:</span> <strong id="accountType">Standard</strong></div>
       <div class="bot-buttons">
-  <button id="openDepositBtn" class="btn blue">Deposit Funds</button>
-  <button id="openWithdrawBtn" class="btn yellow">Withdraw Funds</button>
-  <button id="openTransactionsBtn" class="btn">Transaction History</button>
+  <button id="openDepositBtn" class="btn blue" data-i18n="dash.depositFunds">Deposit Funds</button>
+  <button id="openWithdrawBtn" class="btn yellow" data-i18n="dash.withdrawFunds">Withdraw Funds</button>
+  <button id="openTransactionsBtn" class="btn" data-i18n="dash.txHistory">Transaction History</button>
 </div>
     </div>
 
     <div class="summary-cards">
       <div class="summary-card">
-        <h3>Account Balance</h3>
+        <h3 data-i18n="dash.balance">Account Balance</h3>
         <p id="balance">$0.00</p>
       </div>
       <div class="summary-card">
-        <h3>Equity</h3>
+        <h3 data-i18n="dash.equity">Equity</h3>
         <p id="equity">$0.00</p>
       </div>
       <div class="summary-card">
-        <h3>Used Margin</h3>
+        <h3 data-i18n="dash.usedMargin">Used Margin</h3>
         <p id="usedMargin">$0.00</p>
       </div>
       <div class="summary-card">
-        <h3>Free Margin</h3>
+        <h3 data-i18n="dash.freeMargin">Free Margin</h3>
         <p id="freeMargin">$0.00</p>
       </div>
       <div class="summary-card">
-        <h3>P&amp;L</h3>
+        <h3 data-i18n="dash.pnl">P&amp;L</h3>
         <p id="pnlTotal">$0.00</p>
       </div>
     </div>
@@ -63,27 +65,27 @@
 
   <!-- Mobile Nav -->
 <div class="mobile-nav">
-  <button class="dropdown-toggle" id="menuToggle">
+  <button class="dropdown-toggle" id="menuToggle" aria-label="Menu" data-i18n-aria-label="common.menu">
     <span class="bar"></span>
     <span class="bar"></span>
     <span class="bar"></span>
   </button>
   <div class="dropdown-menu" id="dropdownMenu">
-    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-    <a href="trading.html"><i data-lucide="bar-chart-3"></i>Trade</a>
-    <a href="profile.html"><i data-lucide="user"></i>Profile</a>
-    <a href="index.html"><i data-lucide="log-out"></i>Logout</a>
+    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i><span data-i18n="side.dashboard">Dashboard</span></a>
+    <a href="trading.html"><i data-lucide="bar-chart-3"></i><span data-i18n="side.trade">Trade</span></a>
+    <a href="profile.html"><i data-lucide="user"></i><span data-i18n="side.profile">Profile</span></a>
+    <a href="index.html"><i data-lucide="log-out"></i><span data-i18n="side.logout">Logout</span></a>
   </div>
 </div>
 
  <!-- Deposit Modal -->
 <div id="depositModal" class="modal">
   <div class="modal-content">
-    <button id="closeDepositBtn" class="close-btn">&times;</button>
-    <h2>Deposit Funds</h2>
+    <button id="closeDepositBtn" class="close-btn" aria-label="Close modal" data-i18n-aria-label="auth.closeModal">&times;</button>
+    <h2 data-i18n="dep.title">Deposit Funds</h2>
     <ol class="deposit-steps">
       <li>
-        <strong>Choose Coin</strong>
+        <strong data-i18n="dep.chooseCoin">Choose Coin</strong>
         <select id="depositCoin" class="deposit-select">
           <option value="btc">Bitcoin (BTC)</option>
           <option value="eth">Ethereum (ETH)</option>
@@ -91,20 +93,20 @@
         </select>
       </li>
       <li>
-        <strong>Generate a Deposit Address</strong>
-        <button id="generateDepositBtn" class="btn btn--wide">Generate Address</button>
+        <strong data-i18n="dep.generateTitle">Generate a Deposit Address</strong>
+        <button id="generateDepositBtn" class="btn btn--wide" data-i18n="dep.generateBtn">Generate Address</button>
       </li>
       <li id="depositInfo" class="deposit-info">
-        <strong>Send Funds To:</strong>
+        <strong data-i18n="dep.sendTo">Send Funds To:</strong>
         <p id="depositAddress" class="deposit-address"></p>
-        <strong>Copy Address or Scan QR CODE</strong>
+        <strong data-i18n="dep.copyOrScan">Copy Address or Scan QR CODE</strong>
         <div id="depositQR" class="qr-container"></div>
       </li>
       <li id="verifyStep" class="verify-step">
-        <strong>Verify Your Deposit</strong>
-        <label for="transactionHash">Transaction Hash</label>
-        <input id="transactionHash" type="text" placeholder="e.g. 0xabc123…" class="deposit-input" />
-        <button id="verifyDepositBtn" class="btn btn--wide" disabled>Verify Deposit</button>
+        <strong data-i18n="dep.verifyTitle">Verify Your Deposit</strong>
+        <label for="transactionHash" data-i18n="dep.txHash">Transaction Hash</label>
+        <input id="transactionHash" type="text" placeholder="e.g. 0xabc123…" data-i18n-placeholder="dep.txHashPlaceholder" class="deposit-input" />
+        <button id="verifyDepositBtn" class="btn btn--wide" disabled data-i18n="dep.verifyBtn">Verify Deposit</button>
       </li>
     </ol>
   </div>
@@ -113,15 +115,15 @@
 <!-- Withdraw Modal -->
 <div id="withdrawModal" class="modal">
   <div class="modal-content">
-    <button id="closeWithdrawBtn" class="close-btn">&times;</button>
-    <h2>Withdraw</h2>
+    <button id="closeWithdrawBtn" class="close-btn" aria-label="Close modal" data-i18n-aria-label="auth.closeModal">&times;</button>
+    <h2 data-i18n="wdr.title">Withdraw</h2>
     <ol class="deposit-steps">
       <li>
-        <strong>Check Available Balance</strong>
-        <div id="withdrawAvailable">Available: --</div>
+        <strong data-i18n="wdr.checkBalance">Check Available Balance</strong>
+        <div id="withdrawAvailable" data-i18n="wdr.availableDash">Available: --</div>
       </li>
       <li>
-        <strong>Select Coin</strong>
+        <strong data-i18n="wdr.selectCoin">Select Coin</strong>
         <select id="withdrawCoin">
           <option value="btc">BTC</option>
           <option value="eth">ETH</option>
@@ -129,23 +131,23 @@
         </select>
       </li>
       <li>
-        <strong>Enter Withdrawal Amount (USD)</strong>
+        <strong data-i18n="wdr.enterAmount">Enter Withdrawal Amount (USD)</strong>
         <input id="withdrawAmount" type="number" min="0" placeholder="0.00" />
       </li>
       <li>
-        <strong>Conversion Summary</strong>
-        <div id="feeBreakdown">Commission 4%: --</div>
-        <div id="totalSummary">Total after commission: --</div>
-        <div id="coinRate">Price per coin: --</div>
-        <div id="convertedCoin">You will receive: --</div>
+        <strong data-i18n="wdr.conversionSummary">Conversion Summary</strong>
+        <div id="feeBreakdown" data-i18n="wdr.commissionDash">Commission 4%: --</div>
+        <div id="totalSummary" data-i18n="wdr.totalAfterDash">Total after commission: --</div>
+        <div id="coinRate" data-i18n="wdr.pricePerCoinDash">Price per coin: --</div>
+        <div id="convertedCoin" data-i18n="wdr.youReceiveDash">You will receive: --</div>
       </li>
       <li>
-        <strong>Enter Destination Address</strong>
-        <input id="withdrawAddress" type="text" placeholder="Your wallet address" />
+        <strong data-i18n="wdr.enterAddress">Enter Destination Address</strong>
+        <input id="withdrawAddress" type="text" placeholder="Your wallet address" data-i18n-placeholder="wdr.addressPlaceholder" />
       </li>
       <li>
-        <strong>Submit Withdrawal</strong>
-        <button id="submitWithdrawalBtn" class="btn btn--wide" disabled>Submit Withdrawal</button>
+        <strong data-i18n="wdr.submitTitle">Submit Withdrawal</strong>
+        <button id="submitWithdrawalBtn" class="btn btn--wide" disabled data-i18n="wdr.submitBtn">Submit Withdrawal</button>
       </li>
     </ol>
   </div>
@@ -154,42 +156,43 @@
 <!-- Transaction Modal -->
 <div id="transactionModal" class="modal">
   <div class="modal-content">
-    <button id="closeTransactionModal" class="close-btn">&times;</button>
-    <h2>Transaction History</h2>
+    <button id="closeTransactionModal" class="close-btn" aria-label="Close modal" data-i18n-aria-label="auth.closeModal">&times;</button>
+    <h2 data-i18n="tx.title">Transaction History</h2>
+    <!-- Placeholder rows — dashboard.js clears and refills this list on open -->
     <div id="transactionList" class="transaction-list">
-      
+
       <!-- PENDING -->
       <div class="transaction-item pending">
         <div>
-          <strong>WITHDRAWAL</strong> | Requested: $35.13 | Fee: $1.41 | Net: $33.72 BTC — 7/12/2025
+          <strong data-i18n="tx.type.withdrawal">WITHDRAWAL</strong> | Requested: $35.13 | Fee: $1.41 | Net: $33.72 BTC — 7/12/2025
         </div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <span class="transaction-status pending">Pending</span>
-          <button class="cancel-withdraw-btn">Cancel Withdrawal</button>
+          <span class="transaction-status pending" data-i18n="tx.status.pending">Pending</span>
+          <button class="cancel-withdraw-btn" data-i18n="tx.cancelWithdrawal">Cancel Withdrawal</button>
         </div>
       </div>
 
       <!-- SUCCESSFUL -->
       <div class="transaction-item successful">
         <div>
-          <strong>DEPOSIT</strong> | $6.49 BTC — 7/12/2025
+          <strong data-i18n="tx.type.deposit">DEPOSIT</strong> | $6.49 BTC — 7/12/2025
         </div>
-        <span class="transaction-status successful">Successful</span>
+        <span class="transaction-status successful" data-i18n="tx.status.successful">Successful</span>
       </div>
 
       <!-- CANCELED -->
       <div class="transaction-item canceled">
         <div>
-          <strong>WITHDRAWAL</strong> | Requested: $20.00 | Fee: $0.80 | Net: $19.20 BTC — 7/12/2025
+          <strong data-i18n="tx.type.withdrawal">WITHDRAWAL</strong> | Requested: $20.00 | Fee: $0.80 | Net: $19.20 BTC — 7/12/2025
         </div>
-        <span class="transaction-status canceled">Canceled</span>
+        <span class="transaction-status canceled" data-i18n="tx.status.canceled">Canceled</span>
       </div>
 
     </div>
   </div>
 </div>
 <!-- Chatbot Prompt Bubble -->
-<div id="chatbot-prompt" class="chatbot-pubble">
+<div id="chatbot-prompt" class="chatbot-pubble" data-i18n="chat.prompt">
   👋 Hey! If you have any questions, I’m here to help.
 </div>
 <!-- Chat Bot Floating Icon -->
@@ -207,34 +210,35 @@
 <!-- Chat Bot Window -->
 <div id="chatbot-window" class="hidden">
   <div class="chatbot-header">
-    <span>Support Bot</span>
-    <button id="close-chatbot" aria-label="Close Chat">&times;</button>
+    <span data-i18n="chat.title">Support Bot</span>
+    <button id="close-chatbot" aria-label="Close Chat" data-i18n-aria-label="chat.closeChat">&times;</button>
   </div>
   <div class="chatbot-body" id="chat-messages">
     <div class="bot-msg"></div>
   </div>
   <div class="chatbot-input">
-    <input type="text" id="chat-input" placeholder="Type your message..." />
+    <input type="text" id="chat-input" placeholder="Type your message..." data-i18n-placeholder="chat.inputPlaceholder" />
     <button id="send-chat">➤</button>
   </div>
 </div>
 <!--POPUP TEXT ALERT CUSTOM-->
 <div id="customAlert" class="alert hidden">
   <span id="alertMessage"></span>
-  <button onclick="closeAlert()">OK</button>
+  <button onclick="closeAlert()" data-i18n="common.ok">OK</button>
 </div>
 <!--CANCEL WITHDRAWAL MODAL-->
 <div id="cancelModal" class="modal hidden">
   <div class="modal-content">
-    <span id="cancelModalMessage">Are you sure?</span>
+    <span id="cancelModalMessage" data-i18n="common.areYouSure">Are you sure?</span>
     <div class="modal-buttons">
-      <button id="cancelModalConfirm">Yes</button>
-      <button id="cancelModalDeny">No</button>
+      <button id="cancelModalConfirm" data-i18n="common.yes">Yes</button>
+      <button id="cancelModalDeny" data-i18n="common.no">No</button>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/config.js"></script>
 <script src="js/dashboard.js"></script>
   <script>
@@ -242,4 +246,3 @@
   </script>
 </body>
 </html>
-

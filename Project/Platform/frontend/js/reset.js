@@ -6,7 +6,7 @@ document.getElementById('submitReset').addEventListener('click', async () => {
   const backLink = document.getElementById('backToLogin');
 
   if (!token || !newPassword) {
-    statusEl.textContent = 'Missing token or password';
+    statusEl.textContent = tr('reset.missing');
     statusEl.className = 'status-message status-failed';
     return;
   }
@@ -23,16 +23,16 @@ document.getElementById('submitReset').addEventListener('click', async () => {
     const result = await response.json();
 
     if (response.ok) {
-      statusEl.textContent = 'Password reset successful!';
+      statusEl.textContent = tr('reset.success');
       statusEl.className = 'status-message status-success';
       backLink.style.display = 'inline-block';
     } else {
-      statusEl.textContent = result.message || 'Error occurred';
+      statusEl.textContent = result.message || tr('reset.error');
       statusEl.className = 'status-message status-failed';
     }
   } catch (err) {
     console.error(err);
-    statusEl.textContent = 'Network error';
+    statusEl.textContent = tr('reset.network');
     statusEl.className = 'status-message status-failed';
   }
 });

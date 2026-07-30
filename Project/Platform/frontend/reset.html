@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reset Password</title>
+  <title data-i18n="title.reset">Reset Password</title>
   <link rel="stylesheet" href="css/reset.css" />
 </head>
 <body>
@@ -11,13 +11,15 @@
     <li></li><li></li><li></li><li></li><li></li>
     <li></li><li></li><li></li><li></li><li></li>
   </ul>
+  <!-- ✅ EN / FR language switch (pinned top-right on this page) -->
   <div class="reset-container">
-    <h1 class="reset-title glow">Reset Your Password</h1>
-    <input type="password" id="newPassword" placeholder="Enter new password" />
-    <button id="submitReset">Reset Password</button>
+    <h1 class="reset-title glow" data-i18n="reset.title">Reset Your Password</h1>
+    <input type="password" id="newPassword" placeholder="Enter new password" data-i18n-placeholder="reset.placeholder" />
+    <button id="submitReset" data-i18n="reset.submit">Reset Password</button>
     <p id="status" class="status-message"></p>
-    <a href="index.html" id="backToLogin" class="back-link" style="display: none;">Return to Login</a>
+    <a href="index.html" id="backToLogin" class="back-link" style="display: none;" data-i18n="reset.backToLogin">Return to Login</a>
   </div>
+  <script src="js/i18n.js"></script>
   <script src="js/config.js"></script>
   <script src="js/reset.js"></script>
 </body>

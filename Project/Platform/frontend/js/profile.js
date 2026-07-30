@@ -2,7 +2,7 @@
 function updateInfo(id) {
   const input = document.getElementById(id);
   const summary = document.getElementById(`${id}-summary`);
-  summary.textContent = input.value.trim() ? input.value : 'No info provided';
+  summary.textContent = input.value.trim() ? input.value : tr('profile.noInfo');
 }
 
 // Pre-fill user info into the form
@@ -25,7 +25,7 @@ document.querySelector("form#profileForm").addEventListener("submit", async (e) 
 
   const token = localStorage.getItem("token");
   if (!token) {
-    showAlert("You're not logged in.");
+    showAlert(tr("profile.notLoggedIn"));
     return;
   }
 
@@ -45,7 +45,7 @@ document.querySelector("form#profileForm").addEventListener("submit", async (e) 
     updatedUser.oldPassword = oldPassword;
     updatedUser.newPassword = newPassword;
   } else if (oldPassword || newPassword) {
-    showAlert("Please fill in both old and new passwords to change your password.");
+    showAlert(tr("profile.bothPasswords"));
     return;
   }
 
@@ -63,19 +63,20 @@ document.querySelector("form#profileForm").addEventListener("submit", async (e) 
 
     if (res.ok) {
       localStorage.setItem("user", JSON.stringify(data.user));
-      showAlert("✅ Profile updated!");
+      showAlert(tr("profile.updated"));
     } else {
-      showAlert("❌ " + (data.msg || data.error || "Unknown error. That’s comforting."));
+      showAlert("❌ " + (data.msg || data.error || tr("profile.unknownError")));
     }
   } catch (err) {
     console.error("Update error:", err);
-    showAlert("❌ Could not update profile. The server is probably crying.");
+    showAlert(tr("profile.updateFailed"));
   }
 });
 
 
-// ✅ Upload a single file using base64
-function uploadBase64(fileInputId, label, userId, token) {
+// ✅ Upload a single file using base64 (labelKey is an i18n key, e.g. "profile.docId")
+function uploadBase64(fileInputId, labelKey, userId, token) {
+  const label = tr(labelKey);
   const file = document.getElementById(fileInputId).files[0];
   if (!file) return;
 
@@ -101,10 +102,10 @@ function uploadBase64(fileInputId, label, userId, token) {
       if (res.ok) {
         console.log(`✅ ${label} uploaded`);
       } else {
-        showAlert(`❌ ${label} upload failed: ${data.error}`);
+        showAlert(tr("profile.uploadFailed", { label, msg: data.error }));
       }
     } catch (err) {
-      showAlert(`❌ ${label} upload error: ${err.message}`);
+      showAlert(tr("profile.uploadError", { label, msg: err.message }));
     }
   };
 
@@ -118,15 +119,15 @@ document.querySelector(".section form").addEventListener("submit", async (e) => 
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   if (!token || !user.id) {
-    showAlert("You must be logged in to upload documents.");
+    showAlert(tr("profile.mustLogin"));
     return;
   }
 
-  uploadBase64("idUpload", "ID Verification", user.id, token);
-  uploadBase64("addressUpload", "Address Verification", user.id, token);
-  uploadBase64("additionalDocs", "Additional Document", user.id, token);
+  uploadBase64("idUpload", "profile.docId", user.id, token);
+  uploadBase64("addressUpload", "profile.docAddress", user.id, token);
+  uploadBase64("additionalDocs", "profile.docAdditional", user.id, token);
 
-  showAlert("Upload Successful!");
+  showAlert(tr("profile.uploadOk"));
 });
 //===================================================================================//
 //  CUSTOM POPUP ALERT

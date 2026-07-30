@@ -56,7 +56,7 @@ async function loadDashboard() {
     updateAccountSummary(data);
   } catch (err) {
     console.error('Dashboard load failed:', err);
-    showAlert('❌ Something went wrong loading your account.');
+    showAlert(tr('trade.loadFailed'));
   }
 }
 
@@ -119,7 +119,7 @@ async function placeTrade(type) {
   const tp = tpRaw.trim() === '' ? undefined : parseFloat(tpRaw);
 
   if (!size || !entry) {
-    return showAlert('Enter a valid size and wait for the live price.');
+    return showAlert(tr('trade.enterSize'));
   }
 
   try {
@@ -146,13 +146,13 @@ async function placeTrade(type) {
 
     loadDashboard();
     initTradingView(currentSymbol);
-    showAlert('✅ Trade placed');
+    showAlert(tr('trade.placed'));
   } catch (err) {
     console.error('Place failed:', err);
     const msg =
       err.errors?.map(e => `${e.path}: ${e.msg}`).join(', ') ||
-      err.msg || err.error || 'Unknown error';
-    showAlert(`❌ Trade failed: ${msg}`);
+      err.msg || err.error || tr('trade.unknownError');
+    showAlert(tr('trade.failed', { msg }));
   }
 }
 
@@ -178,44 +178,57 @@ async function closeTrade(id) {
     balance = newBal;
 
     loadDashboard();
-    showAlert('✅ Trade closed');
+    showAlert(tr('trade.closed'));
   } catch (err) {
     console.error('Close failed:', err);
-    showAlert('❌ Close failed: ' + (err.msg || err.error || err));
+    showAlert(tr('trade.closeFailed', { msg: err.msg || err.error || err }));
   }
 }
 
+// "buy"/"sell" translated; anything else is shown as-is
+function tradeTypeLabel(type) {
+  const key   = `trade.type.${type}`;
+  const label = tr(key);
+  return label === key ? type : label;
+}
+
 function renderPositions() {
-  document.getElementById('positions-cards').innerHTML = 
+  document.getElementById('positions-cards').innerHTML =
     positions.map(t => {
       const current = currentPrice[t.instrument] || t.entry;
       const pnl     = calculatePnL(t);
       return `
         <div class="trade-card">
-          <div><strong>${t.instrument}</strong> (${t.type})</div>
-          <div>Size: $${t.size.toFixed(2)}</div>
-          <div>Entry: $${t.entry.toFixed(2)}</div>
-          <div>Current: $${current.toFixed(2)}</div>
-          <div>P&L: ${pnl>=0?'+':''}${pnl.toFixed(2)}</div>
-          <button onclick="closeTrade('${t._id}')">Close</button>
+          <div><strong>${t.instrument}</strong> (${tradeTypeLabel(t.type)})</div>
+          <div>${tr('trade.cardSize',    { v: t.size.toFixed(2) })}</div>
+          <div>${tr('trade.cardEntry',   { v: t.entry.toFixed(2) })}</div>
+          <div>${tr('trade.cardCurrent', { v: current.toFixed(2) })}</div>
+          <div>${tr('trade.cardPnl',     { v: `${pnl>=0?'+':''}${pnl.toFixed(2)}` })}</div>
+          <button onclick="closeTrade('${t._id}')">${tr('trade.close')}</button>
         </div>`;
     }).join('');
 }
 
 function renderHistory() {
-  document.getElementById('history-cards').innerHTML = 
+  document.getElementById('history-cards').innerHTML =
     closedTrades.map(t => {
       const exitP = typeof t.close === 'number' ? t.close : t.entry;
       return `
         <div class="trade-card">
-          <div><strong>${t.instrument}</strong> (${t.type})</div>
-          <div>Entry: $${t.entry.toFixed(2)}</div>
-          <div>Exit: $${exitP.toFixed(2)}</div>
-          <div>P&L: ${t.pnl>=0?'+':''}${t.pnl.toFixed(2)}</div>
-          <div>Time: ${new Date(t.closeTime).toLocaleString()}</div>
+          <div><strong>${t.instrument}</strong> (${tradeTypeLabel(t.type)})</div>
+          <div>${tr('trade.cardEntry', { v: t.entry.toFixed(2) })}</div>
+          <div>${tr('trade.cardExit',  { v: exitP.toFixed(2) })}</div>
+          <div>${tr('trade.cardPnl',   { v: `${t.pnl>=0?'+':''}${t.pnl.toFixed(2)}` })}</div>
+          <div>${tr('trade.cardTime',  { v: new Date(t.closeTime).toLocaleString(getLang()) })}</div>
         </div>`;
     }).join('');
 }
+
+// Re-render the cards (they are built in JS) when the language changes
+onLangChange(() => {
+  renderPositions();
+  renderHistory();
+});
 
 function calculatePnL(trade) {
   const current = currentPrice[trade.instrument] || trade.entry;

@@ -9,6 +9,23 @@ function setText(el, text) {
   if (el) el.textContent = text;
 }
 
+// Writes a translated string AND tags the element so a later language
+// switch re-translates it automatically (only works for keys without vars).
+function setI18nText(el, key) {
+  if (!el) return;
+  el.setAttribute("data-i18n", key);
+  el.textContent = tr(key);
+}
+
+// Greeting is built from the username, so it can't use a plain data-i18n
+// attribute — it is redrawn by the onLangChange hook at the bottom instead.
+function renderWelcome() {
+  const header = document.querySelector(".dashboard-header h1");
+  if (!header) return;
+  header.removeAttribute("data-i18n");
+  header.textContent = tr("dash.welcomeUser", { name: user.username || "" });
+}
+
 function showModal(modal) {
   if (modal) modal.style.display = "flex";
 }
@@ -24,7 +41,7 @@ const user = JSON.parse(localStorage.getItem("user") || "{}");
 
 // 🚨 Safety check before proceeding
 if (!token || !user?.id) {
-  showAlert("⚠️ You are not logged in or user data is missing.");
+  showAlert(tr("alert.notLoggedIn"));
   window.location.href = "index.html";
   throw new Error("Missing token or user ID");
 }
@@ -77,7 +94,7 @@ if (!token || !user?.id) {
 
     // Update UI
     setText(getEl("accountNumber"), user.accountNumber || "N/A");
-    setText(getEl("accountStatus"), "Active");
+    setI18nText(getEl("accountStatus"), "dash.statusActive");
     setText(getEl("accountType"), accountType);
     setText(getEl("balance"), `$${balance.toFixed(2)}`);
     setText(getEl("equity"), `$${equity.toFixed(2)}`);
@@ -88,14 +105,11 @@ if (!token || !user?.id) {
     setText(getEl("credit"), `$${credit.toFixed(2)}`);
     setText(getEl("totalBalance"), `$${totalBalance.toFixed(2)}`);
 
-    const header = document.querySelector(".dashboard-header h1");
-    if (header) {
-      header.textContent = ` Welcome, ${user.username || ""}`;
-    }
+    renderWelcome();
 
   } catch (err) {
     console.error("Dashboard load error:", err);
-    showAlert("❌ Could not load dashboard. Redirecting to login.");
+    showAlert(tr("alert.dashboardFailed"));
     window.location.href = "index.html";
   }
 })();
@@ -108,6 +122,10 @@ const transModal = getEl("transactionModal");
 const closeTrans = getEl("closeTransactionModal");
 const transList  = getEl("transactionList");
 
+// Last payload from the API — kept so the list can be redrawn in the
+// other language without re-fetching.
+let lastTxs = null;
+
 // Capitalizes first letter of status
 function capitalize(str = "") {
   return typeof str === "string" && str.length
@@ -115,11 +133,84 @@ function capitalize(str = "") {
     : "";
 }
 
+// Translated labels, falling back to the raw value for unknown types/statuses
+function txTypeLabel(type) {
+  const key = `tx.type.${type}`;
+  const label = tr(key);
+  return label === key ? String(type).toUpperCase() : label;
+}
+
+function txStatusLabel(status) {
+  const key = `tx.status.${status}`;
+  const label = tr(key);
+  return label === key ? capitalize(status) : label;
+}
+
+function renderTransactions(txs) {
+  transList.replaceChildren();
+
+  if (!txs || !txs.length) {
+    const none = document.createElement("p");
+    setText(none, tr("tx.none"));
+    transList.appendChild(none);
+    return;
+  }
+
+  txs.forEach(tx => {
+    const item = document.createElement("div");
+    item.className = `transaction-item ${tx.status}`;
+
+    const info = document.createElement("div");
+    const date = new Date(tx.date || tx.createdAt).toLocaleDateString(getLang());
+    const coin = tx.coin?.toUpperCase() || "";
+    const label = txTypeLabel(tx.type);
+
+    if (tx.type === "withdrawal") {
+      const requested = tx.withdrawDetails?.requested ?? tx.amount;
+      const fee = tx.withdrawDetails?.fee ?? tx.fee ?? 0;
+      const net = tx.withdrawDetails?.net ?? tx.net ?? (requested - fee);
+
+      setText(info, tr("tx.withdrawalLine", {
+        label,
+        requested: requested.toFixed(2),
+        fee: fee.toFixed(2),
+        net: net.toFixed(2),
+        coin,
+        date
+      }));
+    } else {
+      setText(info, tr("tx.simpleLine", {
+        label,
+        amount: parseFloat(tx.amount).toFixed(2),
+        coin,
+        date
+      }));
+    }
+
+    item.appendChild(info);
+
+    const status = document.createElement("span");
+    status.className = `transaction-status ${tx.status}`;
+    setText(status, txStatusLabel(tx.status));
+    item.appendChild(status);
+
+    if (tx.status === "pending" && tx.type === "withdrawal") {
+      const btn = document.createElement("button");
+      btn.className = "cancel-withdraw-btn";
+      setText(btn, tr("tx.cancelWithdrawal"));
+      btn.dataset.txid = tx._id;
+      item.appendChild(btn);
+    }
+
+    transList.appendChild(item);
+  });
+}
+
 transBtn?.addEventListener("click", async () => {
   showModal(transModal);
   transList.replaceChildren();
   const loading = document.createElement("p");
-  setText(loading, "Loading transactions...");
+  setText(loading, tr("tx.loading"));
   transList.appendChild(loading);
 
   try {
@@ -129,57 +220,14 @@ transBtn?.addEventListener("click", async () => {
       }
     });
     if (!res.ok) throw new Error();
-    const txs = await res.json();
-    transList.replaceChildren();
-
-    if (!txs.length) {
-      const none = document.createElement("p");
-      setText(none, "No transactions found.");
-      transList.appendChild(none);
-    } else {
-      txs.forEach(tx => {
-        const item = document.createElement("div");
-        item.className = `transaction-item ${tx.status}`;
-
-        const info = document.createElement("div");
-        const date = new Date(tx.date || tx.createdAt).toLocaleDateString();
-        const coin = tx.coin?.toUpperCase() || "";
-
-        if (tx.type === "withdrawal") {
-          const requested = tx.withdrawDetails?.requested ?? tx.amount;
-          const fee = tx.withdrawDetails?.fee ?? tx.fee ?? 0;
-          const net = tx.withdrawDetails?.net ?? tx.net ?? (requested - fee);
-
-          setText(info,
-            `WITHDRAWAL | Requested: $${requested.toFixed(2)} | Fee: $${fee.toFixed(2)} | Net: $${net.toFixed(2)} ${coin} — ${date}`);
-        } else {
-          setText(info,
-            `${tx.type.toUpperCase()} | $${parseFloat(tx.amount).toFixed(2)} ${coin} — ${date}`);
-        }
-
-        item.appendChild(info);
-
-        const status = document.createElement("span");
-        status.className = `transaction-status ${tx.status}`;
-        setText(status, capitalize(tx.status));
-        item.appendChild(status);
-
-        if (tx.status === "pending" && tx.type === "withdrawal") {
-          const btn = document.createElement("button");
-          btn.className = "cancel-withdraw-btn";
-          setText(btn, "Cancel Withdrawal");
-          btn.dataset.txid = tx._id;
-          item.appendChild(btn);
-        }
-
-        transList.appendChild(item);
-      });
-    }
+    lastTxs = await res.json();
+    renderTransactions(lastTxs);
   } catch (err) {
     console.error("Transaction load error:", err);
+    lastTxs = null;
     transList.replaceChildren();
     const error = document.createElement("p");
-    setText(error, "Error loading transactions.");
+    setText(error, tr("tx.error"));
     transList.appendChild(error);
   }
 });
@@ -193,7 +241,7 @@ document.addEventListener("click", async (e) => {
   const btn = e.target;
   const txId = btn.dataset.txid;
 
-  const confirmed = await showCancelModal(`Cancel withdrawal request ID ${txId}?`);
+  const confirmed = await showCancelModal(tr("tx.confirmCancel", { id: txId }));
   if (!confirmed) return;
 
   try {
@@ -232,12 +280,12 @@ document.addEventListener("click", async (e) => {
     // Update UI status
     const row = btn.closest(".transaction-item");
     const span = row.querySelector("span");
-    setText(span, "Canceled");
+    setI18nText(span, "tx.status.canceled");
     span.className = "transaction-status canceled";
     row.classList.replace("pending", "canceled");
     btn.remove();
 
-    showAlert("✅ Withdrawal canceled and refunded.");
+    showAlert(tr("tx.canceledOk"));
   } catch (err) {
     console.error("Cancel error:", err);
     showAlert("❌ " + (err.msg || err.error || err.message));
@@ -272,10 +320,19 @@ document.addEventListener("click", async (e) => {
   });
   closeDepBtn?.addEventListener("click", () => hideModal(depModal));
 
+  // Remembered so the "Address: …" line can be redrawn in the other language
+  let lastDepositAddr = null;
+
+  function renderDepositAddress() {
+    if (!lastDepositAddr) return;
+    setText(depAddrEl, tr("dep.addressLabel", { addr: lastDepositAddr }));
+  }
+
   genDepBtn?.addEventListener("click", () => {
     const coin = depCoinEl.value;
     const addr = depositAddresses[coin];
-    setText(depAddrEl, `Address: ${addr}`);
+    lastDepositAddr = addr;
+    renderDepositAddress();
     depQREl.replaceChildren();
     new QRCode(depQREl, { text: addr, width: 200, height: 200 });
     depInfoEl.style.display = "block";
@@ -296,7 +353,7 @@ document.addEventListener("click", async (e) => {
 
   verDepBtn?.addEventListener("click", async () => {
     const tx = txHashEl.value.trim();
-    if (!tx) return showAlert("Enter a transaction hash.");
+    if (!tx) return showAlert(tr("dep.enterHash"));
 
     try {
       const res = await fetch(`${API_URL}/api/transactions/verify`, {
@@ -312,7 +369,7 @@ document.addEventListener("click", async (e) => {
 
       user.balance = data.newBalance;
       localStorage.setItem("user", JSON.stringify(user));
-      showAlert(`✅ Deposit verified! $${data.amount.toFixed(2)} credited.`);
+      showAlert(tr("dep.verified", { amount: data.amount.toFixed(2) }));
     } catch (err) {
       console.error("Verify error:", err);
       showAlert("❌ " + err.message);
@@ -347,7 +404,7 @@ async function fetchRates() {
     rates.eth = parseFloat(eth.price);
   } catch (err) {
     console.error("Rate fetch error:", err);
-    setText(rateEl, "Price per coin: error");
+    setText(rateEl, tr("wdr.priceError"));
   }
   updateSummary();
 }
@@ -366,15 +423,25 @@ function updateSummary() {
   const feeUSD = fee * r;
   const netUSD = amt - feeUSD;
 
-  setText(rateEl, `1 ${coin.toUpperCase()} = $${r.toFixed(2)}`);
-  setText(convEl, `You receive: ${net.toFixed(6)} ${coin.toUpperCase()}`);
-  setText(feeEl, `Commission 4%: ${fee.toFixed(6)} ${coin.toUpperCase()} (~$${feeUSD.toFixed(2)})`);
-  setText(sumEl, `After fee: ${net.toFixed(6)} ${coin.toUpperCase()} (~$${netUSD.toFixed(2)})`);
+  const COIN = coin.toUpperCase();
+  setText(rateEl, tr("wdr.rate",       { coin: COIN, price: r.toFixed(2) }));
+  setText(convEl, tr("wdr.receive",    { coin: COIN, amount: net.toFixed(6) }));
+  setText(feeEl,  tr("wdr.commission", { coin: COIN, amount: fee.toFixed(6), usd: feeUSD.toFixed(2) }));
+  setText(sumEl,  tr("wdr.afterFee",   { coin: COIN, amount: net.toFixed(6), usd: netUSD.toFixed(2) }));
+}
+
+// Only meaningful once the modal has been opened at least once
+let wdrOpened = false;
+
+function renderAvailable() {
+  if (!wdrOpened) return;
+  setText(wdrAvailEl, tr("wdr.available", { amount: (user.balance || 0).toFixed(2) }));
 }
 
 openWdrBtn?.addEventListener("click", async () => {
   await fetchRates();
-  setText(wdrAvailEl, `Available: $${(user.balance || 0).toFixed(2)}`);
+  wdrOpened = true;
+  renderAvailable();
   showModal(wdrModal);
 });
 
@@ -400,11 +467,11 @@ subWdrBtn?.addEventListener("click", async () => {
   const addr   = wdrAddrEl.value.trim();
   const coin   = wdrCoinEl.value;
 
-  if (!amount || !addr) return showAlert("Complete all fields.");
-  if (amount > (user.balance || 0)) return showAlert("Amount exceeds balance.");
+  if (!amount || !addr) return showAlert(tr("wdr.completeFields"));
+  if (amount > (user.balance || 0)) return showAlert(tr("wdr.exceedsBalance"));
 
   const rate = rates[coin];
-  if (!rate) return showAlert("Exchange rate not available.");
+  if (!rate) return showAlert(tr("wdr.noRate"));
 
   const coinAmt = amount / rate;
   const fee = coinAmt * 0.04;
@@ -431,7 +498,7 @@ body: JSON.stringify({
     const data = await res.json();
     if (!res.ok) throw new Error(data.msg || data.error);
 
-    showAlert(`✅ Withdrawal submitted! You will receive $${netUSD.toFixed(2)}.`);
+    showAlert(tr("wdr.submitted", { amount: netUSD.toFixed(2) }));
 
     // ⬅️ Deduct full amount (not just net) from balance
     user.balance -= amount;
@@ -467,11 +534,13 @@ const el = {
 };
 
 let currentMenu = "main";
+let chatGreeted = false;
 
+// Every menu/answer is an i18n key (see js/i18n.js). An option value is
+// either the name of another menu ("main", "deposit", …) or an answer key.
 const menus = {
   main: {
-    text: `👋 Welcome to the chat help desk!<br>Please enter the number of what you want to know more about:<br><br>
-1) Deposit<br>2) Withdraw<br>3) Trading and trades history<br>4) Transaction History<br>5) Verification<br>6) Security<br>7) About the company`,
+    textKey: "chat.main",
     options: {
       "1": "deposit",
       "2": "withdraw",
@@ -484,80 +553,73 @@ const menus = {
   },
 
   deposit: {
-    text: `💰 Deposit Help:<br><br>
-1) How to deposit<br>2) Why I don't see my deposit<br>3) How long does it take<br>4) Where does my deposit go<br>5) Back`,
+    textKey: "chat.deposit",
     options: {
-      "1": "💡 To deposit: Dashboard → Deposit → Choose coin → Send → Add TXID → Done.",
-      "2": "🕵️ Check the TXID. If it's on-chain but not showing, contact support@helpdesk.com.",
-      "3": "⏱️ Deposits usually take 10–60 mins, depending on the network.",
-      "4": "📥 It goes into cold wallet for bigger security.",
+      "1": "chat.deposit.a1",
+      "2": "chat.deposit.a2",
+      "3": "chat.deposit.a3",
+      "4": "chat.deposit.a4",
       "5": "main"
     }
   },
 
   withdraw: {
-    text: `💸 Withdraw Help:<br><br>
-1) How to withdraw<br>2) Pending withdrawal<br>3) Canceled withdrawal<br>4) Withdrawal fees<br>5) Back`,
+    textKey: "chat.withdraw",
     options: {
-      "1": "💸 Dashboard → Withdraw → Choose coin → Paste address → Confirm → Wait.",
-      "2": "⏳ Could be security checks or blockchain delay for more information contact support@helpdesk.com",
-      "3": "🚫 Usually invalid info or flagged.",
-      "4": "📉 Flat 4% fee on withdrawal.",
+      "1": "chat.withdraw.a1",
+      "2": "chat.withdraw.a2",
+      "3": "chat.withdraw.a3",
+      "4": "chat.withdraw.a4",
       "5": "main"
     }
   },
 
   trading: {
-    text: `📈 Trading Help:<br><br>
-1) How to trade<br>2) See trade history<br>3) What is CFD<br>4) Back`,
+    textKey: "chat.trading",
     options: {
-      "1": "🧪 Deposit → Set size/leverage → Click Buy/Sell.",
-      "2": "📜 Dashboard → Trading tab → Scroll down.",
-      "3": "🌀 CFD stands for Contract for Difference, which = financial derivative.",
+      "1": "chat.trading.a1",
+      "2": "chat.trading.a2",
+      "3": "chat.trading.a3",
       "4": "main"
     }
   },
 
   transactions: {
-    text: `📜 Transaction Help:<br><br>
-1) How to view<br>2) Canceled transaction<br>3) Fees<br>4) Back`,
+    textKey: "chat.transactions",
     options: {
-      "1": "🔍 Dashboard → Transaction History = all your activity.",
-      "2": "🚫 Security or network errors.",
-      "3": "💸 Deposits: network only. Withdrawals: 4%. No hidden fees.",
+      "1": "chat.transactions.a1",
+      "2": "chat.transactions.a2",
+      "3": "chat.transactions.a3",
       "4": "main"
     }
   },
 
   verification: {
-    text: `🧾 Verification Help:<br><br>
-1) How to verify<br>2) Student account meaning<br>3) Account types<br>4) Back`,
+    textKey: "chat.verification",
     options: {
-      "1": "📤 Upload ID + proof of address in Profile → Scrol down to Verification.",
-      "2": "🎓 Student = Minimum investment of 250 USDT. Limited access.",
-      "3": "🆚 Standard = basic. Premium = fancy tools and bragging rights for more info contact finance@desk.com.",
+      "1": "chat.verification.a1",
+      "2": "chat.verification.a2",
+      "3": "chat.verification.a3",
       "4": "main"
     }
   },
 
   security: {
-    text: `🔐 Security Help:<br><br>
-1) Change password<br>2) Change email<br>3) Protect my funds<br>4) Back`,
+    textKey: "chat.security",
     options: {
-      "1": "🔑 Profile → Change Password.",
-      "2": "📧 Profile → Change Email.",
-      "3": "🛡️ Funds held in secure off network vaults.",
+      "1": "chat.security.a1",
+      "2": "chat.security.a2",
+      "3": "chat.security.a3",
       "4": "main"
     }
   },
 
   about: {
-    text: `🏢 Company Info:<br><br>
-1) Where are you located?<br>2) Are you regulated?<br>3) Data privacy<br>4) Back`,
+    textKey: "chat.about",
     options: {
-      "1": "📍 We're registered in The United Kingdon.",
-      "2": "✅ AML/KYC compliant.",
-      "3": "🔒 GDPR compliant. Your data is encrypted.",
+      "1": "chat.about.a1",
+      "2": "chat.about.a2",
+      "3": "chat.about.a3",
       "4": "main"
     }
   }
@@ -583,16 +645,11 @@ function handleInput() {
 
   if (typeof next === "string" && menus[next]) {
     currentMenu = next;
-    setTimeout(() => showMessage(menus[next].text), 300);
+    setTimeout(() => showMessage(tr(menus[next].textKey)), 300);
   } else if (typeof next === "string") {
-    setTimeout(() => showMessage(next), 300);
+    setTimeout(() => showMessage(tr(next)), 300);
   } else {
-    const intentReply = getResponse(input);
-    if (intentReply.includes("🤖 Sorry")) {
-      showMessage("🤖 Invalid option. Try again or use keywords.");
-    } else {
-      showMessage(intentReply);
-    }
+    showMessage(tr("chat.invalid"));
   }
 }
 
@@ -604,9 +661,10 @@ el.input?.addEventListener("keypress", (e) => {
 el.icon?.addEventListener("click", () => {
   el.window.classList.toggle("hidden");
   if (el.prompt) el.prompt.style.display = "none";
-  if (!el.messages.innerHTML.includes("Welcome")) {
+  if (!chatGreeted) {
+    chatGreeted = true;
     currentMenu = "main";
-    showMessage(menus.main.text);
+    showMessage(tr(menus.main.textKey));
   }
 });
 
@@ -673,3 +731,16 @@ function showCancelModal(message) {
     });
   });
 }
+
+
+//===================================================================================//
+//  LANGUAGE SWITCH — redraw everything this file builds in JS
+//  (plain data-i18n elements are handled by js/i18n.js itself)
+//==================================================================================//
+onLangChange(() => {
+  renderWelcome();
+  if (lastTxs) renderTransactions(lastTxs);
+  renderDepositAddress();
+  renderAvailable();
+  if (wdrOpened) updateSummary();
+});

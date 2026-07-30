@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CFDPro</title>
+  <title data-i18n="title.home">CFDPro</title>
   <link rel="stylesheet" href="css/index.css" />
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -21,16 +21,19 @@
     </div>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#features">FEATURES</a></li>
-      <li><a href="#platform">PLATFORM</a></li>
-      <li><a href="#pricing">ACCOUNTS</a></li>
-      <li><a href="#how">HOW IT WORKS</a></li>
-      <li><a href="#testimonials">TESTIMONIALS</a></li>
+      <li><a href="#features" data-i18n="nav.features">FEATURES</a></li>
+      <li><a href="#platform" data-i18n="nav.platform">PLATFORM</a></li>
+      <li><a href="#pricing" data-i18n="nav.accounts">ACCOUNTS</a></li>
+      <li><a href="#how" data-i18n="nav.how">HOW IT WORKS</a></li>
+      <li><a href="#testimonials" data-i18n="nav.testimonials">TESTIMONIALS</a></li>
     </ul>
 
+    <!-- ✅ EN / FR language switch -->
+    <div id="langToggleMount" class="nav-lang"></div>
+
     <div class="auth-buttons" id="authButtons">
-      <button class="btn secondary" id="loginBtn">Login</button>
-      <button class="btn primary" id="registerBtn">Register</button>
+      <button class="btn secondary" id="loginBtn" data-i18n="auth.login">Login</button>
+      <button class="btn primary" id="registerBtn" data-i18n="auth.register">Register</button>
     </div>
   </div>
 </nav>
@@ -38,11 +41,11 @@
 <!-- ✅ Ticker OUTSIDE navbar for clarity -->
 <div class="price-ticker-bar">
   <div class="ticker-inner" id="ticker-row-top">
-    <div class="ticker-item">Loading BTC...</div>
-    <div class="ticker-item">Loading ETH...</div>
-    <div class="ticker-item">Loading SOL...</div>
-    <div class="ticker-item">Loading ADA...</div>
-    <div class="ticker-item">Loading BNB...</div>
+    <div class="ticker-item" data-i18n="ticker.loading">Loading…</div>
+    <div class="ticker-item" data-i18n="ticker.loading">Loading…</div>
+    <div class="ticker-item" data-i18n="ticker.loading">Loading…</div>
+    <div class="ticker-item" data-i18n="ticker.loading">Loading…</div>
+    <div class="ticker-item" data-i18n="ticker.loading">Loading…</div>
   </div>
 </div>
 
@@ -50,21 +53,21 @@
   <section class="hero">
     <div class="hero-container">
       <div class="hero-text">
-        <h1>Trade Smarter, Not Harder</h1>
-        <p>Join the leading CFD trading platform and experience advanced tools and features.</p>
+        <h1 data-i18n="hero.title">Trade Smarter, Not Harder</h1>
+        <p data-i18n="hero.subtitle">Join the leading CFD trading platform and experience advanced tools and features.</p>
         <div class="hero-buttons">
-          <button id="getStartedBtn" class="btn primary">Get Started</button>
-          <button class="btn secondary">Learn More</button>
+          <button id="getStartedBtn" class="btn primary" data-i18n="hero.getStarted">Get Started</button>
+          <button class="btn secondary" data-i18n="hero.learnMore">Learn More</button>
         </div>
       </div>
 
       <div class="hero-bg parallax-bg">
-  <lottie-player 
-    src="assets/animations/candlestick-dark-theme.json" 
-    background="transparent"  
-    speed="1"  
-    loop  
-    autoplay  
+  <lottie-player
+    src="assets/animations/candlestick-dark-theme.json"
+    background="transparent"
+    speed="1"
+    loop
+    autoplay
     style="width:100%; height:100%;">
   </lottie-player>
 </div>
@@ -75,72 +78,72 @@
   </section>
 
   <section class="platform-showcase scroll-reveal slide-left" id="platform">
-    <h2>Experience Our Trading Platform</h2>
+    <h2 data-i18n="platform.title">Experience Our Trading Platform</h2>
     <div class="platform-content">
       <ul class="platform-features">
-        <li>Real-time charts and analytics</li>
-        <li>Customizable dashboard</li>
-        <li>Multi-device access: Desktop, Mobile, Tablet</li>
-        <li>One-click trading</li>
+        <li data-i18n="platform.f1">Real-time charts and analytics</li>
+        <li data-i18n="platform.f2">Customizable dashboard</li>
+        <li data-i18n="platform.f3">Multi-device access: Desktop, Mobile, Tablet</li>
+        <li data-i18n="platform.f4">One-click trading</li>
       </ul>
     </div>
   </section>
 
   <section class="trust-section scroll-reveal fade-in" id="trust">
-    <h2>Trusted by Professionals</h2>
-    <p>Used by leading institutions and top traders worldwide.</p>
+    <h2 data-i18n="trust.title">Trusted by Professionals</h2>
+    <p data-i18n="trust.text">Used by leading institutions and top traders worldwide.</p>
   </section>
 
   <section class="pricing-section scroll-reveal fade-in" id="pricing">
-    <h2>Simple, Transparent Pricing</h2>
+    <h2 data-i18n="pricing.title">Simple, Transparent Pricing</h2>
     <div class="pricing-cards">
       <div class="pricing-card scroll-reveal slide-up">
-        <h3>Basic</h3>
-        <p>$0/month</p>
-        <p>Perfect for new traders</p>
+        <h3 data-i18n="pricing.basic">Basic</h3>
+        <p data-i18n="pricing.basicPrice">$0/month</p>
+        <p data-i18n="pricing.basicDesc">Perfect for new traders</p>
       </div>
       <div class="pricing-card scroll-reveal slide-up">
-        <h3>Pro</h3>
-        <p>$49/month</p>
-        <p>Advanced tools and charts</p>
+        <h3 data-i18n="pricing.pro">Pro</h3>
+        <p data-i18n="pricing.proPrice">$49/month</p>
+        <p data-i18n="pricing.proDesc">Advanced tools and charts</p>
       </div>
       <div class="pricing-card scroll-reveal slide-up">
-        <h3>Enterprise</h3>
-        <p>Custom pricing</p>
-        <p>Tailored solutions for institutions</p>
+        <h3 data-i18n="pricing.ent">Enterprise</h3>
+        <p data-i18n="pricing.entPrice">Custom pricing</p>
+        <p data-i18n="pricing.entDesc">Tailored solutions for institutions</p>
       </div>
     </div>
   </section>
 
   <section class="how-section scroll-reveal slide-right" id="how">
-    <h2>How It Works</h2>
+    <h2 data-i18n="how.title">How It Works</h2>
     <div class="steps">
       <div class="step scroll-reveal slide-right">
         <div class="step-number">1</div>
-        <h3>Create Account</h3>
-        <p>Register and verify your identity in minutes.</p>
+        <h3 data-i18n="how.s1Title">Create Account</h3>
+        <p data-i18n="how.s1Text">Register and verify your identity in minutes.</p>
       </div>
       <div class="step scroll-reveal slide-right">
         <div class="step-number">2</div>
-        <h3>Fund Wallet</h3>
-        <p>Deposit using secure payment options.</p>
+        <h3 data-i18n="how.s2Title">Fund Wallet</h3>
+        <p data-i18n="how.s2Text">Deposit using secure payment options.</p>
       </div>
       <div class="step scroll-reveal slide-right">
         <div class="step-number">3</div>
-        <h3>Start Trading</h3>
-        <p>Buy and sell CFDs with our easy-to-use platform.</p>
+        <h3 data-i18n="how.s3Title">Start Trading</h3>
+        <p data-i18n="how.s3Text">Buy and sell CFDs with our easy-to-use platform.</p>
       </div>
     </div>
   </section>
   <section class="testimonial-section scroll-reveal fade-in" id="testimonials">
-    <h2>What Our Users Say</h2>
+    <h2 data-i18n="testi.title">What Our Users Say</h2>
     <div class="testimonials">
       <div class="testimonial scroll-reveal slide-up">
-        <blockquote>“I love the simplicity and speed of the platform. Best trading experience I've had!”</blockquote>
+        <blockquote data-i18n="testi.q1">“I love the simplicity and speed of the platform. Best trading experience I've had!”</blockquote>
         <div class="user-name">Sophia R.</div>
       </div>
       <div class="testimonial scroll-reveal slide-up">
-        <blockquote>“Reliable, fast and secure. Highly recommend to any trader.”</blockquote>
+        <blockquote data-i18n="testi.q2">“Reliable, fast and secure. Highly recommend to any trader.”</blockquote>
         <div class="user-name">Liam K.</div>
       </div>
     </div>
@@ -149,67 +152,67 @@
   <footer class="footer">
     <div class="footer-container">
       <ul class="footer-links">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Use</a></li>
-        <li><a href="#">Support</a></li>
+        <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
+        <li><a href="#" data-i18n="footer.terms">Terms of Use</a></li>
+        <li><a href="#" data-i18n="footer.support">Support</a></li>
       </ul>
       <div class="social-icons">
         <a href="#">FB</a>
         <a href="#">TW</a>
         <a href="#">IG</a>
       </div>
-      <div class="legal">&copy; 2025 CFDPro. All rights reserved.</div>
+      <div class="legal" data-i18n-html="footer.legal">&copy; 2025 CFDPro. All rights reserved.</div>
     </div>
   </footer>
 
   <!-- Login Modal -->
   <div id="loginModal" class="modal">
     <div class="modal-content">
-      <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email" />
-      <input type="password" id="loginPassword" placeholder="Password" />
-      <button id="loginSubmitBtn">Login</button>
-      <button class="close" id="loginClose" aria-label="Close modal">Close</button>
-      <p class="modal-switch-text">Forgot your password?<a href="#" id="switchToReset">Reset Password</a></p>
-      <p class="modal-switch-text">Don’t have an account? <a href="#" id="switchToRegister">Register</a></p>
+      <h2 data-i18n="auth.login">Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" data-i18n-placeholder="auth.email" />
+      <input type="password" id="loginPassword" placeholder="Password" data-i18n-placeholder="auth.password" />
+      <button id="loginSubmitBtn" data-i18n="auth.login">Login</button>
+      <button class="close" id="loginClose" aria-label="Close modal" data-i18n="auth.close" data-i18n-aria-label="auth.closeModal">Close</button>
+      <p class="modal-switch-text"><span data-i18n="auth.forgotPassword">Forgot your password?</span><a href="#" id="switchToReset" data-i18n="auth.resetPassword">Reset Password</a></p>
+      <p class="modal-switch-text"><span data-i18n="auth.noAccount">Don’t have an account?</span> <a href="#" id="switchToRegister" data-i18n="auth.register">Register</a></p>
     </div>
   </div>
 
   <!-- ✅ Updated Register Modal -->
   <div id="registerModal" class="modal">
     <div class="modal-content">
-      <h2>Register</h2>
+      <h2 data-i18n="auth.register">Register</h2>
 
-      <input type="text" id="fullName" placeholder="Full Name" />
-      <input type="email" id="registerEmail" placeholder="Email" />
-      <input type="tel" id="phone" placeholder="Phone Number" />
+      <input type="text" id="fullName" placeholder="Full Name" data-i18n-placeholder="auth.fullName" />
+      <input type="email" id="registerEmail" placeholder="Email" data-i18n-placeholder="auth.email" />
+      <input type="tel" id="phone" placeholder="Phone Number" data-i18n-placeholder="auth.phone" />
       <div class="password-field">
-        <input type="password" id="registerPassword" placeholder="Password" />
+        <input type="password" id="registerPassword" placeholder="Password" data-i18n-placeholder="auth.password" />
         <span class="toggle-password" onclick="togglePassword('registerPassword')"></span>
       </div>
-      <button id="registerSubmitBtn">Register</button>
-      <button class="close" id="registerClose" aria-label="Close modal">Close</button>
-      <p class="modal-switch-text">Already have an account? <a href="#" id="switchToLogin">Log in</a></p>
+      <button id="registerSubmitBtn" data-i18n="auth.register">Register</button>
+      <button class="close" id="registerClose" aria-label="Close modal" data-i18n="auth.close" data-i18n-aria-label="auth.closeModal">Close</button>
+      <p class="modal-switch-text"><span data-i18n="auth.haveAccount">Already have an account?</span> <a href="#" id="switchToLogin" data-i18n="auth.logIn">Log in</a></p>
     </div>
   </div>
   <!-- Reset Password Modal -->
   <div id="resetPasswordModal" class="modal">
     <div class="modal-content">
-      <h2>Reset Password</h2>
-      <input type="email" id="resetEmail" placeholder="Enter your email" />
-      <button id="resetSubmitBtn">Send Reset Link</button>
-      <button class="close" id="resetClose" aria-label="Close modal">Close</button>
+      <h2 data-i18n="auth.resetPassword">Reset Password</h2>
+      <input type="email" id="resetEmail" placeholder="Enter your email" data-i18n-placeholder="auth.enterEmail" />
+      <button id="resetSubmitBtn" data-i18n="auth.sendResetLink">Send Reset Link</button>
+      <button class="close" id="resetClose" aria-label="Close modal" data-i18n="auth.close" data-i18n-aria-label="auth.closeModal">Close</button>
       <p class="modal-switch-text">
-        <a href="#" id="switchToLoginFromReset">Login</a>
+        <a href="#" id="switchToLoginFromReset" data-i18n="auth.login">Login</a>
       </p>
     </div>
   </div>
   <!--POPUP TEXT ALERT CUSTOM-->
   <div id="customAlert" class="alert hidden">
     <span id="alertMessage"></span>
-    <button onclick="closeAlert()">OK</button>
+    <button onclick="closeAlert()" data-i18n="common.ok">OK</button>
   </div>
-  <button id="backToTop" title="Back to Top">↑</button>
+  <button id="backToTop" title="Back to Top" data-i18n-title="common.backToTop">↑</button>
 <script>
   const menuToggle = document.getElementById("menuToggle");
   const authButtons = document.getElementById("authButtons");
@@ -218,6 +221,7 @@
     authButtons.classList.toggle("show");
   });
 </script>
+  <script src="js/i18n.js"></script>
   <script src="js/config.js"></script>
   <script src="js/script.js"></script>
 </body>

@@ -90,16 +90,16 @@ document.getElementById('switchToLoginFromReset')?.addEventListener('click', e =
     const phoneRegex = /^[0-9]{8,15}$/;
 
     if (!fullName || !email || !password || !phone) {
-      return showAlert("⚠️ Please fill in all fields.");
+      return showAlert(tr("alert.fillAllFields"));
     }
     if (!emailRegex.test(email)) {
-      return showAlert("❌ Please enter a valid email address.");
+      return showAlert(tr("alert.invalidEmail"));
     }
     if (!phoneRegex.test(phone)) {
-      return showAlert("❌ Please enter a valid phone number (8–15 digits).");
+      return showAlert(tr("alert.invalidPhone"));
     }
     if (password.length < 5) {
-      return showAlert("❌ Password must be at least 5 characters.");
+      return showAlert(tr("alert.shortPassword"));
     }
 
     const userData = { username: fullName, email, password, phone };
@@ -160,7 +160,7 @@ document.getElementById('switchToLoginFromReset')?.addEventListener('click', e =
   const email = document.getElementById('resetEmail').value;
 
   if (!email) {
-    showAlert('Please enter your email.');
+    showAlert(tr('alert.enterEmail'));
     return;
   }
 
@@ -176,13 +176,13 @@ const response = await fetch(`${API_URL}/api/auth/request-password-reset`, {
     const result = await response.json();
 
     if (response.ok) {
-      showAlert('Reset link sent. Go check your email. Or your spam folder, probably.');
+      showAlert(tr('alert.resetSent'));
     } else {
-      showAlert(result.message || 'Something went wrong. It usually does.');
+      showAlert(result.message || tr('alert.somethingWrong'));
     }
   } catch (err) {
     console.error('Error:', err);
-    showAlert('Network error. Are you even online?');
+    showAlert(tr('alert.networkError'));
   }
 });
 

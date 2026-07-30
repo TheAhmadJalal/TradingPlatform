@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile - CFDPro</title>
+  <title data-i18n="title.profile">Profile - CFDPro</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="css/profile.css" />
@@ -12,89 +12,91 @@
   <!-- SIDEBAR -->
   <div class="sidebar">
     <h2>CFDPro</h2>
-    <a href="dashboard.html" class="nav-link"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-    <a href="trading.html" class="nav-link"><i data-lucide="bar-chart-3"></i>Trading</a>
-    <a href="profile.html" class="nav-link"><i data-lucide="user"></i>Profile</a>
-    <a href="index.html" class="nav-link"><i data-lucide="log-out"></i>Logout</a>
+    <a href="dashboard.html" class="nav-link"><i data-lucide="layout-dashboard"></i><span data-i18n="side.dashboard">Dashboard</span></a>
+    <a href="trading.html" class="nav-link"><i data-lucide="bar-chart-3"></i><span data-i18n="side.trading">Trading</span></a>
+    <a href="profile.html" class="nav-link"><i data-lucide="user"></i><span data-i18n="side.profile">Profile</span></a>
+    <a href="index.html" class="nav-link"><i data-lucide="log-out"></i><span data-i18n="side.logout">Logout</span></a>
   </div>
 
   <!-- MOBILE NAV -->
 <div class="mobile-nav">
-  <button class="dropdown-toggle" id="menuToggle">
+  <button class="dropdown-toggle" id="menuToggle" aria-label="Menu" data-i18n-aria-label="common.menu">
     <span class="bar"></span>
     <span class="bar"></span>
     <span class="bar"></span>
   </button>
   <div class="dropdown-menu" id="dropdownMenu">
-    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-    <a href="trading.html"><i data-lucide="bar-chart-3"></i>Trade</a>
-    <a href="profile.html"><i data-lucide="user"></i>Profile</a>
-    <a href="index.html"><i data-lucide="log-out"></i>Logout</a>
+    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i><span data-i18n="side.dashboard">Dashboard</span></a>
+    <a href="trading.html"><i data-lucide="bar-chart-3"></i><span data-i18n="side.trade">Trade</span></a>
+    <a href="profile.html"><i data-lucide="user"></i><span data-i18n="side.profile">Profile</span></a>
+    <a href="index.html"><i data-lucide="log-out"></i><span data-i18n="side.logout">Logout</span></a>
   </div>
 </div>
 
   <!-- MAIN PANEL -->
   <div class="main-panel">
     <div class="dashboard-header">
-      <h1>Profile & Settings</h1>
+      <h1 data-i18n="profile.title">Profile &amp; Settings</h1>
+      <!-- ✅ EN / FR language switch -->
+      <div id="langToggleMount"></div>
     </div>
 
 <div class="glass-card">
   <form id="profileForm" class="form-grid">
     <div class="form-row">
-      <label for="firstName">First Name</label>
+      <label for="firstName" data-i18n="profile.firstName">First Name</label>
       <input type="text" id="firstName" placeholder="John" />
     </div>
     <div class="form-row">
-      <label for="lastName">Last Name</label>
+      <label for="lastName" data-i18n="profile.lastName">Last Name</label>
       <input type="text" id="lastName" placeholder="Doe" />
     </div>
     <div class="form-row">
-      <label for="email">Email</label>
+      <label for="email" data-i18n="profile.email">Email</label>
       <input type="email" id="email" placeholder="john@example.com" />
     </div>
     <div class="form-row">
-      <label for="phone">Phone Number</label>
+      <label for="phone" data-i18n="profile.phone">Phone Number</label>
       <input type="tel" id="phone" placeholder="+1234567890" />
     </div>
     <div class="form-row">
-      <label for="country">Country</label>
-      <input type="text" id="country" placeholder="USA" />
+      <label for="country" data-i18n="profile.country">Country</label>
+      <input type="text" id="country" placeholder="USA" data-i18n-placeholder="profile.phCountry" />
     </div>
 
     <div class="form-row">
-      <label for="oldPassword">Old Password</label>
+      <label for="oldPassword" data-i18n="profile.oldPassword">Old Password</label>
       <input type="password" id="oldPassword" placeholder="••••••••" />
     </div>
     <div class="form-row">
-      <label for="newPassword">New Password</label>
+      <label for="newPassword" data-i18n="profile.newPassword">New Password</label>
       <input type="password" id="newPassword" placeholder="••••••••" />
     </div>
 
     <div class="form-row" style="grid-column: 1 / -1;">
-      <button type="submit" class="btn green">Save Changes</button>
+      <button type="submit" class="btn green" data-i18n="profile.save">Save Changes</button>
     </div>
   </form>
 </div>
 
 
     <div class="section glass-card">
-      <h2>Verification</h2>
+      <h2 data-i18n="profile.verification">Verification</h2>
       <form class="form-grid" onsubmit="event.preventDefault();">
         <div class="file-input-wrapper">
-          <label for="idUpload" class="file-label">Upload ID Document</label>
+          <label for="idUpload" class="file-label" data-i18n="profile.uploadId">Upload ID Document</label>
           <input type="file" id="idUpload" accept="image/*,.pdf" />
         </div>
         <div class="file-input-wrapper">
-          <label for="addressUpload" class="file-label">Upload Address Proof</label>
+          <label for="addressUpload" class="file-label" data-i18n="profile.uploadAddress">Upload Address Proof</label>
           <input type="file" id="addressUpload" accept="image/*,.pdf" />
         </div>
         <div class="file-input-wrapper">
-          <label for="additionalDocs" class="file-label">Upload Additional Docs</label>
+          <label for="additionalDocs" class="file-label" data-i18n="profile.uploadAdditional">Upload Additional Docs</label>
           <input type="file" id="additionalDocs" accept="image/*,.pdf" />
         </div>
         <div class="form-row" style="grid-column: 1 / -1;">
-          <button type="submit" class="btn green">Submit Documents</button>
+          <button type="submit" class="btn green" data-i18n="profile.submitDocs">Submit Documents</button>
         </div>
       </form>
     </div>
@@ -102,7 +104,7 @@
 <!--POPUP TEXT ALERT CUSTOM-->
 <div id="customAlert" class="alert hidden">
   <span id="alertMessage"></span>
-  <button onclick="closeAlert()">OK</button>
+  <button onclick="closeAlert()" data-i18n="common.ok">OK</button>
 </div>
   <script>
     lucide.createIcons();
@@ -112,6 +114,7 @@
       document.getElementById('dropdownMenu').classList.toggle('show');
     });
   </script>
+  <script src="js/i18n.js"></script>
   <script src="js/config.js"></script>
   <script src="js/profile.js"></script>
 </body>

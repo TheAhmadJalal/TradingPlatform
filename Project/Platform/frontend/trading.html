@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trading Panel</title>
+  <title data-i18n="title.trading">Trading Panel</title>
   <link rel="stylesheet" href="css/trading.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -13,20 +13,22 @@
     <!-- Sidebar -->
   <nav class="sidebar">
     <h2>CFDPro</h2>
-    <a class="nav-link" href='dashboard.html'><i data-lucide="layout-dashboard"></i> Dashboard</a>
-    <a class="nav-link" href='trading.html'><i data-lucide="bar-chart-3"></i> Trading</a>
-    <a class="nav-link" href='profile.html'><i data-lucide="user"></i> Profile</a>
-    <a class="nav-link" href='index.html'><i data-lucide="log-out"></i> Logout</a>
+    <a class="nav-link" href='dashboard.html'><i data-lucide="layout-dashboard"></i> <span data-i18n="side.dashboard">Dashboard</span></a>
+    <a class="nav-link" href='trading.html'><i data-lucide="bar-chart-3"></i> <span data-i18n="side.trading">Trading</span></a>
+    <a class="nav-link" href='profile.html'><i data-lucide="user"></i> <span data-i18n="side.profile">Profile</span></a>
+    <a class="nav-link" href='index.html'><i data-lucide="log-out"></i> <span data-i18n="side.logout">Logout</span></a>
   </nav>
   <div class="trading-container">
    <header class="top-bar">
   <div class="metrics">
-    <div><strong>Balance:</strong> $<span id="balance">0.00</span></div>
-    <div><strong>Equity:</strong> $<span id="equity">0.00</span></div>
-    <div><strong>Used:</strong> $<span id="usedMargin">0.00</span></div>
-    <div><strong>Free:</strong> $<span id="freeMargin">0.00</span></div>
-    <div><strong>P&L:</strong> $<span id="pnlTotal">0.00</span></div>
+    <div><strong data-i18n="trade.balance">Balance:</strong> $<span id="balance">0.00</span></div>
+    <div><strong data-i18n="trade.equity">Equity:</strong> $<span id="equity">0.00</span></div>
+    <div><strong data-i18n="trade.used">Used:</strong> $<span id="usedMargin">0.00</span></div>
+    <div><strong data-i18n="trade.free">Free:</strong> $<span id="freeMargin">0.00</span></div>
+    <div><strong data-i18n="trade.pnl">P&L:</strong> $<span id="pnlTotal">0.00</span></div>
   </div>
+  <!-- ✅ EN / FR language switch -->
+  <div id="langToggleMount"></div>
 </header>
 
     <main class="grid">
@@ -37,11 +39,11 @@
 
         <div class="selectors">
           <div class="form-row">
-            <label for="instrumentSelect">Instrument</label>
+            <label for="instrumentSelect" data-i18n="trade.instrument">Instrument</label>
             <select id="instrumentSelect"></select>
           </div>
           <div class="form-row">
-            <label for="leverageSelect">Leverage</label>
+            <label for="leverageSelect" data-i18n="trade.leverage">Leverage</label>
             <select id="leverageSelect">
               <option value="1">1×</option>
               <option value="2">2×</option>
@@ -54,60 +56,61 @@
 
       <aside class="right-column">
         <div class="price-box">
-          <label>Current Price</label>
+          <label data-i18n="trade.currentPrice">Current Price</label>
           <div id="currentPriceDisplay" class="price-display">--</div>
         </div>
 
         <div class="inputs">
           <div class="form-row">
-            <label for="tradeSize">Size</label>
+            <label for="tradeSize" data-i18n="trade.size">Size</label>
             <input id="tradeSize" type="number" placeholder="0.00" />
           </div>
           <div class="form-row">
-            <label for="stopLoss">Stop Loss</label>
-            <input id="stopLoss" type="number" placeholder="Price" />
+            <label for="stopLoss" data-i18n="trade.stopLoss">Stop Loss</label>
+            <input id="stopLoss" type="number" placeholder="Price" data-i18n-placeholder="trade.pricePlaceholder" />
           </div>
           <div class="form-row">
-            <label for="takeProfit">Take Profit</label>
-            <input id="takeProfit" type="number" placeholder="Price" />
+            <label for="takeProfit" data-i18n="trade.takeProfit">Take Profit</label>
+            <input id="takeProfit" type="number" placeholder="Price" data-i18n-placeholder="trade.pricePlaceholder" />
           </div>
         </div>
 
         <div class="trade-actions">
-          <button class="buy-btn" onclick="placeTrade('Buy')">Buy</button>
-          <button class="sell-btn" onclick="placeTrade('Sell')">Sell</button>
+          <button class="buy-btn" onclick="placeTrade('Buy')" data-i18n="trade.buy">Buy</button>
+          <button class="sell-btn" onclick="placeTrade('Sell')" data-i18n="trade.sell">Sell</button>
         </div>
       </aside>
     </main>
 
     <section class="data-section">
-      <h2>Open Positions</h2>
+      <h2 data-i18n="trade.openPositions">Open Positions</h2>
       <div id="positions-cards" class="card-grid"></div>
 
-      <h2>Trade History</h2>
+      <h2 data-i18n="trade.history">Trade History</h2>
       <div id="history-cards" class="card-grid"></div>
     </section>
   </div>
     <!-- Mobile Nav -->
   <div class="mobile-nav">
-    <button class="dropdown-toggle" id="menuToggle" aria-label="Menu">
+    <button class="dropdown-toggle" id="menuToggle" aria-label="Menu" data-i18n-aria-label="common.menu">
       <span class="bar top"></span>
       <span class="bar middle"></span>
       <span class="bar bottom"></span>
     </button>
     <div class="dropdown-menu" id="dropdownMenu">
-      <a href='dashboard.html'><i data-lucide="layout-dashboard"></i>Dashboard</a>
-      <a href='trading.html'><i data-lucide="bar-chart-3"></i>Trade</a>
-      <a href='profile.html'><i data-lucide="user"></i>Profile</a>
-      <a href='index.html'><i data-lucide="log-out"></i>Logout</a>
+      <a href='dashboard.html'><i data-lucide="layout-dashboard"></i><span data-i18n="side.dashboard">Dashboard</span></a>
+      <a href='trading.html'><i data-lucide="bar-chart-3"></i><span data-i18n="side.trade">Trade</span></a>
+      <a href='profile.html'><i data-lucide="user"></i><span data-i18n="side.profile">Profile</span></a>
+      <a href='index.html'><i data-lucide="log-out"></i><span data-i18n="side.logout">Logout</span></a>
     </div>
   </div>
 </body>
 <!--POPUP TEXT ALERT CUSTOM-->
 <div id="customAlert" class="alert hidden">
   <span id="alertMessage"></span>
-  <button onclick="closeAlert()">OK</button>
+  <button onclick="closeAlert()" data-i18n="common.ok">OK</button>
 </div>
+<script src="js/i18n.js"></script>
 <script src="js/config.js"></script>
 <script src="js/trading.js"></script>
   <script>
