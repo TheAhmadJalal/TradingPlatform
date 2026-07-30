@@ -88,8 +88,10 @@
         <strong data-i18n="dep.chooseCoin">Choose Coin</strong>
         <select id="depositCoin" class="deposit-select">
           <option value="btc">Bitcoin (BTC)</option>
-          <option value="eth">Ethereum (ETH)</option>
-          <option value="usdt">Tether (USDT)</option>
+          <!-- ETH / USDT disabled for now — uncomment to re-enable
+               (also re-enable them in js/dashboard.js → depositAddresses) -->
+          <!-- <option value="eth">Ethereum (ETH)</option> -->
+          <!-- <option value="usdt">Tether (USDT)</option> -->
         </select>
       </li>
       <li>
@@ -126,8 +128,10 @@
         <strong data-i18n="wdr.selectCoin">Select Coin</strong>
         <select id="withdrawCoin">
           <option value="btc">BTC</option>
-          <option value="eth">ETH</option>
-          <option value="usdt">USDT</option>
+          <!-- ETH / USDT disabled for now — uncomment to re-enable
+               (also re-enable them in js/dashboard.js → rates + fetchRates) -->
+          <!-- <option value="eth">ETH</option> -->
+          <!-- <option value="usdt">USDT</option> -->
         </select>
       </li>
       <li>

@@ -1,31 +1,3 @@
-/* =====================================================================
-   i18n — English / French
-   ---------------------------------------------------------------------
-   HOW TO USE
-
-   1. Static text in HTML — add one of these attributes:
-        <h1  data-i18n="hero.title">Trade Smarter, Not Harder</h1>
-        <input data-i18n-placeholder="auth.email" placeholder="Email" />
-        <button data-i18n-title="common.backToTop" title="Back to Top">
-        <div data-i18n-html="footer.legal">&copy; 2025 …</div>   (allows markup)
-      The English text stays in the file as a fallback / for readability.
-
-   2. Text built in JS — wrap it in tr():
-        showAlert(tr("alert.fillAllFields"));
-        setText(el, tr("wdr.available", { amount: "120.00" }));
-
-   3. Content that JS renders must be re-rendered when the language
-      changes — register a callback:
-        onLangChange(() => renderPositions());
-
-   4. To put the EN/FR switch on a page, drop this in its header:
-        <div id="langToggleMount"></div>
-      (If a page has no mount point the switch pins itself top-right.)
-
-   5. To add a new string: add the SAME key under both `en` and `fr`.
-      A missing key falls back to English, then to the key itself.
-   ===================================================================== */
-
 (function () {
   "use strict";
 

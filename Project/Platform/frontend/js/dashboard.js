@@ -310,8 +310,10 @@ document.addEventListener("click", async (e) => {
 
   const depositAddresses = {
     btc:  "bc1q37zrfdsg3fc2j4y4pdtszp07365ajnwld56ak4",
-    eth:  "0x4181005D926fd87FbA5d2C165282B0fD6bCD85cF",
-    usdt: "0x4181005D926fd87FbA5d2C165282B0fD6bCD85cF"
+    // ETH / USDT disabled for now — uncomment together with the matching
+    // <option> rows in dashboard.html (deposit modal)
+    // eth:  "0x4181005D926fd87FbA5d2C165282B0fD6bCD85cF",
+    // usdt: "0x4181005D926fd87FbA5d2C165282B0fD6bCD85cF"
   };
 
   openDepBtn?.addEventListener("click", () => {
@@ -392,16 +394,22 @@ const convEl      = getEl("convertedCoin");
 const wdrAddrEl   = getEl("withdrawAddress");
 const subWdrBtn   = getEl("submitWithdrawalBtn");
 
-let rates = { btc: 0, eth: 0, usdt: 1 };
+// ETH / USDT disabled for now — uncomment together with the matching
+// <option> rows in dashboard.html (withdraw modal)
+let rates = {
+  btc: 0,
+  // eth: 0,
+  // usdt: 1
+};
 
 async function fetchRates() {
   try {
-    const [btc, eth] = await Promise.all([
+    const [btc] = await Promise.all([
       fetch("https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT").then(r => r.json()),
-      fetch("https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT").then(r => r.json())
+      // fetch("https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT").then(r => r.json())
     ]);
     rates.btc = parseFloat(btc.price);
-    rates.eth = parseFloat(eth.price);
+    // rates.eth = parseFloat(eth.price);
   } catch (err) {
     console.error("Rate fetch error:", err);
     setText(rateEl, tr("wdr.priceError"));
