@@ -12,7 +12,7 @@ document.getElementById('submitReset').addEventListener('click', async () => {
   }
 
   try {
-    const response = await fetch('http://45.225.135.194/api/auth/reset-password', {
+    const response = await fetch(`${API_URL}/api/auth/reset-password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

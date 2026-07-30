@@ -36,9 +36,9 @@ if (!token || !user?.id) {
     };
 
     const [pnlRes, dashRes, tradesRes] = await Promise.all([
-      fetch(`http://45.225.135.194/api/trading/closed/${user.id}`, { headers }),
-      fetch('http://45.225.135.194/api/trading/dashboard', { headers }),
-      fetch(`http://45.225.135.194/api/trading/user/${user.id}/trades`, { headers }),
+      fetch(`${API_URL}/api/trading/closed/${user.id}`, { headers }),
+      fetch(`${API_URL}/api/trading/dashboard`, { headers }),
+      fetch(`${API_URL}/api/trading/user/${user.id}/trades`, { headers }),
     ]);
 
     if (!pnlRes.ok || !dashRes.ok || !tradesRes.ok) {
@@ -123,7 +123,7 @@ transBtn?.addEventListener("click", async () => {
   transList.appendChild(loading);
 
   try {
-    const res = await fetch(`http://45.225.135.194/api/transactions/${user.id}`, {
+    const res = await fetch(`${API_URL}/api/transactions/${user.id}`, {
       headers: {
         "Authorization": `Bearer ${token}`,
       }
@@ -197,7 +197,7 @@ document.addEventListener("click", async (e) => {
   if (!confirmed) return;
 
   try {
-    const res = await fetch(`http://45.225.135.194/api/transactions/cancel/${txId}`, {
+    const res = await fetch(`${API_URL}/api/transactions/cancel/${txId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -209,7 +209,7 @@ document.addEventListener("click", async (e) => {
     if (!res.ok) throw new Error(result.msg || result.error);
 
     // Refetch updated user data from backend
-    const updated = await fetch(`http://45.225.135.194/api/trading/dashboard`, {
+    const updated = await fetch(`${API_URL}/api/trading/dashboard`, {
       headers: { "Authorization": `Bearer ${token}` },
     });
 
@@ -280,7 +280,7 @@ document.addEventListener("click", async (e) => {
     new QRCode(depQREl, { text: addr, width: 200, height: 200 });
     depInfoEl.style.display = "block";
 
-    fetch("http://45.225.135.194/api/transactions/deposit", {
+    fetch(`${API_URL}/api/transactions/deposit`, {
       method: "POST",
       headers: {
         "Content-Type":  "application/json",
@@ -299,7 +299,7 @@ document.addEventListener("click", async (e) => {
     if (!tx) return showAlert("Enter a transaction hash.");
 
     try {
-      const res = await fetch("http://45.225.135.194/api/transactions/verify", {
+      const res = await fetch(`${API_URL}/api/transactions/verify`, {
         method: "POST",
         headers: {
           "Content-Type":  "application/json",
@@ -412,7 +412,7 @@ subWdrBtn?.addEventListener("click", async () => {
   const netUSD = amount - (fee * rate); // ← this is what user receives
 
   try {
-    const res = await fetch("http://45.225.135.194/api/transactions/withdrawal", {
+    const res = await fetch(`${API_URL}/api/transactions/withdrawal`, {
       method: "POST",
       headers: {
         "Content-Type":  "application/json",

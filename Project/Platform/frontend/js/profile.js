@@ -50,7 +50,7 @@ document.querySelector("form#profileForm").addEventListener("submit", async (e) 
   }
 
   try {
-    const res = await fetch("http://45.225.135.194/api/auth/update", {
+    const res = await fetch(`${API_URL}/api/auth/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ function uploadBase64(fileInputId, label, userId, token) {
     const base64 = reader.result.split(',')[1];
 
     try {
-      const res = await fetch(`http://45.225.135.194/api/upload/document/base64/${userId}`, {
+      const res = await fetch(`${API_URL}/api/upload/document/base64/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

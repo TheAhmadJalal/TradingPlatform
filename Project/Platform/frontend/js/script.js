@@ -105,7 +105,7 @@ document.getElementById('switchToLoginFromReset')?.addEventListener('click', e =
     const userData = { username: fullName, email, password, phone };
 
     try {
-      const res = await fetch("http://45.225.135.194/api/auth/register", {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
@@ -138,7 +138,7 @@ document.getElementById('switchToLoginFromReset')?.addEventListener('click', e =
     const password = document.getElementById("loginPassword").value;
 
     try {
-      const res = await fetch("http://45.225.135.194/api/auth/login", {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -165,7 +165,7 @@ document.getElementById('switchToLoginFromReset')?.addEventListener('click', e =
   }
 
   try {
-const response = await fetch('http://45.225.135.194/api/auth/request-password-reset', {
+const response = await fetch(`${API_URL}/api/auth/request-password-reset`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'

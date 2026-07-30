@@ -1,4 +1,4 @@
-const API_BASE    = 'http://45.225.135.194/api/trading';
+const API_BASE    = `${API_URL}/api/trading`;
 const user        = JSON.parse(localStorage.getItem('user') || '{}');
 
 let positions     = [];
