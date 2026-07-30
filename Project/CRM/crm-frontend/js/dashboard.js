@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   // ✅ Load total client count
   try {
-    const res = await fetch("http://localhost:5001/api/clients/count");
+    const res = await fetch(`${API_URL}/api/clients/count`);
     const data = await res.json();
     document.getElementById("clientsCount").textContent = data.count || 0;
   } catch (err) {
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ✅ Load total deposits and withdrawals
   try {
-    const res = await fetch("http://localhost:5001/api/transactions/summary");
+    const res = await fetch(`${API_URL}/api/transactions/summary`);
     const data = await res.json();
     document.getElementById("depositsTotal").textContent = `$${parseFloat(data.totalDeposits).toFixed(2)}`;
     document.getElementById("withdrawalsTotal").textContent = `$${parseFloat(data.totalWithdrawals).toFixed(2)}`;

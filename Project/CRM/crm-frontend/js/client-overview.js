@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // FETCH ALL CLIENT ACCOUNTS FOR NEXT/PREV NAVIGATION
   async function fetchAllClients() {
-    const res = await fetch("http://localhost:5001/api/clients");
+    const res = await fetch(`${API_URL}/api/clients`);
     const data = await res.json();
     clientList = data.map(c => c.accountNumber);
     currentIndex = clientList.findIndex(id => id === acc);
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // LOAD INDIVIDUAL CLIENT DATA
 async function loadClient() {
-  const res = await fetch(`http://localhost:5001/api/clients/${acc}`);
+  const res = await fetch(`${API_URL}/api/clients/${acc}`);
   const client = await res.json();
   clientId = client._id;
   currentClient = client; // ✅ Store client globally so status dropdown can use it
@@ -106,7 +106,7 @@ async function loadClient() {
     saveButton.addEventListener("click", async () => {
       const comment = document.getElementById("clientComment")?.value.trim();
       if (!comment) return alert("Comment cannot be empty");
-      const res = await fetch(`http://localhost:5001/api/clients/${acc}/comment`, {
+      const res = await fetch(`${API_URL}/api/clients/${acc}/comment`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ comment })
@@ -119,7 +119,7 @@ async function loadClient() {
 
   // LOAD TRADE COUNTS (open/closed)
   async function loadTradeCounts() {
-    const res = await fetch(`http://localhost:5001/api/clients/${acc}/trade-counts`);
+    const res = await fetch(`${API_URL}/api/clients/${acc}/trade-counts`);
     const data = await res.json();
     document.getElementById("openedTrades").textContent = data.openedTrades || 0;
     document.getElementById("closedTrades").textContent = data.closedTrades || 0;
@@ -127,7 +127,7 @@ async function loadClient() {
 
   // LOAD TRANSACTION COUNT
   async function loadTransactionCount() {
-    const res = await fetch(`http://localhost:5001/api/clients/${acc}/transaction-count`);
+    const res = await fetch(`${API_URL}/api/clients/${acc}/transaction-count`);
     const data = await res.json();
     document.getElementById("transactions").textContent = data.transactionCount || 0;
   }
@@ -288,7 +288,7 @@ async function loadClient() {
       closeTime: new Date()
     };
     try {
-      const res = await fetch("http://localhost:5001/api/trades", {
+      const res = await fetch(`${API_URL}/api/trades`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(mockTrade)
@@ -335,7 +335,7 @@ document.getElementById("transactionForm")?.addEventListener("submit", async (e)
   try {
     // 1. Save transaction to CRM backend only if type is NOT bonus or credit
     if (data.type !== "bonus" && data.type !== "credit") {
-      const res = await fetch("http://localhost:5001/api/transactions", {
+      const res = await fetch(`${API_URL}/api/transactions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -346,7 +346,7 @@ document.getElementById("transactionForm")?.addEventListener("submit", async (e)
 
     // 2. If type is bonus or credit and status is successful, update platform financials only (which will internally create the transaction)
     if ((data.type === "bonus" || data.type === "credit") && data.status === "successful") {
-      await fetch("http://localhost:5001/api/clients/update-financials", {
+      await fetch(`${API_URL}/api/clients/update-financials`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -373,7 +373,7 @@ document.getElementById("transactionForm")?.addEventListener("submit", async (e)
   list.innerHTML = "Loading...";
 
   try {
-    const res = await fetch(`http://localhost:5001/api/clients/${acc}/documents`);
+    const res = await fetch(`${API_URL}/api/clients/${acc}/documents`);
     const data = await res.json();
     list.innerHTML = "";
 
@@ -476,7 +476,7 @@ saveEdit.addEventListener("click", async () => {
   body[currentField] = newValue;
 
   try {
-    const res = await fetch(`http://localhost:5001/api/clients/${acc}`, {
+    const res = await fetch(`${API_URL}/api/clients/${acc}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -497,7 +497,7 @@ document.getElementById("viewTransactionsBtn")?.addEventListener("click", async 
   list.innerHTML = "Loading...";
 
   try {
-    const res = await fetch(`http://localhost:5001/api/transactions/user/${clientId}`);
+    const res = await fetch(`${API_URL}/api/transactions/user/${clientId}`);
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) {
       list.innerHTML = "<p>No transactions found for this client.</p>";
@@ -557,7 +557,7 @@ async function loadTradesForUser(userId) {
   container.innerHTML = "<p>Loading trades...</p>";
 
   try {
-    const res = await fetch(`http://localhost:5001/api/trades/user/${clientId}`);
+    const res = await fetch(`${API_URL}/api/trades/user/${clientId}`);
     if (!res.ok) throw new Error("Failed to fetch trades");
 
     const trades = await res.json();

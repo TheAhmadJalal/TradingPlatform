@@ -14,6 +14,10 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
+// Health check
+app.get("/", (req, res) => {
+  res.send("✅ API(CRM) is up!");
+});
 const clientRoutes = require("./routes/clients");
 const transactionRoutes = require("./routes/transactions");
 const tradesRoutes = require('./routes/trades');

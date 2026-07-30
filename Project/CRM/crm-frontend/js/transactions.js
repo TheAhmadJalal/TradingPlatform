@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const loadTransactions = async () => {
     try {
-      const res = await fetch("http://localhost:5001/api/transactions");
+      const res = await fetch(`${API_URL}/api/transactions`);
       const data = await res.json();
       allTransactions = Array.isArray(data) ? data : [];
       renderTransactions(allTransactions);
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const id = wrapper.dataset.id;
 
       try {
-        const res = await fetch(`http://localhost:5001/api/transactions/${id}/${action}`, {
+        const res = await fetch(`${API_URL}/api/transactions/${id}/${action}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

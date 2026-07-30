@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadClients() {
     try {
-      const res = await fetch("http://localhost:5001/api/clients");
+      const res = await fetch(`${API_URL}/api/clients`);
       clients = await res.json();
       renderClients(clients);
     } catch (error) {
