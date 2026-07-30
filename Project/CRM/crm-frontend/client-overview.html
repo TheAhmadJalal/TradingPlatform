@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Client Overview</title>
+  <link rel="stylesheet" href="css/client-overview.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <h2>CRM</h2>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="clients.html">Clients</a></li>
+          <li><a href="transactions.html">Transactions</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Dark Mode Toggle -->
+      <div class="dark-toggle">
+        <button id="darkModeButton">Enable Dark Mode</button>
+      </div>
+
+      <!-- Header + Summary -->
+      <header>
+        <h1 id="clientName">Client Name</h1>
+
+        <div class="summary">
+          <div class="summary-item">Balance: <span id="balance">$0.00</span></div>
+          <div class="summary-item">Equity: <span id="equity">$0.00</span></div>
+          <div class="summary-item">Used Margin: <span id="usedMargin">$0.00</span></div>
+          <div class="summary-item">Free Margin: <span id="freeMargin">$0.00</span></div>
+          <div class="summary-item">PnL Total: <span id="pnlTotal">$0.00</span></div>
+        </div>
+
+        <div class="client-navigation">
+          <button id="prevClient">&larr; Previous</button>
+          <button id="nextClient">Next &rarr;</button>
+        </div>
+      </header>
+
+      <!-- Meta Info -->
+      <section class="meta-box">
+        <div class="meta-field"><strong>Created At:</strong> <span id="metaCreatedAt">-</span></div>
+        <div class="meta-field"><strong>Account Number:</strong> <span id="metaAccountNumber">-</span></div>
+        <div class="meta-field"><strong>Account Type:</strong> <span id="accountType">-</span></div>
+        <div class="info-field"><strong>Opened Trades:</strong> <span id="openedTrades">0</span></div>
+        <div class="info-field"><strong>Closed Trades:</strong> <span id="closedTrades">0</span></div>
+      </section>
+
+      <!-- Client Info Box -->
+      <section class="client-box">
+        <input type="hidden" id="accountNumber" />
+        <div class="info-field"><strong>First Name:</strong> <span id="firstName">-</span> <button class="edit-btn" data-field="firstName">Edit</button></div>
+        <div class="info-field"><strong>Last Name:</strong> <span id="lastName">-</span> <button class="edit-btn" data-field="lastName">Edit</button></div>
+        <div class="info-field"><strong>Email:</strong> <span id="email">-</span> <button class="edit-btn" data-field="email">Edit</button></div>
+        <div class="info-field"><strong>Phone:</strong> <span id="phone">-</span> <button class="edit-btn" data-field="phone">Edit</button></div>
+        <div class="info-field"><strong>Country:</strong> <span id="country">-</span> <button class="edit-btn" data-field="country">Edit</button></div>
+        <div class="info-field">
+          <strong>Documents:</strong> <span id="documentsCount">0</span>
+          <button id="viewDocumentsBtn" class="view-btn">View</button>
+        </div>
+        <div class="info-field"><strong>Status:</strong> <span id="status">-</span> <button class="edit-btn" data-field="status">Edit</button></div>
+        <div class="info-field"><strong>Password:</strong> <span id="password">********</span> <button class="edit-btn" data-field="password">Edit</button></div>
+        <div class="info-field"><strong>Transactions:</strong> <span id="transactions">0</span> <button class="edit-btn" id="viewTransactionsBtn">View</button></div>
+      </section>
+
+      <!-- Status Edit Modal -->
+      <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <label id="editLabel" for="editInput"></label>
+          <input type="text" id="editInput" style="display: none;" />
+          <select id="statusDropdown" style="display: none;">
+            <option value="New">New</option>
+            <option value="FTD">FTD</option>
+            <option value="Potential">Potential</option>
+            <option value="No Potential">No Potential</option>
+            <option value="Not interested">Not interested</option>
+          </select>
+          <button id="saveEdit">Save</button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px;">
+        <div class="add-trade-section" style="text-align: right;">
+          <button id="addTradeBtn" class="button trade">Add Trade</button>
+        </div>
+
+        <button id="addTransactionBtn" class="button">Add Transaction</button>
+        <button class="view-btn" id="viewTradesBtn">View Trades</button>
+      </div>
+
+      <!-- Trade Modal -->
+      <div id="tradeModal" style="display: none;" class="modal-overlay">
+        <div class="modal-content">
+          <h3>Edit Trade</h3>
+          <select id="instrumentInput"></select>
+          <label>Type: <select id="typeInput"><option value="buy">Buy</option><option value="sell">Sell</option></select></label><br>
+          <label>Trade Size (USD): <input type="number" id="sizeInput" value="1000"></label><small id="btcAmountHint">(≈ 0.009 BTC)</small>
+          <label>Entry Price: <input type="number" id="entryInput" value="107000"></label><br>
+          <label>Close Price: <input type="number" id="closeInput" value="108000"></label><br>
+          <label>Leverage: <input type="number" id="leverageInput" value="10"></label><br>
+          <label>PNL: <input type="number" id="pnlInput" value="10000"></label><br>
+          <button id="saveTradeBtn">Save</button>
+          <button id="cancelModalBtn">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Transaction Modal -->
+      <div id="transactionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <h3>Add Transaction</h3>
+          <form id="transactionForm">
+            <label for="type">Type:</label>
+            <select id="type" name="type">
+              <option value="deposit">Deposit</option>
+              <option value="withdrawal">Withdrawal</option>
+              <option value="bonus">Bonus</option>
+              <option value="credit">Credit</option>
+            </select>
+
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" step="0.01" required />
+
+            <label for="coin">Coin:</label>
+            <select id="coin" name="coin">
+              <option value="usdt">USDT</option>
+              <option value="btc">BTC</option>
+              <option value="eth">ETH</option>
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" />
+
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+              <option value="pending">Pending</option>
+              <option value="successful">Successful</option>
+              <option value="failed">Failed</option>
+              <option value="canceled">Canceled</option>
+            </select>
+
+            <div style="margin-top: 1.5rem;">
+              <button type="submit">Save</button>
+              <button type="button" id="cancelTransactionBtn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Trades Modal -->
+      <div class="modal" id="tradesModal">
+        <div class="modal-content">
+          <span class="close-btn" id="closeTradesModal">&times;</span>
+          <h2>Trades</h2>
+          <div id="tradesList">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comments -->
+      <section class="comment-section">
+        <h2>Internal Comment</h2>
+        <textarea id="clientComment" placeholder="Add a note or comment about this client..."></textarea>
+        <button id="saveCommentButton">Save Comment</button>
+      </section>
+
+      <section id="commentHistorySection">
+        <h3>Comment History</h3>
+        <div id="commentHistory"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Documents Modal -->
+  <div id="documentsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeDocumentsModal">&times;</span>
+      <h2>Uploaded Documents</h2>
+      <div id="documentsListPopup"></div>
+    </div>
+  </div>
+
+  <!-- Transactions History Modal -->
+  <div id="transactionsModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-height: 80vh; overflow-y: auto;">
+      <span class="close" id="closeTransactionsModal">&times;</span>
+      <h3>Transaction History</h3>
+      <div id="transactionsList">Loading...</div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/client-overview.js"></script>
+</body>
+</html>

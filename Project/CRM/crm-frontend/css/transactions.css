@@ -1,0 +1,332 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  color: #111;
+  background-color: #ffffff;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: #111;
+  color: #fff;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+  display: block;
+  text-decoration: none;
+  color: #e0e0e0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s, color 0.2s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #ffffff;
+  color: #000000;
+  transform: translateX(5px);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 25px;
+}
+
+/* Dark Toggle */
+.dark-toggle {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+#darkModeButton {
+  padding: 10px 18px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#darkModeButton:hover {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: scale(1.05);
+}
+
+/* Search Bar */
+.search-bar {
+  margin-bottom: 20px;
+}
+.search-bar input:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.search-bar input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+/* Transactions Table */
+.transactions-table {
+  margin-top: 10px;
+}
+#transactionsTableBody tr:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);  
+}
+
+.transactions-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.transactions-table th,
+.transactions-table td {
+  padding: 14px 20px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.transactions-table th {
+  background-color: #f8f8f8;
+  font-weight: 600;
+  color: #333;
+}
+
+/* DARK MODE */
+body.dark-mode header h1 {
+  color: #f5f5f5;
+}
+
+body.dark-mode {
+  background-color: #111;
+  color: #f5f5f5;
+}
+
+body.dark-mode .main-content {
+  background-color: #121212;
+}
+
+body.dark-mode .sidebar {
+  background-color: #000;
+}
+
+body.dark-mode .sidebar ul li a {
+  color: #fff;
+}
+
+body.dark-mode .sidebar ul li a:hover {
+  background-color: #fff;
+  color: #222;
+}
+
+body.dark-mode .transactions-table table {
+  background-color: #1a1a1a;
+  color: #eee;
+}
+
+body.dark-mode .transactions-table th {
+  background-color: #222;
+  color: #ccc;
+}
+
+body.dark-mode #darkModeButton {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode #darkModeButton:hover {
+  background-color: #fff;
+  color: #222;
+}
+
+body.dark-mode .search-bar input {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border: 2px solid #000;  /* Thicker solid border */
+  outline: none;
+  
+}
+
+/* Dark Mode */
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+  border: 2px solid #fff;
+  outline: none;
+}
+.edit-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  background-color: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #111;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode support */
+body.dark-mode .edit-btn {
+  background-color: #222;
+  color: white;
+}
+
+body.dark-mode .edit-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+.approve-btn {
+  background-color: #000000; /* green */
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.approve-btn:hover {
+  background-color: #ffffff;
+  color: #222;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);  
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.dark-mode .approve-btn {
+  background-color: #222; /* green */
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark-mode .approve-btn:hover {
+  background-color: #fff;
+  color: #222;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);  
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.approve-btn:disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.cancel-btn {
+  background-color: #000000; /* red */
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #ffffff;
+  color: #222;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);  
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+/*...................................................*/
+.dark-mode .cancel-btn {
+  background-color: #222; /* red */
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark-mode .cancel-btn:hover {
+  background-color: #fff;
+  color: #222;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);  
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.cancel-btn:disabled {
+  background-color: #e6a6ac;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.approve-btn,
+.cancel-btn {
+  margin-right: 8px;
+}

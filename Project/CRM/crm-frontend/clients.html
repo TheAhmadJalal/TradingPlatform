@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRM Clients</title>
+  <link rel="stylesheet" href="css/clients.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>CRM</h2>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="clients.html">Clients</a></li>
+          <li><a href="transactions.html">Transactions</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="dark-toggle">
+        <button id="darkModeButton">Enable Dark Mode</button>
+      </div>
+
+      <header>
+        <h1>Clients</h1>
+      </header>
+
+      <div class="search-sort-bar">
+        <div class="search-bar">
+          <input type="text" placeholder="Search clients..." id="clientSearch">
+        </div>
+        <div class="custom-dropdown">
+          <label for="sortTrigger">Sort by:</label>
+          <div class="dropdown">
+            <div class="dropdown-trigger" id="sortTrigger">Select…</div>
+            <ul class="dropdown-options" id="sortOptions">
+              <li data-value="balance">Balance</li>
+              <li data-value="country">Country</li>
+              <li data-value="status">Status</li>
+              <li data-value="lastComment">Last Comment Date</li>
+              <li data-value="createdAt">Created Date</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <section class="clients-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Account Number</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Country</th>
+              <th>Balance</th>
+              <th>Status</th>
+              <th>Last Comment</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody id="clientsTableBody">
+            <!-- Client rows will go here -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/clients.js"></script>
+</body>
+</html>
+
+
+

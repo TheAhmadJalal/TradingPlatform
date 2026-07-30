@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CFDPro - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <h2>CFDPro</h2>
+    <a class="nav-link" href='dashboard.html'><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a class="nav-link" href='trading.html'><i data-lucide="bar-chart-3"></i> Trading</a>
+    <a class="nav-link" href='profile.html'><i data-lucide="user"></i> Profile</a>
+    <a class="nav-link" href='index.html'><i data-lucide="log-out"></i> Logout</a>
+  </nav>
+
+  <!-- Main Panel -->
+  <div class="main-panel">
+    <div class="dashboard-header">
+      <h1 class="glow-text">Welcome back, Trader</h1>
+    </div>
+
+    <div class="account-info glass-card">
+      <div><strong>Account Number:</strong> <span id="accountNumber">#ACC-239182</span></div>
+      <div><strong>Account Status:</strong> <span id="accountStatus">Inactive</span></div>
+      <div>Account Type: <strong id="accountType">Standard</strong></div>
+      <div class="bot-buttons">
+  <button id="openDepositBtn" class="btn blue">Deposit Funds</button>
+  <button id="openWithdrawBtn" class="btn yellow">Withdraw Funds</button>
+  <button id="openTransactionsBtn" class="btn">Transaction History</button>
+</div>
+    </div>
+
+    <div class="summary-cards">
+      <div class="summary-card">
+        <h3>Account Balance</h3>
+        <p id="balance">$0.00</p>
+      </div>
+      <div class="summary-card">
+        <h3>Equity</h3>
+        <p id="equity">$0.00</p>
+      </div>
+      <div class="summary-card">
+        <h3>Used Margin</h3>
+        <p id="usedMargin">$0.00</p>
+      </div>
+      <div class="summary-card">
+        <h3>Free Margin</h3>
+        <p id="freeMargin">$0.00</p>
+      </div>
+      <div class="summary-card">
+        <h3>P&amp;L</h3>
+        <p id="pnlTotal">$0.00</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+<div class="mobile-nav">
+  <button class="dropdown-toggle" id="menuToggle">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a href="trading.html"><i data-lucide="bar-chart-3"></i>Trade</a>
+    <a href="profile.html"><i data-lucide="user"></i>Profile</a>
+    <a href="index.html"><i data-lucide="log-out"></i>Logout</a>
+  </div>
+</div>
+
+ <!-- Deposit Modal -->
+<div id="depositModal" class="modal">
+  <div class="modal-content">
+    <button id="closeDepositBtn" class="close-btn">&times;</button>
+    <h2>Deposit Funds</h2>
+    <ol class="deposit-steps">
+      <li>
+        <strong>Choose Coin</strong>
+        <select id="depositCoin" class="deposit-select">
+          <option value="btc">Bitcoin (BTC)</option>
+          <option value="eth">Ethereum (ETH)</option>
+          <option value="usdt">Tether (USDT)</option>
+        </select>
+      </li>
+      <li>
+        <strong>Generate a Deposit Address</strong>
+        <button id="generateDepositBtn" class="btn btn--wide">Generate Address</button>
+      </li>
+      <li id="depositInfo" class="deposit-info">
+        <strong>Send Funds To:</strong>
+        <p id="depositAddress" class="deposit-address"></p>
+        <strong>Copy Address or Scan QR CODE</strong>
+        <div id="depositQR" class="qr-container"></div>
+      </li>
+      <li id="verifyStep" class="verify-step">
+        <strong>Verify Your Deposit</strong>
+        <label for="transactionHash">Transaction Hash</label>
+        <input id="transactionHash" type="text" placeholder="e.g. 0xabc123…" class="deposit-input" />
+        <button id="verifyDepositBtn" class="btn btn--wide" disabled>Verify Deposit</button>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- Withdraw Modal -->
+<div id="withdrawModal" class="modal">
+  <div class="modal-content">
+    <button id="closeWithdrawBtn" class="close-btn">&times;</button>
+    <h2>Withdraw</h2>
+    <ol class="deposit-steps">
+      <li>
+        <strong>Check Available Balance</strong>
+        <div id="withdrawAvailable">Available: --</div>
+      </li>
+      <li>
+        <strong>Select Coin</strong>
+        <select id="withdrawCoin">
+          <option value="btc">BTC</option>
+          <option value="eth">ETH</option>
+          <option value="usdt">USDT</option>
+        </select>
+      </li>
+      <li>
+        <strong>Enter Withdrawal Amount (USD)</strong>
+        <input id="withdrawAmount" type="number" min="0" placeholder="0.00" />
+      </li>
+      <li>
+        <strong>Conversion Summary</strong>
+        <div id="feeBreakdown">Commission 4%: --</div>
+        <div id="totalSummary">Total after commission: --</div>
+        <div id="coinRate">Price per coin: --</div>
+        <div id="convertedCoin">You will receive: --</div>
+      </li>
+      <li>
+        <strong>Enter Destination Address</strong>
+        <input id="withdrawAddress" type="text" placeholder="Your wallet address" />
+      </li>
+      <li>
+        <strong>Submit Withdrawal</strong>
+        <button id="submitWithdrawalBtn" class="btn btn--wide" disabled>Submit Withdrawal</button>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- Transaction Modal -->
+<div id="transactionModal" class="modal">
+  <div class="modal-content">
+    <button id="closeTransactionModal" class="close-btn">&times;</button>
+    <h2>Transaction History</h2>
+    <div id="transactionList" class="transaction-list">
+      
+      <!-- PENDING -->
+      <div class="transaction-item pending">
+        <div>
+          <strong>WITHDRAWAL</strong> | Requested: $35.13 | Fee: $1.41 | Net: $33.72 BTC — 7/12/2025
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="transaction-status pending">Pending</span>
+          <button class="cancel-withdraw-btn">Cancel Withdrawal</button>
+        </div>
+      </div>
+
+      <!-- SUCCESSFUL -->
+      <div class="transaction-item successful">
+        <div>
+          <strong>DEPOSIT</strong> | $6.49 BTC — 7/12/2025
+        </div>
+        <span class="transaction-status successful">Successful</span>
+      </div>
+
+      <!-- CANCELED -->
+      <div class="transaction-item canceled">
+        <div>
+          <strong>WITHDRAWAL</strong> | Requested: $20.00 | Fee: $0.80 | Net: $19.20 BTC — 7/12/2025
+        </div>
+        <span class="transaction-status canceled">Canceled</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Chatbot Prompt Bubble -->
+<div id="chatbot-prompt" class="chatbot-pubble">
+  👋 Hey! If you have any questions, I’m here to help.
+</div>
+<!-- Chat Bot Floating Icon -->
+<div id="chatbot-icon" aria-label="Chatbot Assistant" style="position: fixed; bottom: 20px; right: 25px; z-index: 9999; cursor: pointer; width: 60px; height: 60px;">
+  <lottie-player
+    src="assets/animations/live-chatbot.json"
+    background="transparent"
+    speed="1"
+    loop
+    autoplay
+    style="width: 150%; height: 150%;"
+  ></lottie-player>
+</div>
+
+<!-- Chat Bot Window -->
+<div id="chatbot-window" class="hidden">
+  <div class="chatbot-header">
+    <span>Support Bot</span>
+    <button id="close-chatbot" aria-label="Close Chat">&times;</button>
+  </div>
+  <div class="chatbot-body" id="chat-messages">
+    <div class="bot-msg"></div>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" id="chat-input" placeholder="Type your message..." />
+    <button id="send-chat">➤</button>
+  </div>
+</div>
+<!--POPUP TEXT ALERT CUSTOM-->
+<div id="customAlert" class="alert hidden">
+  <span id="alertMessage"></span>
+  <button onclick="closeAlert()">OK</button>
+</div>
+<!--CANCEL WITHDRAWAL MODAL-->
+<div id="cancelModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="cancelModalMessage">Are you sure?</span>
+    <div class="modal-buttons">
+      <button id="cancelModalConfirm">Yes</button>
+      <button id="cancelModalDeny">No</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/dashboard.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
+

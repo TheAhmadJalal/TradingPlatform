@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - CFDPro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/profile.css" />
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>CFDPro</h2>
+    <a href="dashboard.html" class="nav-link"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a href="trading.html" class="nav-link"><i data-lucide="bar-chart-3"></i>Trading</a>
+    <a href="profile.html" class="nav-link"><i data-lucide="user"></i>Profile</a>
+    <a href="index.html" class="nav-link"><i data-lucide="log-out"></i>Logout</a>
+  </div>
+
+  <!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <button class="dropdown-toggle" id="menuToggle">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="dashboard.html"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a href="trading.html"><i data-lucide="bar-chart-3"></i>Trade</a>
+    <a href="profile.html"><i data-lucide="user"></i>Profile</a>
+    <a href="index.html"><i data-lucide="log-out"></i>Logout</a>
+  </div>
+</div>
+
+  <!-- MAIN PANEL -->
+  <div class="main-panel">
+    <div class="dashboard-header">
+      <h1>Profile & Settings</h1>
+    </div>
+
+<div class="glass-card">
+  <form id="profileForm" class="form-grid">
+    <div class="form-row">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" placeholder="John" />
+    </div>
+    <div class="form-row">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" placeholder="Doe" />
+    </div>
+    <div class="form-row">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="john@example.com" />
+    </div>
+    <div class="form-row">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="+1234567890" />
+    </div>
+    <div class="form-row">
+      <label for="country">Country</label>
+      <input type="text" id="country" placeholder="USA" />
+    </div>
+
+    <div class="form-row">
+      <label for="oldPassword">Old Password</label>
+      <input type="password" id="oldPassword" placeholder="••••••••" />
+    </div>
+    <div class="form-row">
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" placeholder="••••••••" />
+    </div>
+
+    <div class="form-row" style="grid-column: 1 / -1;">
+      <button type="submit" class="btn green">Save Changes</button>
+    </div>
+  </form>
+</div>
+
+
+    <div class="section glass-card">
+      <h2>Verification</h2>
+      <form class="form-grid" onsubmit="event.preventDefault();">
+        <div class="file-input-wrapper">
+          <label for="idUpload" class="file-label">Upload ID Document</label>
+          <input type="file" id="idUpload" accept="image/*,.pdf" />
+        </div>
+        <div class="file-input-wrapper">
+          <label for="addressUpload" class="file-label">Upload Address Proof</label>
+          <input type="file" id="addressUpload" accept="image/*,.pdf" />
+        </div>
+        <div class="file-input-wrapper">
+          <label for="additionalDocs" class="file-label">Upload Additional Docs</label>
+          <input type="file" id="additionalDocs" accept="image/*,.pdf" />
+        </div>
+        <div class="form-row" style="grid-column: 1 / -1;">
+          <button type="submit" class="btn green">Submit Documents</button>
+        </div>
+      </form>
+    </div>
+  </div>
+<!--POPUP TEXT ALERT CUSTOM-->
+<div id="customAlert" class="alert hidden">
+  <span id="alertMessage"></span>
+  <button onclick="closeAlert()">OK</button>
+</div>
+  <script>
+    lucide.createIcons();
+
+    document.getElementById('menuToggle').addEventListener('click', function () {
+      this.classList.toggle('open');
+      document.getElementById('dropdownMenu').classList.toggle('show');
+    });
+  </script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

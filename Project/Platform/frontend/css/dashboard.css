@@ -1,0 +1,913 @@
+/* 🚀 CFDPro Full Dashboard CSS – Cleaned & Commented */
+
+/* ─── GLOBAL VARIABLES ───────────────────────────── */
+:root {
+  --primary: #00b2ff;
+  --accent: #41e1ff;
+  --bg: #0b111e;
+  --card-bg: rgba(15, 24, 45, 0.85);
+  --text: #eaf6ff;
+  --muted: #9db4cc;
+  --border: rgba(66, 153, 225, 0.3);
+  --radius: 14px;
+  --gap: 24px;
+  --shadow: 0 8px 28px rgba(0, 34, 85, 0.4);
+  --font: 'Inter', sans-serif;
+  --glow: 0 0 12px rgba(0, 183, 255, 0.6);
+}
+* {
+  box-sizing: border-box;
+}
+/* ─── BASE STYLES ────────────────────────────────── */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────── */
+.sidebar {
+  width: 240px;
+  background: var(--card-bg);
+  padding: 2rem 1rem;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-right: 1px solid var(--border);
+  z-index: 1000;
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+/* ─── MAIN PANEL ──────────────────────────────────── */
+.main-panel {
+  margin-left: 260px;
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* ─── HEADER ──────────────────────────────────────── */
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+}
+
+/* ─── ACCOUNT CARD ────────────────────────────────── */
+.account-info {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ─── BUTTONS ─────────────────────────────────────── */
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  background: linear-gradient(135deg, #00d7e6, #00b4c8);
+  box-shadow: 0 0 12px #00e6db;
+  color: #fff;
+}
+
+.btn.blue {
+  background: linear-gradient(135deg, #00e676, #00c853);
+  box-shadow: 0 0 12px #00e676;
+  color: #fff;
+}
+
+.btn.yellow {
+  background: linear-gradient(135deg, #ff4e50, #ff6a88);
+  box-shadow: 0 0 12px #ff6a88;
+  color: #fff;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── SUMMARY CARDS ───────────────────────────────── */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap);
+}
+
+.summary-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(0, 136, 255, 0.2);
+}
+
+.summary-card h3 {
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.summary-card p {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--accent);
+  text-shadow: 0 0 5px var(--accent);
+  margin: 0;
+}
+
+/* ─── MODAL OVERLAY & CONTENT ─────────────────────── */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+}
+
+.modal-content {
+  position: relative;
+  background: var(--card-bg);
+  width: 90%;
+  max-width: 360px;
+  margin: 1rem;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-content .close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text);
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* ─── DEPOSIT MODAL ───────────────────────────────── */
+.modal-content h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.deposit-steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+}
+
+.deposit-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.deposit-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.deposit-steps li strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+}
+
+.deposit-select,
+.deposit-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.deposit-steps li:nth-child(2) .btn--wide {
+  margin-top: 0.5rem;
+}
+
+.btn--wide {
+  display: inline-block;
+  width: 100%;
+  padding: 0.65rem;
+  background: linear-gradient(135deg, #00d7e6, #00b4c8);
+  box-shadow: 0 0 12px #00e6db;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ─── QR & Deposit Info ───────────────────────────── */
+.deposit-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.deposit-address {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  font-family: monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.qr-container {
+  width: 160px;
+  height: 160px;
+  margin: 0.5rem auto 1.5rem;
+  display: block;
+}
+
+/* ─── VERIFY STEP ─────────────────────────────────── */
+.verify-step {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0 1rem;
+}
+
+.verify-step label {
+  font-size: 0.9rem;
+}
+
+.verify-step input.deposit-input {
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.verify-step button {
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, #00e676, #00c853);
+  box-shadow: 0 0 12px #00e676;
+}
+
+.verify-step button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Withdraw Modal Styling (matching Deposit style) ───── */
+#withdrawModal .modal-content {
+  background: var(--card-bg);
+  padding: 2rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#withdrawModal h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+/* Step-like structure */
+#withdrawModal label,
+#withdrawModal p {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+/* Inputs and select */
+#withdrawModal input,
+#withdrawModal select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+}
+
+/* Commission, summary text */
+#feeBreakdown,
+#totalSummary,
+#coinRate,
+#convertedCoin {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+#withdrawAvailable {
+  font-weight: 500;
+  color: #00e676;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 6px #00e676, 0 0 12px #00e676;
+}
+
+#feeBreakdown {
+  color: #ff4e50;
+  text-shadow: 0 0 6px #ff4e50, 0 0 12px #ff4e50;
+}
+
+#totalSummary {
+  color: #00f0ff;
+  text-shadow: 0 0 6px #00f0ff, 0 0 12px #00f0ff;
+}
+
+#coinRate {
+  color: #ffc107;
+  text-shadow: 0 0 6px #ffc107, 0 0 12px #ffc107;
+}
+
+#convertedCoin {
+  color: #00e676;
+  text-shadow: 0 0 6px #00e676, 0 0 12px #00e676;
+}
+/* Submit Button */
+#submitWithdrawalBtn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #00e676, #00c853);
+  box-shadow: 0 0 12px #00e676;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#submitWithdrawalBtn:disabled {
+  background: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/*____________________________TRANSACTION MODULE______________________*/
+.transaction-item {
+  background-color: #1a1f2b;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-left: 4px solid #444;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.transaction-item.pending {
+  border-color: #ffc107;
+  box-shadow: 0 0 6px #ffc107;
+}
+.transaction-item.canceled {
+  border-color: #dc3545;
+  opacity: 0.75;
+  box-shadow: 0 0 6px #dc3545;
+}
+.transaction-item.successful {
+  border-color: #28a745;
+  box-shadow: 0 0 6px #28a745;
+}
+
+.transaction-item div {
+  flex: 1 1 auto;
+  min-width: 60%;
+}
+
+.transaction-item .transaction-status {
+  text-transform: capitalize;
+  font-weight: bold;
+  margin-left: 12px;
+  font-size: 0.95rem;
+}
+.transaction-status.pending {
+  color: #ffc107;
+  text-shadow: 0 0 6px #ffc107;
+}
+.transaction-status.successful {
+  color: #28a745;
+  text-shadow: 0 0 6px #28a745;
+}
+.transaction-status.canceled {
+  color: #dc3545;
+  text-shadow: 0 0 6px #dc3545;
+}
+
+.cancel-withdraw-btn {
+  background: linear-gradient(135deg, #ff4e50, #ff6a88);
+  box-shadow: 0 0 12px #ff6a88, 0 0 20px #ff6a88;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease;
+  margin-left: 12px;
+  box-sizing: border-box;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.cancel-withdraw-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px #ff6a88, 0 0 24px #ff6a88;
+}
+/* Pop-in Animation for Transaction Items */
+.transaction-item {
+  animation: fadeInGlow 0.5s ease both;
+  /* Use animation-delay with nth-child for staggered effect if desired */
+}
+
+/* Optional staggered entry (can skip this if unnecessary) */
+.transaction-item:nth-child(1) { animation-delay: 0s; }
+.transaction-item:nth-child(2) { animation-delay: 0.05s; }
+.transaction-item:nth-child(3) { animation-delay: 0.1s; }
+.transaction-item:nth-child(4) { animation-delay: 0.15s; }
+/* add more if you have more children */
+
+/* Animation Keyframes */
+@keyframes fadeInGlow {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ─── MOBILE NAVIGATION (UNIFIED SIMPLE STYLE) ───────────── */
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-panel,
+  .trading-container {
+    margin-left: 0;
+    margin-top: 4rem; /* push below mobile-nav */
+    padding: 1rem;
+  }
+
+  .mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1rem;
+    z-index: 1001;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1100;
+  }
+
+  .dropdown-toggle .bar {
+    width: 28px;
+    height: 3px;
+    background-color: var(--accent, #00f0ff);
+    margin: 4px 0;
+    border-radius: 2px;
+  }
+
+  .dropdown-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .dropdown-menu.show {
+    display: flex;
+  }
+
+  .dropdown-menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .bot-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bot-buttons .btn {
+  width: 100%;
+  box-sizing: border-box;
+}
+}
+
+/*----------CHATBOT----------------*/
+/* Chatbot Floating Button */
+
+
+/* Chatbot Window */
+#chatbot-window {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  width: 360px;
+  max-height: 500px;
+  background: #0a0f2c;
+  border: 1px solid #1e2a4a;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 230, 246, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#chatbot-window.hidden {
+  display: none;
+}
+
+.chatbot-header {
+  background: #111831;
+  color: #00e6f6;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e2a4a;
+}
+
+.chatbot-header button {
+  background: none;
+  color: #00e6f6;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.chatbot-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  color: #ffffff;
+  background-color: #0a0f2c;
+}
+
+/* Messages */
+.bot-msg, .user-msg {
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  max-width: 85%;
+  border-radius: 12px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  box-shadow: 0 0 8px rgba(0, 230, 246, 0.1);
+}
+
+.bot-msg {
+  background: #14213d;
+  color: #00e6f6;
+  align-self: flex-start;
+}
+
+.user-msg {
+  background: #00e6f6;
+  color: #000;
+  align-self: flex-end;
+}
+
+/* Input */
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #1e2a4a;
+  background-color: #0a0f2c;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+}
+
+#send-chat {
+  background: #00e6f6;
+  color: #000;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+#send-chat:hover {
+  background: #0ff;
+}
+.chatbot-pubble {
+  position: fixed;
+  bottom: 100px;
+  right: 90px;
+  background: #111831;
+  color: #00e6f6;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 230, 246, 0.3);
+  font-size: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 280px;
+  z-index: 9999;
+  animation: fadeSlideIn 0.6s ease forwards;
+   line-height: 1.4;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/*------POPUPMODAL-----------------------------*/
+
+/* Base Modal Styling */
+#customAlert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: linear-gradient(145deg, #0f0f1b, #1a1a2e);
+  border: 2px solid #00f0ff;
+  border-radius: 20px;
+  padding: 30px 40px;
+  color: #00f0ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  box-shadow: 0 0 30px #00f0ff88, 0 0 10px #00f0ff44 inset;
+  z-index: 10000;
+  width: 400px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Visible State */
+#customAlert.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: popInGlow 0.4s ease forwards;
+}
+
+/* Alert Message */
+#alertMessage {
+  display: block;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  text-shadow: 0 0 5px #00f0ff66;
+}
+
+/* Close Button */
+#customAlert button {
+  background: linear-gradient(145deg, #ff0055, #ff3366);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  font-size: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 10px #ff005588;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#customAlert button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff0055aa;
+}
+
+/* Glowy Pop-In Animation */
+@keyframes popInGlow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+/*CANCEL MODAL BTN*/
+/* Modal Wrapper */
+#cancelModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 10, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Visible State */
+#cancelModal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal Box */
+#cancelModal .modal-content {
+  background: linear-gradient(145deg, #0f0f1b, #1a1a2e);
+  padding: 30px;
+  border: 2px solid #00ffff;
+  border-radius: 14px;
+  text-align: center;
+  width: 360px;
+  box-shadow: 0 0 20px #00f0ff99;
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+}
+
+/* Buttons */
+#cancelModal .modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#cancelModalConfirm, #cancelModalDeny {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 8px #00ffff88;
+  transition: background-color 0.2s ease;
+}
+
+#cancelModalConfirm {
+  background-color: #ff0055;
+  color: white;
+}
+
+#cancelModalDeny {
+  background-color: #222;
+  color: #00ffff;
+}
+
+#cancelModalConfirm:hover {
+  background-color: #cc0044;
+}
+#cancelModalDeny:hover {
+  background-color: #333;
+}

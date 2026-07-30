@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRM Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>CRM</h2>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="clients.html">Clients</a></li>
+          <li><a href="transactions.html">Transactions</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+       <div class="dark-toggle">
+         <button id="darkModeButton">Enable Dark Mode</button>
+       </div>
+<header>
+  <div class="welcome-message"><h1>User</h1></div>
+       <h1>Dashboard</h1>
+</header>
+
+      <section class="stats">
+        <div class="card">
+          <h3>Total Clients</h3>
+          <p id="clientsCount">0</p>
+        </div>
+        <div class="card">
+          <h3>Total Deposits</h3>
+          <p id="depositsTotal">$0.00</p>
+        </div>
+        <div class="card">
+          <h3>Total Withdrawals</h3>
+          <p id="withdrawalsTotal">$0.00</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

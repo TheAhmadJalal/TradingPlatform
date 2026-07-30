@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# User uploads & runtime data
+uploads/
+
+# Logs
+*.log
+npm-debug.log*

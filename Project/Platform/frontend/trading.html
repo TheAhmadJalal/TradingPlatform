@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading Panel</title>
+  <link rel="stylesheet" href="css/trading.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://s3.tradingview.com/tv.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+  <nav class="sidebar">
+    <h2>CFDPro</h2>
+    <a class="nav-link" href='dashboard.html'><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a class="nav-link" href='trading.html'><i data-lucide="bar-chart-3"></i> Trading</a>
+    <a class="nav-link" href='profile.html'><i data-lucide="user"></i> Profile</a>
+    <a class="nav-link" href='index.html'><i data-lucide="log-out"></i> Logout</a>
+  </nav>
+  <div class="trading-container">
+   <header class="top-bar">
+  <div class="metrics">
+    <div><strong>Balance:</strong> $<span id="balance">0.00</span></div>
+    <div><strong>Equity:</strong> $<span id="equity">0.00</span></div>
+    <div><strong>Used:</strong> $<span id="usedMargin">0.00</span></div>
+    <div><strong>Free:</strong> $<span id="freeMargin">0.00</span></div>
+    <div><strong>P&L:</strong> $<span id="pnlTotal">0.00</span></div>
+  </div>
+</header>
+
+    <main class="grid">
+      <section class="left-column">
+        <div class="chart-wrapper">
+          <div id="tv_chart_container"></div>
+        </div>
+
+        <div class="selectors">
+          <div class="form-row">
+            <label for="instrumentSelect">Instrument</label>
+            <select id="instrumentSelect"></select>
+          </div>
+          <div class="form-row">
+            <label for="leverageSelect">Leverage</label>
+            <select id="leverageSelect">
+              <option value="1">1×</option>
+              <option value="2">2×</option>
+              <option value="5">5×</option>
+              <option value="10">10×</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <aside class="right-column">
+        <div class="price-box">
+          <label>Current Price</label>
+          <div id="currentPriceDisplay" class="price-display">--</div>
+        </div>
+
+        <div class="inputs">
+          <div class="form-row">
+            <label for="tradeSize">Size</label>
+            <input id="tradeSize" type="number" placeholder="0.00" />
+          </div>
+          <div class="form-row">
+            <label for="stopLoss">Stop Loss</label>
+            <input id="stopLoss" type="number" placeholder="Price" />
+          </div>
+          <div class="form-row">
+            <label for="takeProfit">Take Profit</label>
+            <input id="takeProfit" type="number" placeholder="Price" />
+          </div>
+        </div>
+
+        <div class="trade-actions">
+          <button class="buy-btn" onclick="placeTrade('Buy')">Buy</button>
+          <button class="sell-btn" onclick="placeTrade('Sell')">Sell</button>
+        </div>
+      </aside>
+    </main>
+
+    <section class="data-section">
+      <h2>Open Positions</h2>
+      <div id="positions-cards" class="card-grid"></div>
+
+      <h2>Trade History</h2>
+      <div id="history-cards" class="card-grid"></div>
+    </section>
+  </div>
+    <!-- Mobile Nav -->
+  <div class="mobile-nav">
+    <button class="dropdown-toggle" id="menuToggle" aria-label="Menu">
+      <span class="bar top"></span>
+      <span class="bar middle"></span>
+      <span class="bar bottom"></span>
+    </button>
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href='dashboard.html'><i data-lucide="layout-dashboard"></i>Dashboard</a>
+      <a href='trading.html'><i data-lucide="bar-chart-3"></i>Trade</a>
+      <a href='profile.html'><i data-lucide="user"></i>Profile</a>
+      <a href='index.html'><i data-lucide="log-out"></i>Logout</a>
+    </div>
+  </div>
+</body>
+<!--POPUP TEXT ALERT CUSTOM-->
+<div id="customAlert" class="alert hidden">
+  <span id="alertMessage"></span>
+  <button onclick="closeAlert()">OK</button>
+</div>
+<script src="js/trading.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Toggle dropdown + animate menu icon
+    document.getElementById("menuToggle").addEventListener("click", function () {
+      this.classList.toggle("open");
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    });
+  </script>
+</html>

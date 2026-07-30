@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CRM Transactions</title>
+  <link rel="stylesheet" href="css/transactions.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>CRM</h2>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="clients.html">Clients</a></li>
+          <li><a href="transactions.html">Transactions</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="dark-toggle">
+        <button id="darkModeButton">Enable Dark Mode</button>
+      </div>
+
+      <header>
+        <h1>Transactions</h1>
+      </header>
+
+      <div class="search-bar">
+        <input type="text" placeholder="Search transactions..." id="transactionSearch" />
+      </div>
+
+      <section class="transactions-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Transaction Type</th>
+              <th>Account Number</th>
+              <th>Username</th>
+              <th>Coin</th>
+              <th>Amount in USDT</th>
+              <th>Status</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
+          <tbody id="transactionsTableBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/transactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,900 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #111;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: #111;
+  color: #fff;
+  padding: 30px 20px;
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+  display: block;
+  text-decoration: none;
+  color: #ccc;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #fff;
+  color: #111;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.summary-item {
+  background-color: #f4f4f4;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.summary-item:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Info Box */
+.client-box {
+  background-color: #f8f8f8;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.client-box:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.info-field {
+  font-size: 15px;
+}
+#darkModeButton {
+  padding: 10px 18px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#darkModeButton:hover {
+  background-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: scale(1.05);
+}
+
+/* Dark Mode */
+body.dark-mode #darkModeButton {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode #darkModeButton:hover {
+  background-color: #fff;
+  color: #222;
+}
+
+body.dark-mode {
+  background-color: #111;
+  color: #f5f5f5;
+}
+
+body.dark-mode .main-content {
+  background-color: #121212;
+}
+
+body.dark-mode header h1 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .summary-item {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+}
+
+body.dark-mode .client-box {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .sidebar {
+  background-color: #000;
+}
+
+body.dark-mode .sidebar ul li a {
+  color: #fff;
+}
+
+body.dark-mode .sidebar ul li a:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Dark Toggle */
+.dark-toggle {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+
+.comment-section {
+  margin-top: 40px;
+}
+
+.comment-section h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #111;
+}
+.comment-section textarea:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.comment-section textarea {
+  width: 100%;
+  height: 100px;
+  padding: 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  resize: vertical;
+}
+
+.comment-section button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-section button:hover {
+  background-color: #fff;
+  color: #222;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: scale(1.05);
+}
+
+/* Dark mode styles */
+body.dark-mode .comment-section h2 {
+  color: #f5f5f5;
+}
+
+body.dark-mode .comment-section textarea {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
+
+body.dark-mode .comment-section button {
+  background-color: #222;
+}
+
+body.dark-mode .comment-section button:hover {
+  background-color: #fff;
+  color: #000;
+}
+.info-field {
+  position: relative;
+  padding-right: 100px;
+}
+
+.edit-btn,
+.view-btn {
+  margin-left: 10px;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #222;
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.edit-btn:hover,
+.view-btn:hover {
+  background-color: #fff;
+  color: #222;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: scale(1.05);
+}
+
+body.dark-mode .edit-btn,
+body.dark-mode .view-btn {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode .edit-btn:hover,
+body.dark-mode .view-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+.header-with-nav .header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.client-navigation {
+  display: flex;
+  gap: 10px;
+}
+
+.client-navigation button {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.client-navigation button:hover {
+  background-color: #fff;
+  color: #222;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: scale(1.05);
+}
+
+body.dark-mode .client-navigation button {
+  background-color: #222;
+}
+
+body.dark-mode .client-navigation button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border: 2px solid #000;  /* Thicker solid border */
+  outline: none;
+  
+}
+
+/* Dark Mode */
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+  border: 2px solid #fff;
+  outline: none;
+}
+.info-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-field span {
+  flex-grow: 1;
+  margin-left: 4px;
+}
+#commentHistorySection {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 6px;
+}
+
+#commentHistory {
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.comment-entry {
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+  color: #000000;
+  background-color: #ffffff;
+}
+.comment-entry:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background-color: #222;
+  color: #fff;  
+}
+.dark-mode .comment-entry{
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background-color: #000000;
+  color: #ffffff;  
+}
+.dark-mode .comment-entry:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  color: #000000;  
+}
+
+.dark-mode #commentHistorySection {
+  background: #1e1e1e;
+  color: #ddd;
+}
+
+.dark-mode #commentHistory {
+  background: #2b2b2b;
+  color: #ffffff;
+  border-color: #444;
+}
+
+.dark-mode .comment-entry {
+  color: #fff;
+  border-bottom: 1px solid #444;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-height: 80%;
+  overflow-y: auto;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content li {
+  margin-bottom: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+  width: 400px;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.dark-mode .modal-content {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.meta-box {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+.meta-box:hover{
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.dark-mode .meta-field {
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #ffffff;
+}
+.dark-mode .meta-box {
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+/* Add Trade button */
+#addTradeBtn {
+  background-color: #000000;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+  margin-left: 10px;
+}
+
+#addTradeBtn:hover {
+  background-color: #ffffff;
+  color:#000;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.dark-mode #addTradeBtn {
+  background-color: #222;
+  color:#fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.dark-mode #addTradeBtn:hover {
+  background-color: #ffffff;
+  color:#222;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+/* Fullscreen modal backdrop */
+#tradeModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal box */
+#tradeModal .modal-content {
+  background: var(--modal-bg, #ffffff);
+  color: var(--modal-text, #000);
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Inputs & buttons inside modal */
+#tradeModal .modal-content input,
+#tradeModal .modal-content select {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 14px;
+  background: inherit;
+  color: inherit;
+}
+
+#tradeModal .modal-content button {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #000000;
+  color:#ffffff;
+}
+
+#tradeModal .modal-content button:hover {
+  opacity: 0.9;
+  background-color: #fff;
+  color:#222;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease;
+  transform: scale(1.05);
+}
+
+
+#btcAmountHint {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Dark mode support */
+body.dark-mode #tradeModal .modal-content {
+  --modal-bg: #1e1e1e;
+  --modal-text: #f0f0f0;
+  border: 1px solid #333;
+}
+
+body.dark-mode #tradeModal .modal-content input,
+body.dark-mode #tradeModal .modal-content select {
+  border: 1px solid #555;
+}
+/*TRANSACTION MODULE*/
+
+
+
+#addTransactionBtn {
+  background-color: #000000;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+  margin-left: 10px;
+}
+
+#addTransactionBtn:hover {
+  background-color: #ffffff;
+  color:#000;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.dark-mode #addTransactionBtn {
+  background-color: #222;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+  margin-left: 10px;
+}
+
+.dark-mode #addTransactionBtn:hover {
+  background-color: #ffffff;
+  color:#222;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Modal Background */
+#transactionModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal Content Box */
+#transactionModal .modal-content {
+  background: #fff;
+  color: #111;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Headline */
+#transactionModal h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+/* Form Layout */
+#transactionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#transactionForm label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+#transactionForm input,
+#transactionForm select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background-color: #f9f9f9;
+}
+
+#transactionForm input:focus,
+#transactionForm select:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+/* Button Row */
+#transactionForm button {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+#transactionForm button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+}
+
+#transactionForm button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#cancelTransactionBtn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+#cancelTransactionBtn:hover {
+  background-color: #ccc;
+}
+
+/* Dark Mode Support */
+body.dark #transactionModal .modal-content {
+  background: #1c1c1c;
+  color: #f1f1f1;
+}
+
+body.dark #transactionForm input,
+body.dark #transactionForm select {
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  color: #eee;
+}
+
+body.dark #transactionForm input:focus,
+body.dark #transactionForm select:focus {
+  border-color: #00aaff;
+  background-color: #1e1e1e;
+}
+
+body.dark #transactionForm button[type="submit"] {
+  background-color: #00aaff;
+}
+
+body.dark #cancelTransactionBtn {
+  background-color: #555;
+  color: #eee;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+/* === Modal Overlay (centers the modal) === */
+#documentsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* Default hidden */
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999;
+}
+
+/* === Modal Content Box === */
+#documentsModal .modal-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+/* === Dark Mode Support === */
+body.dark-mode #documentsModal .modal-content {
+  background: #1e1e1e;
+  color: white;
+}
+/* === Close Button === */
+#closeDocumentsModal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+/* === Style for the embedded viewer (iframe) === */
+#documentsListPopup iframe {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
+/* === Responsive adjustments === */
+@media (max-width: 600px) {
+  #documentsModal .modal-content {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  #documentsListPopup iframe {
+    height: 300px;
+  }
+}
+/* TRANSACTION MODAL */
+
+/* === Transaction History Modal === */
+#transactionHistoryModal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#transactionHistoryModal .modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+#transactionHistoryModal .modal-content h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+#transactionHistoryModal .modal-content .close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #888;
+}
+#transactionHistoryContent {
+  margin-top: 1rem;
+}
+.transaction-entry {
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+}
+.transaction-entry:last-child {
+  border-bottom: none;
+}
+.transaction-entry p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+.meta-box {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: flex-start; /* Align content to the left */
+}
+.view-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: none;
+}
+.view-btn:hover {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}

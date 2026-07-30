@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CFDPro</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar">
+  <div class="container nav-container">
+    <div class="logo">CFDPro</div>
+
+    <!-- ✅ Hamburger for mobile -->
+    <div class="menu-toggle" id="menuToggle">
+      ☰
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features">FEATURES</a></li>
+      <li><a href="#platform">PLATFORM</a></li>
+      <li><a href="#pricing">ACCOUNTS</a></li>
+      <li><a href="#how">HOW IT WORKS</a></li>
+      <li><a href="#testimonials">TESTIMONIALS</a></li>
+    </ul>
+
+    <div class="auth-buttons" id="authButtons">
+      <button class="btn secondary" id="loginBtn">Login</button>
+      <button class="btn primary" id="registerBtn">Register</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Ticker OUTSIDE navbar for clarity -->
+<div class="price-ticker-bar">
+  <div class="ticker-inner" id="ticker-row-top">
+    <div class="ticker-item">Loading BTC...</div>
+    <div class="ticker-item">Loading ETH...</div>
+    <div class="ticker-item">Loading SOL...</div>
+    <div class="ticker-item">Loading ADA...</div>
+    <div class="ticker-item">Loading BNB...</div>
+  </div>
+</div>
+
+
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1>Trade Smarter, Not Harder</h1>
+        <p>Join the leading CFD trading platform and experience advanced tools and features.</p>
+        <div class="hero-buttons">
+          <button id="getStartedBtn" class="btn primary">Get Started</button>
+          <button class="btn secondary">Learn More</button>
+        </div>
+      </div>
+
+      <div class="hero-bg parallax-bg">
+  <lottie-player 
+    src="assets/animations/candlestick-dark-theme.json" 
+    background="transparent"  
+    speed="1"  
+    loop  
+    autoplay  
+    style="width:100%; height:100%;">
+  </lottie-player>
+</div>
+    </div>
+  </section>
+
+
+  </section>
+
+  <section class="platform-showcase scroll-reveal slide-left" id="platform">
+    <h2>Experience Our Trading Platform</h2>
+    <div class="platform-content">
+      <ul class="platform-features">
+        <li>Real-time charts and analytics</li>
+        <li>Customizable dashboard</li>
+        <li>Multi-device access: Desktop, Mobile, Tablet</li>
+        <li>One-click trading</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="trust-section scroll-reveal fade-in" id="trust">
+    <h2>Trusted by Professionals</h2>
+    <p>Used by leading institutions and top traders worldwide.</p>
+  </section>
+
+  <section class="pricing-section scroll-reveal fade-in" id="pricing">
+    <h2>Simple, Transparent Pricing</h2>
+    <div class="pricing-cards">
+      <div class="pricing-card scroll-reveal slide-up">
+        <h3>Basic</h3>
+        <p>$0/month</p>
+        <p>Perfect for new traders</p>
+      </div>
+      <div class="pricing-card scroll-reveal slide-up">
+        <h3>Pro</h3>
+        <p>$49/month</p>
+        <p>Advanced tools and charts</p>
+      </div>
+      <div class="pricing-card scroll-reveal slide-up">
+        <h3>Enterprise</h3>
+        <p>Custom pricing</p>
+        <p>Tailored solutions for institutions</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section scroll-reveal slide-right" id="how">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step scroll-reveal slide-right">
+        <div class="step-number">1</div>
+        <h3>Create Account</h3>
+        <p>Register and verify your identity in minutes.</p>
+      </div>
+      <div class="step scroll-reveal slide-right">
+        <div class="step-number">2</div>
+        <h3>Fund Wallet</h3>
+        <p>Deposit using secure payment options.</p>
+      </div>
+      <div class="step scroll-reveal slide-right">
+        <div class="step-number">3</div>
+        <h3>Start Trading</h3>
+        <p>Buy and sell CFDs with our easy-to-use platform.</p>
+      </div>
+    </div>
+  </section>
+  <section class="testimonial-section scroll-reveal fade-in" id="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonials">
+      <div class="testimonial scroll-reveal slide-up">
+        <blockquote>“I love the simplicity and speed of the platform. Best trading experience I've had!”</blockquote>
+        <div class="user-name">Sophia R.</div>
+      </div>
+      <div class="testimonial scroll-reveal slide-up">
+        <blockquote>“Reliable, fast and secure. Highly recommend to any trader.”</blockquote>
+        <div class="user-name">Liam K.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#">FB</a>
+        <a href="#">TW</a>
+        <a href="#">IG</a>
+      </div>
+      <div class="legal">&copy; 2025 CFDPro. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <button id="loginSubmitBtn">Login</button>
+      <button class="close" id="loginClose" aria-label="Close modal">Close</button>
+      <p class="modal-switch-text">Forgot your password?<a href="#" id="switchToReset">Reset Password</a></p>
+      <p class="modal-switch-text">Don’t have an account? <a href="#" id="switchToRegister">Register</a></p>
+    </div>
+  </div>
+
+  <!-- ✅ Updated Register Modal -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <h2>Register</h2>
+
+      <input type="text" id="fullName" placeholder="Full Name" />
+      <input type="email" id="registerEmail" placeholder="Email" />
+      <input type="tel" id="phone" placeholder="Phone Number" />
+      <div class="password-field">
+        <input type="password" id="registerPassword" placeholder="Password" />
+        <span class="toggle-password" onclick="togglePassword('registerPassword')"></span>
+      </div>
+      <button id="registerSubmitBtn">Register</button>
+      <button class="close" id="registerClose" aria-label="Close modal">Close</button>
+      <p class="modal-switch-text">Already have an account? <a href="#" id="switchToLogin">Log in</a></p>
+    </div>
+  </div>
+  <!-- Reset Password Modal -->
+  <div id="resetPasswordModal" class="modal">
+    <div class="modal-content">
+      <h2>Reset Password</h2>
+      <input type="email" id="resetEmail" placeholder="Enter your email" />
+      <button id="resetSubmitBtn">Send Reset Link</button>
+      <button class="close" id="resetClose" aria-label="Close modal">Close</button>
+      <p class="modal-switch-text">
+        <a href="#" id="switchToLoginFromReset">Login</a>
+      </p>
+    </div>
+  </div>
+  <!--POPUP TEXT ALERT CUSTOM-->
+  <div id="customAlert" class="alert hidden">
+    <span id="alertMessage"></span>
+    <button onclick="closeAlert()">OK</button>
+  </div>
+  <button id="backToTop" title="Back to Top">↑</button>
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const authButtons = document.getElementById("authButtons");
+
+  menuToggle.addEventListener("click", () => {
+    authButtons.classList.toggle("show");
+  });
+</script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
