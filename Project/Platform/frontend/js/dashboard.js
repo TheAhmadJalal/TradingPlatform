@@ -26,6 +26,38 @@ function renderWelcome() {
   header.textContent = tr("dash.welcomeUser", { name: user.username || "" });
 }
 
+// ─────────────────────────────────────────────────────────────
+// BALANCE CACHE
+// `user` is a snapshot taken at login. The server-side balance changes
+// while the client stays logged in (deposit approved, admin credit from
+// the CRM, trade closed), so anything reading user.balance must refresh
+// it first — otherwise it shows the value from signup (usually $0) and
+// the withdraw modal refuses the request.
+// ─────────────────────────────────────────────────────────────
+function cacheBalance(balance) {
+  if (typeof balance !== "number" || isNaN(balance)) return;
+  user.balance = balance;
+  try {
+    localStorage.setItem("user", JSON.stringify(user));
+  } catch (err) {
+    console.warn("Could not persist the user cache:", err);
+  }
+}
+
+async function refreshBalance() {
+  try {
+    const res = await fetch(`${API_URL}/api/trading/dashboard`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error(res.statusText);
+    const { balance } = await res.json();
+    cacheBalance(balance);
+  } catch (err) {
+    console.warn("Balance refresh failed, falling back to the cached value:", err);
+  }
+  return user.balance || 0;
+}
+
 function showModal(modal) {
   if (modal) modal.style.display = "flex";
 }
@@ -104,6 +136,10 @@ if (!token || !user?.id) {
     setText(getEl("bonus"), `$${bonus.toFixed(2)}`);
     setText(getEl("credit"), `$${credit.toFixed(2)}`);
     setText(getEl("totalBalance"), `$${totalBalance.toFixed(2)}`);
+
+    // Keep the cached copy in step with the server — the withdraw modal
+    // reads it, and it is otherwise frozen at whatever login returned.
+    cacheBalance(balance);
 
     renderWelcome();
 
@@ -447,10 +483,13 @@ function renderAvailable() {
 }
 
 openWdrBtn?.addEventListener("click", async () => {
-  await fetchRates();
   wdrOpened = true;
-  renderAvailable();
+  // Open straight away with a placeholder, then fill in live figures — a
+  // credit applied since page load must show up without a refresh.
+  setText(wdrAvailEl, tr("wdr.availableDash"));
   showModal(wdrModal);
+  await Promise.all([fetchRates(), refreshBalance()]);
+  renderAvailable();
 });
 
 closeWdrBtn?.addEventListener("click", () => {
@@ -508,9 +547,12 @@ body: JSON.stringify({
 
     showAlert(tr("wdr.submitted", { amount: netUSD.toFixed(2) }));
 
-    // ⬅️ Deduct full amount (not just net) from balance
-    user.balance -= amount;
-    localStorage.setItem("user", JSON.stringify(user));
+    // Take the post-withdrawal balance from the server rather than
+    // recomputing it here, so the cache can't drift from the database.
+    // (The full amount is deducted, not just the net.)
+    const newBalance = data.withdrawal?.newBalance;
+    cacheBalance(typeof newBalance === "number" ? newBalance : (user.balance || 0) - amount);
+    renderAvailable();
   } catch (err) {
     console.error("Withdrawal error:", err);
     showAlert("❌ " + err.message);

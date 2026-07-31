@@ -159,16 +159,19 @@ router.post(
       const fee = parseFloat((amount * 0.04).toFixed(2));
       const net = parseFloat((amount - fee).toFixed(2));
 
-      if (amount > user.withdrawAvailable) {
+      // Guard against over-withdrawal. This used to test `user.withdrawAvailable`,
+      // which is not a field on the User schema — it was always `undefined`, so
+      // `amount > undefined` was always false and the check never fired. The
+      // balance itself is the single source of truth for what can be withdrawn.
+      if (amount > user.balance) {
         return res.status(400).json({ msg: "Insufficient available balance" });
       }
 
       user.balance -= amount;
-      user.withdrawAvailable -= amount;
       user.equity = user.balance;
       user.freeMargin = user.equity - user.usedMargin;
 
-      ["balance", "withdrawAvailable", "equity", "freeMargin"].forEach(field => {
+      ["balance", "equity", "freeMargin"].forEach(field => {
         user[field] = parseFloat(user[field].toFixed(2));
       });
 
@@ -225,11 +228,10 @@ router.patch("/cancel/:id", authenticate, async (req, res) => {
     }
 
     user.balance += refund;
-    user.withdrawAvailable += refund;
     user.equity = user.balance;
     user.freeMargin = user.equity - user.usedMargin;
 
-    ["balance", "withdrawAvailable", "equity", "freeMargin"].forEach(field => {
+    ["balance", "equity", "freeMargin"].forEach(field => {
       user[field] = parseFloat(user[field].toFixed(2));
     });
 
