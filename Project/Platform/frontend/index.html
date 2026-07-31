@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title.home">CFDPro</title>
+  <title data-i18n="title.home">Cedar Capital Group</title>
   <link rel="stylesheet" href="css/index.css" />
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -13,7 +13,8 @@
 <body>
 <nav class="navbar">
   <div class="container nav-container">
-    <div class="logo">CFDPro</div>
+    <a href="index.html" class="logo"><span class="brand-mark"><img src="assets/logo-img.png" alt="" /></span>
+            <span class="brand-name"><span class="brand-name-main">CEDAR</span><span class="brand-name-sub">CAPITAL GROUP</span></span></a>
 
     <!-- ✅ Hamburger for mobile -->
     <div class="menu-toggle" id="menuToggle">
@@ -21,11 +22,12 @@
     </div>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#features" data-i18n="nav.features">FEATURES</a></li>
+      <li><a href="about.html" data-i18n="nav.about">ABOUT</a></li>
       <li><a href="#platform" data-i18n="nav.platform">PLATFORM</a></li>
       <li><a href="#pricing" data-i18n="nav.accounts">ACCOUNTS</a></li>
       <li><a href="#how" data-i18n="nav.how">HOW IT WORKS</a></li>
-      <li><a href="#testimonials" data-i18n="nav.testimonials">TESTIMONIALS</a></li>
+      <li><a href="testimonials.html" data-i18n="nav.testimonials">TESTIMONIALS</a></li>
+      <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
     </ul>
 
     <!-- ✅ EN / FR language switch -->
@@ -147,13 +149,19 @@
         <div class="user-name">Liam K.</div>
       </div>
     </div>
+    <div style="margin-top: 2.5rem;">
+      <a href="testimonials.html" class="btn secondary" data-i18n="testi.seeAll">Read all testimonials</a>
+    </div>
   </section>
 
   <footer class="footer">
     <div class="footer-container">
       <ul class="footer-links">
+        <li><a href="about.html" data-i18n="footer.about">About Us</a></li>
+        <li><a href="faq.html" data-i18n="footer.faq">FAQ</a></li>
+        <li><a href="testimonials.html" data-i18n="footer.testimonials">Testimonials</a></li>
+        <li><a href="terms.html" data-i18n="footer.terms">Terms of Use</a></li>
         <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
-        <li><a href="#" data-i18n="footer.terms">Terms of Use</a></li>
         <li><a href="#" data-i18n="footer.support">Support</a></li>
       </ul>
       <div class="social-icons">
@@ -161,7 +169,7 @@
         <a href="#">TW</a>
         <a href="#">IG</a>
       </div>
-      <div class="legal" data-i18n-html="footer.legal">&copy; 2025 CFDPro. All rights reserved.</div>
+      <div class="legal" data-i18n-html="footer.legal">&copy; 2025 Cedar Capital Group. All rights reserved.</div>
     </div>
   </footer>
 

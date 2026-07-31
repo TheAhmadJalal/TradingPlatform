@@ -16,7 +16,7 @@ const sendResetEmail = async (to, resetLink) => {
 
   try {
     await transporter.sendMail({
-      from: '"CFDPro Security Team" <no-reply@cfdpro.com>', // should match your domain SPF/DKIM
+      from: '"Cedar Capital Group Security Team" <no-reply@cfdpro.com>', // should match your domain SPF/DKIM
       to,
       subject: "Important: Reset Your Password Securely",
       html: `
@@ -24,7 +24,7 @@ const sendResetEmail = async (to, resetLink) => {
           <h1 style="color: #00eaff; text-align: center; text-shadow: 0 0 10px #00eaff;">Reset Your Password</h1>
           <p style="font-size: 16px;">Hi there,</p>
           <p style="font-size: 15px; line-height: 1.6;">
-            We received a request to reset your password for your CFDPro account.
+            We received a request to reset your password for your Cedar Capital Group account.
             If you made this request, please click the button below to set a new password.
           </p>
           <div style="text-align: center; margin: 30px 0;">
@@ -36,7 +36,7 @@ const sendResetEmail = async (to, resetLink) => {
           <p style="font-size: 14px;">
             If you didn't request this, please ignore this email. No changes will be made unless you use the link above.
           </p>
-          <p style="margin-top: 40px; font-size: 14px; color: #cccccc;">Thanks,<br>The CFDPro Security Team</p>
+          <p style="margin-top: 40px; font-size: 14px; color: #cccccc;">Thanks,<br>The Cedar Capital Group Security Team</p>
         </div>
       `,
     });

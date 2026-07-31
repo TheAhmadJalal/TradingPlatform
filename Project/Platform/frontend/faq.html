@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title.faq">FAQ</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+
+<body>
+
+  <!-- ══ NAVBAR  -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo"><span class="brand-mark"><img src="assets/logo-img.png" alt="" /></span>
+            <span class="brand-name"><span class="brand-name-main">CEDAR</span><span class="brand-name-sub">CAPITAL GROUP</span></span></a>
+
+      <div class="menu-toggle" id="menuToggle">☰</div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" data-i18n="nav.home">HOME</a></li>
+        <li><a href="about.html" data-i18n="nav.about">ABOUT</a></li>
+        <li><a href="faq.html" class="is-active" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="testimonials.html" data-i18n="nav.testimonials">TESTIMONIALS</a></li>
+        <li><a href="terms.html" data-i18n="nav.terms">TERMS</a></li>
+      </ul>
+
+      <div id="langToggleMount" class="nav-lang"></div>
+
+      <div class="auth-buttons" id="authButtons">
+        <a href="index.html" class="btn primary" data-i18n="cta.openAccount">Open an account</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO -->
+  <header class="page-hero">
+    <span class="page-eyebrow" data-i18n="faq.eyebrow">Help centre</span>
+    <h1 data-i18n="faq.heroTitle">Frequently asked questions</h1>
+    <p class="page-lede" data-i18n="faq.heroLede">
+      Everything you need to know about the platform, fees, security and withdrawals.
+    </p>
+  </header>
+
+  <!-- ══ ACCORDION  -->
+  <section class="page-section">
+    <div class="page-wrap page-wrap--narrow">
+      <div class="faq-list">
+
+        <!-- 1 -->
+        <details class="faq-item" open>
+          <summary>
+            <span class="faq-num">1</span>
+            <span data-i18n="faq.q1">What is Cedar Capital Group?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a1">
+              Cedar Capital Group is an investment platform that uses advanced algorithms to
+              analyse the financial markets and identify growth opportunities.
+            </p>
+          </div>
+        </details>
+
+        <!-- 2 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">2</span>
+            <span data-i18n="faq.q2">How can I start investing?</span>
+          </summary>
+          <div class="faq-answer">
+            <ol class="step-list">
+              <li data-i18n="faq.a2s1">Create an account on our platform.</li>
+              <li data-i18n="faq.a2s2">Complete your investor profile.</li>
+              <li data-i18n="faq.a2s3">Make a first deposit through our secure interface.</li>
+              <li data-i18n="faq.a2s4">Our algorithm starts working for you in real time.</li>
+            </ol>
+          </div>
+        </details>
+
+        <!-- 3 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">3</span>
+            <span data-i18n="faq.q3">What are the fees?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a3intro">Our fee structure is transparent and competitive:</p>
+            <ul class="tick-list">
+              <li data-i18n="faq.a3i1">Management fee: 1.5% per year on invested capital.</li>
+              <li data-i18n="faq.a3i2">Performance fee: 10% on realised gains.</li>
+              <li data-i18n="faq.a3i3">Withdrawal fee: 4% of the amount withdrawn.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 4 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">4</span>
+            <span data-i18n="faq.q4">Are my funds safe?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a4intro">Absolutely. We use institutional-grade security measures:</p>
+            <ul class="tick-list">
+              <li data-i18n="faq.a4i1">95% of funds held in cold (offline) wallets.</li>
+              <li data-i18n="faq.a4i2">Two-factor authentication (2FA) for account access.</li>
+              <li data-i18n="faq.a4i3">Regular security audits by independent firms.</li>
+              <li data-i18n="faq.a4i4">Compliance with international anti-money-laundering regulations.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- 5 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">5</span>
+            <span data-i18n="faq.q5">Can I withdraw my funds at any time?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a5">
+              Yes, you can request a withdrawal at any time from your client interface.
+            </p>
+          </div>
+        </details>
+
+        <!-- 6 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">6</span>
+            <span data-i18n="faq.q6">What is the trading algorithm?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a6">
+              Our algorithm is an artificial intelligence system that analyses thousands of
+              financial data points in real time.
+            </p>
+          </div>
+        </details>
+
+        <!-- 7 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">7</span>
+            <span data-i18n="faq.q7">Do I need financial knowledge to invest?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a7">
+              No. Our platform is designed to be intuitive and accessible to beginners and
+              experienced investors alike.
+            </p>
+          </div>
+        </details>
+
+        <!-- 8 -->
+        <details class="faq-item">
+          <summary>
+            <span class="faq-num">8</span>
+            <span data-i18n="faq.q8">What are the historical returns?</span>
+          </summary>
+          <div class="faq-answer">
+            <p data-i18n="faq.a8">
+              Past performance is not a reliable indicator of future results.
+            </p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA  -->
+  <section class="cta-band">
+    <h2 data-i18n="cta.title">Ready to invest with confidence?</h2>
+    <p data-i18n="cta.text">
+      Open an account in a few minutes and let our algorithm work for you.
+    </p>
+    <div class="cta-actions">
+      <a href="index.html" class="btn primary" data-i18n="cta.openAccount">Open an account</a>
+      <a href="about.html" class="btn secondary" data-i18n="nav.about">ABOUT</a>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <ul class="footer-links">
+        <li><a href="about.html" data-i18n="footer.about">About Us</a></li>
+        <li><a href="faq.html" data-i18n="footer.faq">FAQ</a></li>
+        <li><a href="testimonials.html" data-i18n="footer.testimonials">Testimonials</a></li>
+        <li><a href="terms.html" data-i18n="footer.terms">Terms of Use</a></li>
+        <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
+        <li><a href="#" data-i18n="footer.support">Support</a></li>
+      </ul>
+      <div class="legal" data-i18n-html="footer.legal">&copy; 2025 Cedar Capital Group. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <button id="backToTop" title="Back to Top" data-i18n-title="common.backToTop">↑</button>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/i18n-pages.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>

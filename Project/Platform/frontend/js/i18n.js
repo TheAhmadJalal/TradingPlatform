@@ -11,11 +11,15 @@
   var STRINGS = {
     en: {
       // ── page titles ────────────────────────────────────────────────
-      "title.home": "CFDPro",
-      "title.dashboard": "CFDPro - Dashboard",
+      "title.home": "Cedar Capital Group",
+      "title.dashboard": "Cedar Capital Group - Dashboard",
       "title.trading": "Trading Panel",
-      "title.profile": "Profile - CFDPro",
+      "title.profile": "Profile - Cedar Capital Group",
       "title.reset": "Reset Password",
+      "title.about": "About Us",
+      "title.faq": "FAQ",
+      "title.terms": "Terms of Use",
+      "title.testimonials": "Testimonials",
 
       // ── landing page nav ───────────────────────────────────────────
       "nav.features": "FEATURES",
@@ -24,6 +28,16 @@
       "nav.how": "HOW IT WORKS",
       "nav.testimonials": "TESTIMONIALS",
       "nav.language": "Language",
+      "nav.home": "HOME",
+      "nav.about": "ABOUT",
+      "nav.faq": "FAQ",
+      "nav.terms": "TERMS",
+
+      // ── call-to-action band on the static pages ────────────────────
+      "cta.title": "Ready to invest with confidence?",
+      "cta.text": "Open an account in a few minutes and let our algorithm work for you.",
+      "cta.openAccount": "Open an account",
+      "cta.backHome": "Back to home",
 
       // ── auth / modals ──────────────────────────────────────────────
       "auth.login": "Login",
@@ -85,12 +99,16 @@
       "testi.title": "What Our Users Say",
       "testi.q1": "“I love the simplicity and speed of the platform. Best trading experience I've had!”",
       "testi.q2": "“Reliable, fast and secure. Highly recommend to any trader.”",
+      "testi.seeAll": "Read all testimonials",
 
       // ── footer ─────────────────────────────────────────────────────
       "footer.privacy": "Privacy Policy",
       "footer.terms": "Terms of Use",
       "footer.support": "Support",
-      "footer.legal": "&copy; 2025 CFDPro. All rights reserved.",
+      "footer.about": "About Us",
+      "footer.faq": "FAQ",
+      "footer.testimonials": "Testimonials",
+      "footer.legal": "&copy; 2025 Cedar Capital Group. All rights reserved.",
 
       // ── shared ─────────────────────────────────────────────────────
       "common.ok": "OK",
@@ -309,11 +327,15 @@
 
     fr: {
       // ── titres des pages ───────────────────────────────────────────
-      "title.home": "CFDPro",
-      "title.dashboard": "CFDPro - Tableau de bord",
+      "title.home": "Cedar Capital Group",
+      "title.dashboard": "Cedar Capital Group - Tableau de bord",
       "title.trading": "Panneau de trading",
-      "title.profile": "Profil - CFDPro",
+      "title.profile": "Profil - Cedar Capital Group",
       "title.reset": "Réinitialiser le mot de passe",
+      "title.about": "À propos",
+      "title.faq": "FAQ",
+      "title.terms": "Conditions générales d’utilisation",
+      "title.testimonials": "Témoignages",
 
       // ── navigation ─────────────────────────────────────────────────
       "nav.features": "FONCTIONNALITÉS",
@@ -322,6 +344,16 @@
       "nav.how": "COMMENT ÇA MARCHE",
       "nav.testimonials": "TÉMOIGNAGES",
       "nav.language": "Langue",
+      "nav.home": "ACCUEIL",
+      "nav.about": "À PROPOS",
+      "nav.faq": "FAQ",
+      "nav.terms": "CGU",
+
+      // ── bandeau d’appel à l’action des pages statiques ─────────────
+      "cta.title": "Prêt à investir en confiance ?",
+      "cta.text": "Ouvrez un compte en quelques minutes et laissez notre algorithme travailler pour vous.",
+      "cta.openAccount": "Ouvrir un compte",
+      "cta.backHome": "Retour à l’accueil",
 
       // ── authentification ───────────────────────────────────────────
       "auth.login": "Connexion",
@@ -383,12 +415,16 @@
       "testi.title": "Ce que disent nos utilisateurs",
       "testi.q1": "« J’adore la simplicité et la rapidité de la plateforme. La meilleure expérience de trading que j’aie connue ! »",
       "testi.q2": "« Fiable, rapide et sécurisée. Je la recommande vivement à tout trader. »",
+      "testi.seeAll": "Voir tous les témoignages",
 
       // ── pied de page ───────────────────────────────────────────────
       "footer.privacy": "Politique de confidentialité",
       "footer.terms": "Conditions d’utilisation",
       "footer.support": "Assistance",
-      "footer.legal": "&copy; 2025 CFDPro. Tous droits réservés.",
+      "footer.about": "À propos",
+      "footer.faq": "FAQ",
+      "footer.testimonials": "Témoignages",
+      "footer.legal": "&copy; 2025 Cedar Capital Group. Tous droits réservés.",
 
       // ── éléments communs ───────────────────────────────────────────
       "common.ok": "OK",
@@ -613,6 +649,22 @@
   var listeners = [];
 
   function readStoredLang() {
+    // ?lang=fr in the URL wins, so a page can be linked in a given language.
+    var fromUrl = null;
+    try {
+      fromUrl = new URLSearchParams(window.location.search).get("lang");
+    } catch (err) {
+      fromUrl = null;
+    }
+    if (SUPPORTED.indexOf(fromUrl) !== -1) {
+      try {
+        localStorage.setItem(STORAGE_KEY, fromUrl);
+      } catch (err) {
+        /* storage unavailable — language just won't persist */
+      }
+      return fromUrl;
+    }
+
     var stored;
     try {
       stored = localStorage.getItem(STORAGE_KEY);
@@ -692,6 +744,21 @@
   /** Register a callback that re-renders JS-generated text after a switch. */
   function onLangChange(fn) {
     if (typeof fn === "function") listeners.push(fn);
+  }
+
+  /**
+   * Merge extra strings into a language table. Used by js/i18n-pages.js so the
+   * long copy of the About / FAQ / Terms / Testimonials pages is only loaded by
+   * the pages that actually need it.
+   *   addStrings("fr", { "about.title": "À propos", … })
+   */
+  function addStrings(lang, table) {
+    if (!STRINGS[lang]) STRINGS[lang] = {};
+    Object.keys(table).forEach(function (key) {
+      STRINGS[lang][key] = table[key];
+    });
+    // If the page has already been translated, refresh it with the new strings.
+    if (document.readyState !== "loading") applyI18n();
   }
 
   // ───────────────────────────────────────────────────────────────────
@@ -782,4 +849,5 @@
   window.getLang = getLang;
   window.applyI18n = applyI18n;
   window.onLangChange = onLangChange;
+  window.addStrings = addStrings;
 })();

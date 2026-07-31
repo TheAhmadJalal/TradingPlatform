@@ -1,4 +1,4 @@
-/* 🚀 CFDPro Full Dashboard CSS – Cleaned & Commented */
+/* 🚀 Cedar Capital Group Full Dashboard CSS – Cleaned & Commented */
 
 /* ─── GLOBAL VARIABLES ───────────────────────────── */
 :root {
@@ -48,6 +48,20 @@ body {
   font-size: 1.5rem;
   color: var(--accent);
   text-shadow: 0 0 8px var(--accent);
+}
+/* Cedar Capital Group logo in the sidebar (artwork includes the wordmark) */
+.sidebar-brand {
+  margin: 0 auto 0.5rem;
+  text-align: center;
+  line-height: 0;
+}
+
+.sidebar-brand img {
+  width: 150px;
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.3));
 }
 
 .nav-link {

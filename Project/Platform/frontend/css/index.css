@@ -54,6 +54,76 @@ button {
   font-weight: bold;
   color: #00f0ff;
   text-shadow: 0 0 12px #00f0ff;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* ── Cedar Capital Group brand lockup ───────────────────────────────
+   logo-img.png is a STACKED lockup (chart mark above the wordmark), which
+   is unreadable at navbar height. So the navbar crops to just the chart
+   mark and sets the name as text beside it; the sidebars on the app pages
+   have room for the full artwork.
+
+   Crop values come from the artwork itself: the mark occupies
+   x 102–224, y 15–155 of the 334×272 image (scale 114/334 = 0.3413).
+   Re-measure these four numbers if the logo file is ever replaced.       */
+.logo {
+  gap: 0.7rem;
+  text-shadow: none;
+}
+
+.brand-mark {
+  position: relative;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 48px;
+  overflow: hidden;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));
+  transition: filter 0.25s ease;
+}
+
+.brand-mark img {
+  position: absolute;
+  top: -5px;
+  left: -35px;
+  width: 114px;
+  max-width: none;
+  height: auto;
+  display: block;
+}
+
+.logo:hover .brand-mark {
+  filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.8));
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.brand-name-main {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.19em;
+  color: #4fd8f5;
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
+}
+
+.brand-name-sub {
+  font-size: 0.53rem;
+  font-weight: 500;
+  letter-spacing: 0.29em;
+  color: #8fa6bb;
+  text-shadow: none;
+}
+
+/* Between the mobile breakpoint (900px) and ~1150px the full nav is still
+   shown but space is tight, so drop back to the mark alone. Below 900px the
+   links collapse into the hamburger, so the name fits again. */
+@media (max-width: 1150px) and (min-width: 901px) {
+  .brand-name { display: none; }
 }
 .nav-links {
   display: flex;
