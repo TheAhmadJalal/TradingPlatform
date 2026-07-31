@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadClients() {
     try {
-      const res = await fetch(`${API_URL}/api/clients`);
+      const res = await fetch(`${API_URL}/crm-api/clients`);
       clients = await res.json();
       renderClients(clients);
     } catch (error) {
