@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="title.home">Cedar Capital Group</title>
   <link rel="stylesheet" href="css/index.css" />
+  <!-- testimonial card styling, shared with testimonials.html -->
+  <link rel="stylesheet" href="css/pages.css" />
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
@@ -55,7 +57,7 @@
   <section class="hero">
     <div class="hero-container">
       <div class="hero-text">
-        <h1 data-i18n="hero.title">Trade Smarter, Not Harder</h1>
+        <h1 data-i18n="hero.title">Trade More Easily, Without the Complications</h1>
         <p data-i18n="hero.subtitle">Join the leading CFD trading platform and experience advanced tools and features.</p>
         <div class="hero-buttons">
           <button id="getStartedBtn" class="btn primary" data-i18n="hero.getStarted">Get Started</button>
@@ -139,15 +141,16 @@
   </section>
   <section class="testimonial-section scroll-reveal fade-in" id="testimonials">
     <h2 data-i18n="testi.title">What Our Users Say</h2>
-    <div class="testimonials">
-      <div class="testimonial scroll-reveal slide-up">
-        <blockquote data-i18n="testi.q1">“I love the simplicity and speed of the platform. Best trading experience I've had!”</blockquote>
-        <div class="user-name">Sophia R.</div>
-      </div>
-      <div class="testimonial scroll-reveal slide-up">
-        <blockquote data-i18n="testi.q2">“Reliable, fast and secure. Highly recommend to any trader.”</blockquote>
-        <div class="user-name">Liam K.</div>
-      </div>
+    <!-- Filled from js/testimonials-data.js — the same list the
+         testimonials page uses, so the two can't drift apart. -->
+    <div class="page-wrap">
+      <div class="testi-grid" data-testimonials></div>
+
+      <!-- Required performance warning — mirrors the wording in FAQ #8 -->
+      <p class="disclaimer" data-i18n="tm.disclaimer">
+        The testimonials above reflect the individual experience of the clients quoted and do not
+        constitute a guarantee of future results.
+      </p>
     </div>
     <div style="margin-top: 2.5rem;">
       <a href="testimonials.html" class="btn secondary" data-i18n="testi.seeAll">Read all testimonials</a>
@@ -225,13 +228,22 @@
   const menuToggle = document.getElementById("menuToggle");
   const authButtons = document.getElementById("authButtons");
 
+  const navLinks = document.getElementById("navLinks");
+
   menuToggle.addEventListener("click", () => {
+    // Both — the nav links were never toggled here, so on small screens
+    // the menu opened with only Login/Register and no way to reach the
+    // About / Platform / Accounts / FAQ links.
+    navLinks.classList.toggle("show");
     authButtons.classList.toggle("show");
   });
 </script>
   <script src="js/i18n.js"></script>
+  <script src="js/i18n-pages.js"></script>
   <script src="js/config.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/testimonials-data.js"></script>
+  <script src="js/testimonials.js"></script>
 </body>
 
 </html>

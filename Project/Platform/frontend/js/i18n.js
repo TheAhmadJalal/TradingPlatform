@@ -58,7 +58,7 @@
 
       // ── hero / ticker ──────────────────────────────────────────────
       "ticker.loading": "Loading…",
-      "hero.title": "Trade Smarter, Not Harder",
+      "hero.title": "Trade More Easily, Without the Complications",
       "hero.subtitle": "Join the leading CFD trading platform and experience advanced tools and features.",
       "hero.getStarted": "Get Started",
       "hero.learnMore": "Learn More",
@@ -374,7 +374,7 @@
 
       // ── hero / bandeau de prix ─────────────────────────────────────
       "ticker.loading": "Chargement…",
-      "hero.title": "Tradez plus intelligemment, pas plus durement",
+      "hero.title": "Tradez plus facilement sans complications",
       "hero.subtitle": "Rejoignez la principale plateforme de trading de CFD et profitez d’outils et de fonctionnalités avancés.",
       "hero.getStarted": "Commencer",
       "hero.learnMore": "En savoir plus",

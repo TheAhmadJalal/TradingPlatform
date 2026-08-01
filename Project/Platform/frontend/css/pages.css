@@ -404,6 +404,9 @@
 }
 
 .testi-card {
+  /* explicit, because the home page drops this grid inside a centred
+     <section> whereas the testimonials page uses a left-aligned one */
+  text-align: left;
   display: flex;
   flex-direction: column;
   background: var(--pg-card);
