@@ -59,7 +59,7 @@
       // ── hero / ticker ──────────────────────────────────────────────
       "ticker.loading": "Loading…",
       "hero.title": "Trade More Easily, Without the Complications",
-      "hero.subtitle": "Join the leading CFD trading platform and experience advanced tools and features.",
+      "hero.subtitle": "Join the leading Cedar Capital Group trading platform and experience advanced tools and features.",
       "hero.getStarted": "Get Started",
       "hero.learnMore": "Learn More",
 
