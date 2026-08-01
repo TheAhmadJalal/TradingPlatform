@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title.inscription">Sign up</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+
+<body>
+
+  <!-- ══ NAVBAR ══════════════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo"><span class="brand-mark"><img src="assets/logo-img.png" alt="" /></span>
+        <span class="brand-name"><span class="brand-name-main">CEDAR</span><span class="brand-name-sub">CAPITAL GROUP</span></span></a>
+
+      <div class="menu-toggle" id="menuToggle">☰</div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" data-i18n="nav.home">HOME</a></li>
+        <li><a href="about.html" data-i18n="nav.about">ABOUT</a></li>
+        <li><a href="faq.html" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="testimonials.html" data-i18n="nav.testimonials">TESTIMONIALS</a></li>
+        <li><a href="terms.html" data-i18n="nav.terms">TERMS</a></li>
+      </ul>
+
+      <div id="langToggleMount" class="nav-lang"></div>
+
+      <div class="auth-buttons" id="authButtons">
+        <a href="index.html" class="btn secondary" data-i18n="auth.login">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ════════════════════════════════════════════════════ -->
+  <header class="page-hero">
+    <span class="page-eyebrow" data-i18n="reg.eyebrow">Open an account</span>
+    <h1 data-i18n="reg.heroTitle">Start investing with Cedar Capital Group</h1>
+    <p class="page-lede" data-i18n="reg.heroLede">
+      Leave your details and a dedicated adviser will call you back to set up your account.
+    </p>
+  </header>
+
+  <!-- ══ FORM ════════════════════════════════════════════════════ -->
+  <section class="page-section">
+    <div class="page-wrap signup-layout">
+
+      <!-- the form -->
+      <div class="panel signup-panel">
+        <h2 data-i18n="reg.formTitle">Your details</h2>
+
+        <form id="leadForm" class="lead-form" novalidate>
+          <div class="field">
+            <label for="fullName" data-i18n="reg.fullName">Full name</label>
+            <input type="text" id="fullName" name="fullName" autocomplete="name"
+                   placeholder="Marie Dupont" data-i18n-placeholder="reg.fullNamePh"
+                   required minlength="2" maxlength="120" />
+            <p class="field-error" data-error-for="fullName" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="email" data-i18n="reg.email">Email address</label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
+                   placeholder="marie.dupont@example.com" data-i18n-placeholder="reg.emailPh"
+                   required maxlength="180" />
+            <p class="field-error" data-error-for="email" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="phone" data-i18n="reg.phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel"
+                   placeholder="+33 6 12 34 56 78" data-i18n-placeholder="reg.phonePh"
+                   required maxlength="25" />
+            <p class="field-error" data-error-for="phone" role="alert"></p>
+          </div>
+
+          <!-- Honeypot: hidden from people, tempting to bots. Must stay empty. -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button type="submit" class="btn primary submit-btn" id="submitLead" data-i18n="reg.submit">
+            Send my request
+          </button>
+
+          <p class="form-error" id="formError" role="alert"></p>
+          <p class="consent" data-i18n="reg.consent">
+            By submitting this form you agree to be contacted about opening an account.
+          </p>
+        </form>
+
+        <!-- Swapped in on success, before redirecting to merci.html -->
+        <div class="form-success" id="formSuccess" hidden>
+          <div class="success-check" aria-hidden="true">✓</div>
+          <h3 data-i18n="reg.successTitle">Thank you!</h3>
+          <p data-i18n="reg.successText">We will contact you shortly.</p>
+        </div>
+      </div>
+
+      <!-- reassurance column -->
+      <aside class="signup-aside">
+        <article class="info-card">
+          <span class="card-icon" aria-hidden="true">🤝</span>
+          <h3 data-i18n="reg.why1Title">A dedicated adviser</h3>
+          <p data-i18n="reg.why1Text">Someone to walk you through the account setup.</p>
+        </article>
+        <article class="info-card">
+          <span class="card-icon" aria-hidden="true">🕒</span>
+          <h3 data-i18n="reg.why3Title">A reply within 24h</h3>
+          <p data-i18n="reg.why3Text">We contact you back within one business day.</p>
+        </article>
+        <article class="info-card">
+          <span class="card-icon" aria-hidden="true">🔓</span>
+          <h3 data-i18n="reg.why2Title">No commitment</h3>
+          <p data-i18n="reg.why2Text">Leaving your details costs nothing.</p>
+        </article>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-container">
+      <ul class="footer-links">
+        <li><a href="about.html" data-i18n="footer.about">About Us</a></li>
+        <li><a href="faq.html" data-i18n="footer.faq">FAQ</a></li>
+        <li><a href="testimonials.html" data-i18n="footer.testimonials">Testimonials</a></li>
+        <li><a href="terms.html" data-i18n="footer.terms">Terms of Use</a></li>
+        <li><a href="#" data-i18n="footer.privacy">Privacy Policy</a></li>
+        <li><a href="#" data-i18n="footer.support">Support</a></li>
+      </ul>
+      <div class="legal" data-i18n-html="footer.legal">&copy; 2025 Cedar Capital Group. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/i18n-pages.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/inscription.js"></script>
+</body>
+
+</html>

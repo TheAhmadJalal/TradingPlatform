@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM Leads</title>
+  <!-- reuses the transactions table + dark-mode styling, plus lead extras -->
+  <link rel="stylesheet" href="css/transactions.css" />
+  <link rel="stylesheet" href="css/leads.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>CRM</h2>
+      <nav>
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="leads.html">Leads</a></li>
+          <li><a href="clients.html">Clients</a></li>
+          <li><a href="transactions.html">Transactions</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="dark-toggle">
+        <button id="darkModeButton">Enable Dark Mode</button>
+      </div>
+
+      <header>
+        <h1>Leads</h1>
+      </header>
+
+      <div class="lead-summary" id="leadSummary"></div>
+
+      <div class="search-bar lead-controls">
+        <input type="text" placeholder="Search leads..." id="leadSearch" />
+        <select id="statusFilter" class="lead-filter">
+          <option value="">All statuses</option>
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="converted">Converted</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <button id="refreshLeads" class="refresh-btn">Refresh</button>
+      </div>
+
+      <section class="transactions-table leads-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Received</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Lang</th>
+              <th>Source</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/leads.js"></script>
+</body>
+</html>

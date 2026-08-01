@@ -12,6 +12,7 @@ const userRoutes                 = require("./routes/user");
 const uploadRoutes               = require("./routes/upload");
 const transactionRoutes          = require("./routes/transactions");
 const adminRoutes                = require("./routes/admin");
+const leadRoutes                 = require("./routes/leads");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -77,6 +78,7 @@ app.use("/api/users",        userRoutes);
 app.use("/api/upload",       uploadRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/admin",        adminRoutes);
+app.use("/api/leads",        leadRoutes);   // public signup form (rate-limited inside)
 
 // Global error handler
 app.use((err, req, res, next) => {

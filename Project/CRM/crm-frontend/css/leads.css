@@ -1,0 +1,183 @@
+/* =====================================================================
+   leads.css — extras for leads.html
+   Loaded AFTER css/transactions.css, which already supplies the sidebar,
+   table and dark-mode styling.
+   ===================================================================== */
+
+/* ── summary tiles ─────────────────────────────────────────────────── */
+.lead-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.lead-tile {
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: #fafbfc;
+}
+
+.lead-tile-value {
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.lead-tile-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7683;
+}
+
+body.dark-mode .lead-tile {
+  background: #1b1b1b;
+  border-color: #333;
+}
+
+body.dark-mode .lead-tile-label {
+  color: #9aa4ae;
+}
+
+/* ── controls row ──────────────────────────────────────────────────── */
+.lead-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.lead-controls input {
+  flex: 1 1 240px;
+}
+
+.lead-filter,
+.refresh-btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.refresh-btn:hover {
+  background: #111;
+  color: #fff;
+}
+
+body.dark-mode .lead-filter,
+body.dark-mode .refresh-btn {
+  background: #1b1b1b;
+  color: #eee;
+  border-color: #444;
+}
+
+body.dark-mode .refresh-btn:hover {
+  background: #eee;
+  color: #111;
+}
+
+/* ── table specifics ───────────────────────────────────────────────── */
+.leads-table td {
+  vertical-align: top;
+}
+
+.leads-table .lead-email,
+.leads-table .lead-phone {
+  white-space: nowrap;
+}
+
+.leads-table a {
+  color: #0a58ca;
+  text-decoration: none;
+}
+
+.leads-table a:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .leads-table a {
+  color: #6fb1ff;
+}
+
+.lead-repeat {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #ffe6a7;
+  color: #7a5600;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ── status pills + selector ───────────────────────────────────────── */
+.lead-status {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+}
+
+.lead-status[data-status="new"]       { background: #e7f1ff; color: #0a58ca; border-color: #b6d4fe; }
+.lead-status[data-status="contacted"] { background: #fff4d6; color: #8a6100; border-color: #ffe08a; }
+.lead-status[data-status="converted"] { background: #dcf7e6; color: #0f6b3a; border-color: #a7e6c2; }
+.lead-status[data-status="rejected"]  { background: #ffe1e1; color: #a12020; border-color: #ffb8b8; }
+
+body.dark-mode .lead-status {
+  background: #1b1b1b;
+  color: #eee;
+  border-color: #444;
+}
+
+body.dark-mode .lead-status[data-status="new"]       { color: #7db3ff; }
+body.dark-mode .lead-status[data-status="contacted"] { color: #ffd166; }
+body.dark-mode .lead-status[data-status="converted"] { color: #6ee7a8; }
+body.dark-mode .lead-status[data-status="rejected"]  { color: #ff9a9a; }
+
+/* ── notes ─────────────────────────────────────────────────────────── */
+.lead-notes {
+  width: 100%;
+  min-width: 180px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  background: #fff;
+  color: #111;
+}
+
+body.dark-mode .lead-notes {
+  background: #1b1b1b;
+  color: #eee;
+  border-color: #444;
+}
+
+.lead-saved {
+  font-size: 11px;
+  color: #0f6b3a;
+  margin-left: 6px;
+}
+
+body.dark-mode .lead-saved {
+  color: #6ee7a8;
+}
+
+/* ── responsive ────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  body { height: auto; }
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; }
+  .main-content { padding: 20px; }
+  .leads-table { overflow-x: auto; }
+}

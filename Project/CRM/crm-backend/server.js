@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
 const clientRoutes = require("./routes/clients");
 const transactionRoutes = require("./routes/transactions");
 const tradesRoutes = require('./routes/trades');
+const leadRoutes = require('./routes/leads');
 
 // The CRM frontend calls /crm-api/* because nginx reserves /api/ for the
 // platform backend on :5000. Mounting both prefixes means nginx can simply
@@ -30,6 +31,7 @@ const tradesRoutes = require('./routes/trades');
   app.use(`${prefix}/clients`, clientRoutes);
   app.use(`${prefix}/transactions`, transactionRoutes);
   app.use(`${prefix}/trades`, tradesRoutes);
+  app.use(`${prefix}/leads`, leadRoutes);
 });
 
 

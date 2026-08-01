@@ -611,3 +611,160 @@
   .testi-grid { grid-template-columns: 1fr; }
   .page-hero { padding: 3.5rem 1.2rem 2.5rem; }
 }
+
+/* =====================================================================
+   SIGNUP / LEAD FORM  (inscription.html, merci.html)
+   ===================================================================== */
+.signup-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.signup-panel { padding: 2rem 2.2rem 2.4rem; }
+
+.signup-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signup-aside .info-card { padding: 1.4rem 1.5rem; }
+.signup-aside .card-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+
+/* ── fields ────────────────────────────────────────────────────────── */
+.lead-form { margin-top: 0.4rem; }
+
+.field { margin-bottom: 1.25rem; }
+
+.field label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #cfe3f2;
+}
+
+.field input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+  color: #eaf7ff;
+  background: rgba(4, 16, 28, 0.75);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.field input::placeholder { color: #5f7488; }
+
+.field input:hover { border-color: rgba(0, 240, 255, 0.4); }
+
+.field input:focus {
+  outline: none;
+  border-color: var(--pg-accent);
+  background: rgba(4, 16, 28, 0.95);
+  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.16);
+}
+
+.field input.is-invalid {
+  border-color: #ff5a7a;
+  box-shadow: 0 0 0 3px rgba(255, 90, 122, 0.14);
+}
+
+.field-error {
+  min-height: 1.15rem;
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: #ff8ea3;
+}
+
+/* Honeypot — off-screen rather than display:none, which some bots skip */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ── submit + messages ─────────────────────────────────────────────── */
+.submit-btn {
+  width: 100%;
+  padding: 0.95rem 1.4rem;
+  font-size: 1.02rem;
+  border-radius: 12px;
+  margin-top: 0.3rem;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+  transform: none;
+}
+
+.form-error {
+  margin: 0.9rem 0 0;
+  min-height: 1.1rem;
+  color: #ff8ea3;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.consent {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--pg-muted);
+}
+
+/* ── success state ─────────────────────────────────────────────────── */
+.form-success { text-align: center; padding: 1.5rem 0 0.5rem; }
+
+.success-check,
+.thanks-check {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.1rem;
+  display: grid;
+  place-items: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #04121a;
+  background: linear-gradient(135deg, #00f0ff, #00ffaa);
+  border-radius: 50%;
+  box-shadow: 0 0 28px rgba(0, 240, 255, 0.5);
+  animation: popCheck 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.thanks-check { margin-bottom: 1.4rem; }
+
+@keyframes popCheck {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.form-success h3 {
+  color: var(--pg-accent);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-success p { color: var(--pg-text); margin: 0; }
+
+/* Confirmation page cards are links — keep them looking like cards */
+a.info-card { display: block; text-decoration: none; color: inherit; }
+
+/* ── responsive ────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .signup-layout { grid-template-columns: 1fr; }
+  .signup-aside { flex-direction: row; flex-wrap: wrap; }
+  .signup-aside .info-card { flex: 1 1 220px; }
+}
+
+@media (max-width: 640px) {
+  .signup-panel { padding: 1.5rem 1.3rem 1.8rem; }
+  .signup-aside { flex-direction: column; }
+}

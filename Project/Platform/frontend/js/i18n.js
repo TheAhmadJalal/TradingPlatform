@@ -20,6 +20,9 @@
       "title.faq": "FAQ",
       "title.terms": "Terms of Use",
       "title.testimonials": "Testimonials",
+      "title.inscription": "Sign up",
+      "title.thanks": "Thank you",
+      "nav.signup": "SIGN UP",
 
       // ── landing page nav ───────────────────────────────────────────
       "nav.features": "FEATURES",
@@ -336,6 +339,9 @@
       "title.faq": "FAQ",
       "title.terms": "Conditions générales d’utilisation",
       "title.testimonials": "Témoignages",
+      "title.inscription": "Inscription",
+      "title.thanks": "Merci",
+      "nav.signup": "INSCRIPTION",
 
       // ── navigation ─────────────────────────────────────────────────
       "nav.features": "FONCTIONNALITÉS",
