@@ -22,16 +22,23 @@ const clientRoutes = require("./routes/clients");
 const transactionRoutes = require("./routes/transactions");
 const tradesRoutes = require('./routes/trades');
 const leadRoutes = require('./routes/leads');
+const authRoutes = require('./routes/auth');
+const { authenticate } = require('./middleware/auth');
 
 // The CRM frontend calls /crm-api/* because nginx reserves /api/ for the
 // platform backend on :5000. Mounting both prefixes means nginx can simply
 // forward /crm-api/ through untouched (no path rewriting), and the API is
 // still reachable at /api/* when hitting :5001 directly in local dev.
+//
+// Everything except /auth sits behind `authenticate`. Client records, KYC
+// documents, balances and withdrawal approvals must never be reachable
+// without a valid CRM session.
 ["/crm-api", "/api"].forEach(prefix => {
-  app.use(`${prefix}/clients`, clientRoutes);
-  app.use(`${prefix}/transactions`, transactionRoutes);
-  app.use(`${prefix}/trades`, tradesRoutes);
-  app.use(`${prefix}/leads`, leadRoutes);
+  app.use(`${prefix}/auth`, authRoutes);                        // public: login
+  app.use(`${prefix}/clients`, authenticate, clientRoutes);
+  app.use(`${prefix}/transactions`, authenticate, transactionRoutes);
+  app.use(`${prefix}/trades`, authenticate, tradesRoutes);
+  app.use(`${prefix}/leads`, authenticate, leadRoutes);
 });
 
 

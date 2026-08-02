@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM Sign in</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="login-brand">
+        <span class="login-mark">CRM</span>
+        <h1>Cedar Capital Group</h1>
+        <p class="login-sub">Back-office sign in</p>
+      </div>
+
+      <div class="login-notice" id="loginNotice" hidden></div>
+
+      <form id="loginForm" novalidate>
+        <div class="login-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="username"
+                 inputmode="email" placeholder="you@company.com" required />
+        </div>
+
+        <div class="login-field">
+          <label for="password">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="password" name="password"
+                   autocomplete="current-password" placeholder="••••••••" required />
+            <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <p class="login-error" id="loginError" role="alert"></p>
+
+        <button type="submit" class="login-btn" id="loginBtn">Sign in</button>
+      </form>
+
+      <p class="login-foot">Authorised personnel only. All activity is logged.</p>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+/* =====================================================================
+   login.css — CRM sign-in page
+   Matches the CRM's own look (dark sidebar / light card) rather than the
+   client-facing platform branding.
+   ===================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #0e1116;
+  color: #111;
+}
+
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(80, 130, 200, 0.22) 0%, transparent 60%),
+    #0e1116;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 38px 34px 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* ── brand ─────────────────────────────────────────────────────────── */
+.login-brand {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.login-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.login-brand h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+}
+
+.login-sub {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #6b7683;
+}
+
+/* ── notice / error ────────────────────────────────────────────────── */
+.login-notice {
+  margin-bottom: 18px;
+  padding: 10px 13px;
+  border-radius: 9px;
+  background: #fff7e0;
+  border: 1px solid #ffe08a;
+  color: #7a5600;
+  font-size: 13px;
+}
+
+.login-error {
+  min-height: 18px;
+  margin: 10px 0 0;
+  color: #c62828;
+  font-size: 13px;
+}
+
+/* ── fields ────────────────────────────────────────────────────────── */
+.login-field {
+  margin-bottom: 16px;
+}
+
+.login-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3a4450;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: #111;
+  background: #fbfcfd;
+  border: 1px solid #d6dbe1;
+  border-radius: 9px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.login-field input::placeholder {
+  color: #9aa4ae;
+}
+
+.login-field input:focus {
+  outline: none;
+  background: #fff;
+  border-color: #111;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.09);
+}
+
+/* ── password reveal ───────────────────────────────────────────────── */
+.pw-wrap {
+  position: relative;
+}
+
+.pw-wrap input {
+  padding-right: 68px;
+}
+
+.pw-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #4a5561;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pw-toggle:hover {
+  background: #eef1f4;
+  color: #111;
+}
+
+/* ── submit ────────────────────────────────────────────────────────── */
+.login-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 9px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #2b2b2b;
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.login-foot {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 11.5px;
+  color: #97a1ab;
+}
+
+/* ── small screens ─────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 22px 22px;
+  }
+}
