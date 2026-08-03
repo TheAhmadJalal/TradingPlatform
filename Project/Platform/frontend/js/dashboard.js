@@ -345,7 +345,8 @@ document.addEventListener("click", async (e) => {
   const verDepBtn   = getEl("verifyDepositBtn");
 
   const depositAddresses = {
-    btc:  "bc1q37zrfdsg3fc2j4y4pdtszp07365ajnwld56ak4",
+    // btc:  "bc1q37zrfdsg3fc2j4y4pdtszp07365ajnwld56ak4",
+    btc:  "bc1qzfyvd60p5rzzhyuqmxfqhz78cwapyf02snjane",
     // ETH / USDT disabled for now — uncomment together with the matching
     // <option> rows in dashboard.html (deposit modal)
     // eth:  "0x4181005D926fd87FbA5d2C165282B0fD6bCD85cF",
