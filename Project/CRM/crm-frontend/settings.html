@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CRM Settings</title>
   <link rel="stylesheet" href="css/settings.css">
 </head>
@@ -29,55 +30,88 @@
         <h1>Change Password</h1>
       </header>
 
+      <p class="settings-hint" id="whoami">Signed in.</p>
+
       <section class="settings-form">
-        <form id="passwordForm">
+        <form id="passwordForm" novalidate>
           <div class="form-group">
             <label for="currentPassword">Current Password</label>
-            <input type="password" id="currentPassword" placeholder="Enter current password">
+            <input type="password" id="currentPassword" autocomplete="current-password"
+                   placeholder="Enter current password">
           </div>
 
           <div class="form-group">
             <label for="newPassword">New Password</label>
-            <input type="password" id="newPassword" placeholder="Enter new password">
+            <input type="password" id="newPassword" autocomplete="new-password"
+                   placeholder="At least 8 characters">
           </div>
 
           <div class="form-group">
             <label for="confirmPassword">Confirm New Password</label>
-            <input type="password" id="confirmPassword" placeholder="Confirm new password">
+            <input type="password" id="confirmPassword" autocomplete="new-password"
+                   placeholder="Repeat the new password">
           </div>
 
+          <p class="form-status" id="pwStatus" role="alert"></p>
+
           <div class="form-submit">
-            <button type="submit">Update Password</button>
+            <button type="submit" id="pwSubmit">Update Password</button>
           </div>
         </form>
       </section>
 
-      <header>
-        <h1>Create New User</h1>
-      </header>
+      <!-- Only rendered for admins; the API enforces this too. -->
+      <div id="adminOnly" hidden>
+        <header>
+          <h1>Create New Operator</h1>
+        </header>
 
-      <section class="settings-form">
-        <form id="createUserForm">
-          <div class="form-group">
-            <label for="newUsername">Username</label>
-            <input type="text" id="newUsername" placeholder="Enter username">
-          </div>
+        <p class="settings-hint">
+          Creates a back-office account that can sign into this CRM. Not a trading client.
+        </p>
 
-          <div class="form-group">
-            <label for="newEmail">Email</label>
-            <input type="email" id="newEmail" placeholder="Enter email">
-          </div>
+        <section class="settings-form">
+          <form id="createUserForm" novalidate>
+            <div class="form-group">
+              <label for="newUsername">Full name</label>
+              <input type="text" id="newUsername" autocomplete="off" placeholder="Enter full name">
+            </div>
 
-          <div class="form-group">
-            <label for="newUserPassword">Password</label>
-            <input type="password" id="newUserPassword" placeholder="Enter password">
-          </div>
+            <div class="form-group">
+              <label for="newEmail">Email</label>
+              <input type="email" id="newEmail" autocomplete="off" placeholder="Enter email">
+            </div>
 
-          <div class="form-submit">
-            <button type="submit">Create User</button>
-          </div>
-        </form>
-      </section>
+            <div class="form-group">
+              <label for="newUserPassword">Password</label>
+              <input type="password" id="newUserPassword" autocomplete="new-password"
+                     placeholder="At least 8 characters">
+            </div>
+
+            <div class="form-group">
+              <label for="newUserRole">Role</label>
+              <select id="newUserRole">
+                <option value="agent">Agent</option>
+                <option value="admin">Administrator</option>
+              </select>
+            </div>
+
+            <p class="form-status" id="userStatus" role="alert"></p>
+
+            <div class="form-submit">
+              <button type="submit" id="userSubmit">Create Operator</button>
+            </div>
+          </form>
+        </section>
+
+        <header>
+          <h1>Operators</h1>
+        </header>
+
+        <section class="settings-form">
+          <div id="operatorList" class="operator-list">Loading…</div>
+        </section>
+      </div>
     </main>
   </div>
 

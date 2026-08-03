@@ -1,7 +1,7 @@
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 const CrmUser = require("../models/CrmUser");
-const { authenticate, signToken } = require("../middleware/auth");
+const { authenticate, requireAdmin, signToken } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -94,10 +94,80 @@ router.post("/change-password", authenticate, async (req, res) => {
     user.password = newPassword; // hashed by the pre-save hook
     await user.save();
 
-    res.json({ success: true, message: "Password updated" });
+    // The old token stays valid until it expires. Hand back a fresh one so
+    // the operator is not signed out by their own password change.
+    res.json({ success: true, message: "Password updated", token: signToken(user) });
   } catch (err) {
     console.error("❌ CRM password change error:", err.message);
     res.status(500).json({ success: false, message: "Could not update the password" });
+  }
+});
+
+/**
+ * POST /crm-api/auth/users — create another CRM operator. Admins only.
+ */
+router.post("/users", authenticate, requireAdmin, async (req, res) => {
+  const name = String(req.body.name || "").trim();
+  const email = String(req.body.email || "").trim().toLowerCase();
+  const password = String(req.body.password || "");
+  const role = String(req.body.role || "agent").toLowerCase();
+
+  if (!name || !email || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Name, email and password are all required" });
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ success: false, message: "Please enter a valid email address" });
+  }
+  if (password.length < 8) {
+    return res
+      .status(400)
+      .json({ success: false, message: "The password must be at least 8 characters" });
+  }
+  if (!["admin", "agent"].includes(role)) {
+    return res.status(400).json({ success: false, message: 'Role must be "admin" or "agent"' });
+  }
+
+  try {
+    if (await CrmUser.findOne({ email })) {
+      return res
+        .status(409)
+        .json({ success: false, message: "An operator with that email already exists" });
+    }
+
+    const user = await CrmUser.create({ name, email, password, role });
+
+    res.status(201).json({
+      success: true,
+      message: "Operator created",
+      user: { id: user._id, name: user.name, email: user.email, role: user.role }
+    });
+  } catch (err) {
+    console.error("❌ CRM create user error:", err.message);
+    res.status(500).json({ success: false, message: "Could not create the operator" });
+  }
+});
+
+/**
+ * GET /crm-api/auth/users — list operators. Admins only.
+ */
+router.get("/users", authenticate, requireAdmin, async (req, res) => {
+  try {
+    const users = await CrmUser.find().sort({ createdAt: 1 }).lean();
+    res.json({
+      success: true,
+      users: users.map(u => ({
+        id: u._id,
+        name: u.name,
+        email: u.email,
+        role: u.role,
+        active: u.active,
+        lastLoginAt: u.lastLoginAt
+      }))
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Could not load operators" });
   }
 });
 
