@@ -12,6 +12,10 @@ const leadSchema = new mongoose.Schema(
     email: { type: String, required: true, trim: true, lowercase: true, index: true },
     phone: { type: String, required: true, trim: true, maxlength: 40 },
 
+    // Optional here on purpose — see the note in Platform/backend/models/Lead.js.
+    // Leads captured before this field existed simply have null.
+    dateOfBirth: { type: Date, default: null },
+
     status: {
       type: String,
       enum: ["new", "contacted", "converted", "rejected"],

@@ -17,6 +17,16 @@ const leadSchema = new mongoose.Schema(
     },
     phone: { type: String, required: true, trim: true, maxlength: 40 },
 
+    /**
+     * Deliberately NOT `required` at the schema level. The signup form and
+     * POST /api/leads both insist on it, but leads captured before this
+     * field existed have no date of birth — marking it required here would
+     * make those documents fail validation the next time they are saved
+     * (a repeat submission, or a CRM operator editing them).
+     * Stored as a Date at UTC midnight; age is derived, never duplicated.
+     */
+    dateOfBirth: { type: Date, default: null },
+
     status: {
       type: String,
       enum: ["new", "contacted", "converted", "rejected"],

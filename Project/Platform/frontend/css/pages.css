@@ -768,3 +768,198 @@ a.info-card { display: block; text-decoration: none; color: inherit; }
   .signup-panel { padding: 1.5rem 1.3rem 1.8rem; }
   .signup-aside { flex-direction: column; }
 }
+
+/* =====================================================================
+   DATE-OF-BIRTH CALENDAR — flatpickr re-themed to the Cedar palette
+   ---------------------------------------------------------------------
+   Loaded after flatpickr.min.css so these rules win. Every visible part
+   of the default widget is restyled: it should read as part of the site,
+   not as a bolted-on library.
+   ===================================================================== */
+
+.field-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--pg-muted);
+}
+
+/* ── panel ─────────────────────────────────────────────────────────── */
+.flatpickr-calendar {
+  background: #0c1a2b;
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 14px;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.6), 0 0 26px rgba(0, 240, 255, 0.14);
+  font-family: inherit;
+  overflow: hidden;
+  width: 19rem;
+}
+
+/* the little pointer that connects the panel to the input */
+.flatpickr-calendar.arrowTop::before,
+.flatpickr-calendar.arrowTop::after {
+  border-bottom-color: rgba(0, 240, 255, 0.28);
+}
+.flatpickr-calendar.arrowTop::after { border-bottom-color: #10233a; }
+
+.flatpickr-calendar.arrowBottom::before,
+.flatpickr-calendar.arrowBottom::after {
+  border-top-color: rgba(0, 240, 255, 0.28);
+}
+.flatpickr-calendar.arrowBottom::after { border-top-color: #0c1a2b; }
+
+/* ── header: month + year ──────────────────────────────────────────── */
+.flatpickr-months {
+  background: #10233a;
+  padding: 0.55rem 0.35rem;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.16);
+}
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month,
+.flatpickr-current-month input.cur-year {
+  color: #eaf7ff;
+  fill: #eaf7ff;
+}
+
+.flatpickr-current-month {
+  font-size: 1rem;
+  font-weight: 600;
+  padding-top: 0.3rem;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: transparent;
+  color: #eaf7ff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 2px 4px;
+  transition: background 0.18s ease;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+  background: rgba(0, 240, 255, 0.14);
+}
+
+/* the month dropdown renders as a native list — keep it readable */
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+  background: #10233a;
+  color: #eaf7ff;
+}
+
+.flatpickr-current-month input.cur-year {
+  font-weight: 600;
+  background: transparent;
+}
+
+.numInputWrapper:hover { background: rgba(0, 240, 255, 0.1); }
+.numInputWrapper span { border-color: rgba(0, 240, 255, 0.25); }
+.numInputWrapper span:hover { background: rgba(0, 240, 255, 0.2); }
+.numInputWrapper span.arrowUp::after { border-bottom-color: #00f0ff; }
+.numInputWrapper span.arrowDown::after { border-top-color: #00f0ff; }
+
+/* ── prev / next arrows ────────────────────────────────────────────── */
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+  fill: #8fb6cc;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  transition: background 0.18s ease, fill 0.18s ease;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+  background: rgba(0, 240, 255, 0.14);
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  fill: #00f0ff;
+}
+
+/* ── weekday row ───────────────────────────────────────────────────── */
+.flatpickr-weekdays {
+  background: #10233a;
+  height: 2.1rem;
+}
+
+span.flatpickr-weekday {
+  background: transparent;
+  color: #7f9bb1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── days ──────────────────────────────────────────────────────────── */
+.flatpickr-days,
+.dayContainer {
+  background: #0c1a2b;
+  border: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.flatpickr-day {
+  color: #d7e7f4;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  max-width: none;
+  height: 2.4rem;
+  line-height: 2.3rem;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.flatpickr-day:hover,
+.flatpickr-day:focus {
+  background: rgba(0, 240, 255, 0.16);
+  border-color: rgba(0, 240, 255, 0.4);
+  color: #fff;
+}
+
+.flatpickr-day.today {
+  border-color: rgba(0, 240, 255, 0.65);
+  color: #00f0ff;
+  font-weight: 700;
+}
+
+.flatpickr-day.today:hover {
+  background: rgba(0, 240, 255, 0.2);
+  color: #fff;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: linear-gradient(135deg, #00f0ff, #00ffaa);
+  border-color: transparent;
+  color: #04121a;
+  font-weight: 700;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  color: #3f5972;
+}
+
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+  color: #2c4056;
+  background: transparent;
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
+/* ── input shows it is a picker ─────────────────────────────────────── */
+.field input.flatpickr-input {
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 420px) {
+  .flatpickr-calendar { width: 17.5rem; }
+  .flatpickr-day { height: 2.2rem; line-height: 2.1rem; }
+}

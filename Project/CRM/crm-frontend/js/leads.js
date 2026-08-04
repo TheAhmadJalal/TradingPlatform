@@ -33,9 +33,31 @@ document.addEventListener("DOMContentLoaded", async () => {
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[c]));
 
+  /** "09.11.1973" — matches the format used on the signup form. */
+  function formatDob(value) {
+    if (!value) return null;
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return null;
+    const dd = String(d.getUTCDate()).padStart(2, "0");
+    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+    return `${dd}.${mm}.${d.getUTCFullYear()}`;
+  }
+
+  /** Derived, never stored — keeps the record correct as time passes. */
+  function ageFromDob(value) {
+    if (!value) return null;
+    const dob = new Date(value);
+    if (isNaN(dob.getTime())) return null;
+    const now = new Date();
+    let age = now.getUTCFullYear() - dob.getUTCFullYear();
+    const monthDiff = now.getUTCMonth() - dob.getUTCMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && now.getUTCDate() < dob.getUTCDate())) age--;
+    return age;
+  }
+
   // ── data ───────────────────────────────────────────────────────────
   async function loadLeads() {
-    tableBody.innerHTML = "<tr><td colspan='8'>Loading leads…</td></tr>";
+    tableBody.innerHTML = "<tr><td colspan='9'>Loading leads…</td></tr>";
     try {
       const res = await fetch(`${API_URL}/crm-api/leads`);
       if (!res.ok) throw new Error(res.statusText);
@@ -45,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       applyFilters();
     } catch (err) {
       console.error("Failed to load leads", err);
-      tableBody.innerHTML = "<tr><td colspan='8'>Error loading leads.</td></tr>";
+      tableBody.innerHTML = "<tr><td colspan='9'>Error loading leads.</td></tr>";
     }
   }
 
@@ -74,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     tableBody.innerHTML = "";
 
     if (!list.length) {
-      tableBody.innerHTML = "<tr><td colspan='8'>No leads found.</td></tr>";
+      tableBody.innerHTML = "<tr><td colspan='9'>No leads found.</td></tr>";
       return;
     }
 
@@ -85,6 +107,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         lead.submissions > 1
           ? `<span class="lead-repeat" title="Submitted the form ${lead.submissions} times">×${lead.submissions}</span>`
           : "";
+
+      // Leads captured before the field existed show a dash rather than a gap
+      const dob = formatDob(lead.dateOfBirth);
+      const age = ageFromDob(lead.dateOfBirth);
+      const dobCell = dob
+        ? `${esc(dob)}<span class="lead-agebadge">${age} yrs</span>`
+        : '<span class="lead-missing">—</span>';
 
       const options = STATUSES.map(
         (s) =>
@@ -98,6 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td>${esc(lead.fullName)}${repeat}</td>
         <td class="lead-email"><a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a></td>
         <td class="lead-phone"><a href="tel:${esc(lead.phone)}">${esc(lead.phone)}</a></td>
+        <td class="lead-dob">${dobCell}</td>
         <td>${esc((lead.language || "").toUpperCase())}</td>
         <td>${esc(lead.source || "website")}</td>
         <td>
@@ -122,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const filtered = allLeads.filter((l) => {
       if (status && l.status !== status) return false;
       if (!q) return true;
-      return [l.fullName, l.email, l.phone, l.source, l.notes]
+      return [l.fullName, l.email, l.phone, l.source, l.notes, formatDob(l.dateOfBirth)]
         .some((v) => String(v || "").toLowerCase().includes(q));
     });
 

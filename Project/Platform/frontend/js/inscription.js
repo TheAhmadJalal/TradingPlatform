@@ -17,6 +17,52 @@
   // the same rule (routes/leads.js).
   var PHONE_RE = /^\+?[0-9\s().-]{8,25}$/;
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var DOB_RE = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
+
+  var MIN_AGE = 18;
+  var MAX_AGE = 100;
+
+  /**
+   * Parses "09.11.1973" into a UTC Date, or null if it is not a real date.
+   * Mirrors parseDateOfBirth() in backend/routes/leads.js — the server
+   * re-checks everything, this is only for instant feedback.
+   */
+  function parseDob(value) {
+    var m = String(value || "").trim().match(DOB_RE);
+    if (!m) return null;
+
+    var d = Number(m[1]);
+    var mo = Number(m[2]);
+    var y = Number(m[3]);
+    var date = new Date(Date.UTC(y, mo - 1, d));
+
+    // Rejects 31.02.1990 and friends, which JS would roll into March
+    if (
+      date.getUTCFullYear() !== y ||
+      date.getUTCMonth() !== mo - 1 ||
+      date.getUTCDate() !== d
+    ) {
+      return null;
+    }
+    return date;
+  }
+
+  function ageFromDob(dob) {
+    var now = new Date();
+    var age = now.getUTCFullYear() - dob.getUTCFullYear();
+    var monthDiff = now.getUTCMonth() - dob.getUTCMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && now.getUTCDate() < dob.getUTCDate())) {
+      age -= 1;
+    }
+    return age;
+  }
+
+  /** Date exactly `years` ago — used for the calendar's allowed range. */
+  function yearsAgo(years) {
+    var d = new Date();
+    d.setFullYear(d.getFullYear() - years);
+    return d;
+  }
 
   function init() {
     var form = document.getElementById("leadForm");
@@ -29,8 +75,46 @@
     var fields = {
       fullName: document.getElementById("fullName"),
       email: document.getElementById("email"),
-      phone: document.getElementById("phone")
+      phone: document.getElementById("phone"),
+      dob: document.getElementById("dob")
     };
+
+    // ── date-of-birth calendar ───────────────────────────────────────
+    // flatpickr comes from a CDN. If it is blocked the field stays a plain
+    // text input and DD.MM.YYYY can still be typed by hand — the form must
+    // never become unusable because a third-party script failed.
+    var picker = null;
+
+    function buildPicker() {
+      if (typeof window.flatpickr !== "function") return;
+      if (picker) {
+        picker.destroy();
+        picker = null;
+      }
+
+      var lang = typeof getLang === "function" ? getLang() : "en";
+
+      picker = window.flatpickr(fields.dob, {
+        dateFormat: "d.m.Y",
+        allowInput: true,          // typing is still allowed
+        disableMobile: true,       // use our themed calendar, not the OS one
+        monthSelectorType: "dropdown",
+        minDate: yearsAgo(MAX_AGE),
+        maxDate: yearsAgo(MIN_AGE), // under-18s simply cannot be selected
+        defaultDate: fields.dob.value || null,
+        locale: lang === "fr" ? "fr" : "default",
+        onChange: function () {
+          setError("dob", null);
+        }
+      });
+    }
+
+    buildPicker();
+
+    // Rebuild on language switch so month/day names follow the site language
+    if (typeof onLangChange === "function") {
+      onLangChange(buildPicker);
+    }
 
     function errorEl(name) {
       return document.querySelector('[data-error-for="' + name + '"]');
@@ -77,6 +161,24 @@
         setError("phone", null);
       }
 
+      var dobRaw = fields.dob.value.trim();
+      var dob = parseDob(dobRaw);
+      if (!dobRaw) {
+        setError("dob", "reg.errDobRequired");
+        ok = false;
+      } else if (!dob) {
+        setError("dob", "reg.errDob");
+        ok = false;
+      } else if (ageFromDob(dob) < MIN_AGE) {
+        setError("dob", "reg.errDobUnder");
+        ok = false;
+      } else if (ageFromDob(dob) > MAX_AGE) {
+        setError("dob", "reg.errDobRange");
+        ok = false;
+      } else {
+        setError("dob", null);
+      }
+
       return ok;
     }
 
@@ -109,6 +211,7 @@
             fullName: fields.fullName.value.trim(),
             email: fields.email.value.trim(),
             phone: fields.phone.value.trim(),
+            dateOfBirth: fields.dob.value.trim(),
             website: document.getElementById("website").value, // honeypot
             language: typeof getLang === "function" ? getLang() : "fr",
             source: "website"
